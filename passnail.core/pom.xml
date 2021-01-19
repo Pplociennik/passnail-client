@@ -34,13 +34,7 @@
             <artifactId>passay</artifactId>
             <version>${version.passay}</version>
         </dependency>
-
-
-        <dependency>
-            <groupId>com.passnail</groupId>
-            <artifactId>passnail.web.service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        
     </dependencies>
 
     <build>
