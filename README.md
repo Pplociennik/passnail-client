@@ -1,1 +1,1 @@
-# passnail-client
+# passnail-server

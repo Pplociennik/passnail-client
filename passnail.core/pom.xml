@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.passnail</groupId>
+        <artifactId>passnail.client</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <artifactId>passnail.core</artifactId>
+
+    <packaging>jar</packaging>
+
+
+    <properties>
+        <value.spring.datasource.url>jdbc:h2:file:./bazaDanych</value.spring.datasource.url>
+        <value.spring.datasource.username>sa</value.spring.datasource.username>
+        <value.spring.datasource.password>sa</value.spring.datasource.password>
+        <value.spring.datasource.driverClassName>org.h2.Driver</value.spring.datasource.driverClassName>
+        <value.spring.jpa.database-platform>org.hibernate.dialect.H2Dialect</value.spring.jpa.database-platform>
+        <value.spring.jpa.hibernate.ddl-auto>create</value.spring.jpa.hibernate.ddl-auto>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.passay</groupId>
+            <artifactId>passay</artifactId>
+            <version>${version.passay}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.web.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <executable>true</executable>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                            <configuration>
+                                <mainClass>com.passnail.server.core.app.main.ServerStarter</mainClass>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>11</source>
+                        <target>11</target>
+                        <meminitial>1024m</meminitial>
+                        <maxmem>2024m</maxmem>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
+
+</project>
