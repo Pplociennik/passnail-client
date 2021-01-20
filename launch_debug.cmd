@@ -6,4 +6,4 @@ set PATH=%JAVA_HOME%\bin
 set PROJECT_ENV_PATH=%CD%
 
 cd passnail.core/target
-java -jar passnail.core-0.0.1-SNAPSHOT.jar %PROJECT_ENV_PATH%
+java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8001,suspend=y -jar -jar passnail.core-0.0.1-SNAPSHOT.jar %PROJECT_ENV_PATH% 
