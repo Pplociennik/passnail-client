@@ -6,11 +6,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.util.Optional;
 
+/**
+ * A main class of the client's application.
+ */
 @SpringBootApplication
 @EnableJpaRepositories
-public class ServerStarter {
+public class ClientStarter {
 
     public static void main(String[] args) {
 
@@ -21,7 +23,7 @@ public class ServerStarter {
         ConfAttributes confAttributes = ConfAttributes.INSTANCE;
         confAttributes.setINSTALLATION_PATH(args[0]);
 
-        SpringApplication.run(ServerStarter.class, args);
+        SpringApplication.run(ClientStarter.class, args);
 
     }
 

@@ -1,7 +1,6 @@
 package com.passnail.data.transfer.model.dto;
 
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import java.io.Serializable;

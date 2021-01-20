@@ -67,7 +67,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.passnail.server.core.app.main.ServerStarter</mainClass>
+                            <mainClass>com.passnail.server.core.app.main.ClientStarter</mainClass>
                         </configuration>
                     </execution>
                 </executions>

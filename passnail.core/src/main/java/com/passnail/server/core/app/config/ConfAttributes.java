@@ -9,13 +9,24 @@ import lombok.Getter;
  */
 @Getter
 public enum ConfAttributes {
+
+    /**
+     * An instance of the Singleton object.
+     */
     INSTANCE();
 
+
+    /**
+     * A private constructor.
+     */
     private ConfAttributes() {
     }
 
     // ATTRIBUTES ===========================================================
 
+    /**
+     * A variable holding a path to the application installation directory.
+     */
     private String INSTALLATION_PATH;
 
     // SETTERS ==============================================================
