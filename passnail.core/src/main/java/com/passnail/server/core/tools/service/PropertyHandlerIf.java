@@ -15,6 +15,8 @@ public interface PropertyHandlerIf {
      */
     void loadProperties() throws IOException;
 
+    void saveProperties() throws IOException;
+
     /**
      * Returns the properties loaded from the file.
      *

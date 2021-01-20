@@ -1,12 +1,12 @@
-package com.passnail.server.core.tools.factory.impl;
+package com.passnail.server.core.tools.factory.impl.propertyhandler;
 
 import com.passnail.server.core.tools.factory.PropertyHandlerFactoryIf;
-import com.passnail.server.core.tools.factory.impl.generator.GeneratorPropertyHandlerFactory;
+import com.passnail.server.core.tools.factory.impl.propertyhandler.generator.GeneratorPropertyHandlerFactory;
 import com.passnail.server.core.tools.service.PropertyHandlerIf;
 
 
 /**
- * A factory for the {@link PropertyHandlerIf} interface implementations' creation. Containing methods calling a specific factories.
+ * A factory for the {@link PropertyHandlerIf} interface implementations' creation. Contains methods calling a specific factories.
  */
 public class PropertyHandlerFactory implements PropertyHandlerFactoryIf {
 
