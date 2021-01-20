@@ -30,9 +30,9 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <scope>runtime</scope>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.core</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
