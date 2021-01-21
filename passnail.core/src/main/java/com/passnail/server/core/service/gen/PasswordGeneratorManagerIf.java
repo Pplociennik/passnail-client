@@ -11,41 +11,43 @@ import java.io.IOException;
  */
 public interface PasswordGeneratorManagerIf {
 
-    public void createNewDefaultPasswordGenerator();
+    void createNewDefaultPasswordGenerator();
 
-    public String generateNewPassword();
+    String generateNewPassword();
 
-    public void loadDefaultProperties() throws IOException;
+    void loadDefaultProperties() throws IOException;
 
-    public void updateProperties() throws IOException;
+    void saveProperties() throws IOException;
 
-    public void setPasswordLength(final Integer aNumber);
+    void setPasswordLength(final Integer aNumber);
 
-    public void setSpecialCharactersNumber(final Integer aNumber);
+    void setSpecialCharactersNumber(final Integer aNumber);
 
-    public void setLowerCaseNumber(final Integer aNumber);
+    void setLowerCaseNumber(final Integer aNumber);
 
-    public void setUpperCaseNumber(final Integer aNumber);
+    void setUpperCaseNumber(final Integer aNumber);
 
-    public void setDigitsNumber(final Integer aNumber);
+    void setDigitsNumber(final Integer aNumber);
 
-    public Integer getPasswordLength();
+    Integer getPasswordLength();
 
-    public Integer getSpecialCharactersNumber();
+    Integer getSpecialCharactersNumber();
 
-    public Integer getLowerCaseNumber();
+    Integer getLowerCaseNumber();
 
-    public Integer getUpperCaseNumber();
+    Integer getUpperCaseNumber();
 
-    public Integer getDigitsNumber();
+    Integer getDigitsNumber();
 
-    public PasswordGeneratorIf getGenerator();
+    PasswordGeneratorIf getGenerator();
 
-    public void setGenerator(PasswordGeneratorIf generator);
+    void setGenerator(PasswordGeneratorIf generator);
 
-    public PropertyHandlerIf getHandler();
+    PropertyHandlerIf getHandler();
 
-    public void setHandler(PropertyHandlerIf handler);
+    void setHandler(PropertyHandlerIf handler);
+
+    void resetPropertiesToDefaults() throws IOException;
 
 
 }

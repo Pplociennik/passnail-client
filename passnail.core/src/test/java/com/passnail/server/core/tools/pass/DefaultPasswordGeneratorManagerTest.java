@@ -2,9 +2,7 @@ package com.passnail.server.core.tools.pass;
 
 import com.passnail.server.core.app.config.ConfAttributes;
 import com.passnail.server.core.service.gen.PasswordGeneratorManagerIf;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -19,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 public class DefaultPasswordGeneratorManagerTest {
 
-    final Integer TEST_PASSWORD_LENGTH = 32;
 
     PasswordGeneratorManagerIf manager;
 
@@ -34,6 +31,11 @@ public class DefaultPasswordGeneratorManagerTest {
         manager = new DefaultPasswordGeneratorManager();
         manager.createNewDefaultPasswordGenerator();
         manager.loadDefaultProperties();
+    }
+
+    @AfterEach
+    public void resetToDefaults() throws IOException {
+        manager.resetPropertiesToDefaults();
     }
 
 
@@ -82,20 +84,41 @@ public class DefaultPasswordGeneratorManagerTest {
     }
 
     @Test
-    public void testPasswordGenerationAfterPropertyChange() {
+    public void testPasswordGenerationAfterPropertiesChange() {
 
-        manager.setPasswordLength(TEST_PASSWORD_LENGTH);
-        assertEquals(TEST_PASSWORD_LENGTH, manager.generateNewPassword().length());
+        Integer lgth = 32;
+        Integer lc = 20;
+        Integer uc = 7;
+        Integer digits = 3;
+        Integer sc = 2;
+
+        manager.setPasswordLength(lgth);
+        manager.setDigitsNumber(digits);
+        manager.setLowerCaseNumber(lc);
+        manager.setSpecialCharactersNumber(sc);
+        manager.setUpperCaseNumber(uc);
+        assertEquals(lgth, manager.generateNewPassword().length());
     }
 
     @Test
     public void testPropertiesAfterUpdate() throws IOException {
-        manager.setPasswordLength(TEST_PASSWORD_LENGTH);
-        manager.updateProperties();
+        Integer lgth = 32;
+        Integer lc = 20;
+        Integer uc = 7;
+        Integer digits = 3;
+        Integer sc = 2;
+
+        manager.setPasswordLength(lgth);
+        manager.setDigitsNumber(digits);
+        manager.setLowerCaseNumber(lc);
+        manager.setSpecialCharactersNumber(sc);
+        manager.setUpperCaseNumber(uc);
+        manager.saveProperties();
 
         PasswordGeneratorManagerIf managerTwo = new DefaultPasswordGeneratorManager();
         managerTwo.createNewDefaultPasswordGenerator();
+        managerTwo.loadDefaultProperties();
 
-        assertEquals(TEST_PASSWORD_LENGTH, managerTwo.getPasswordLength());
+        assertEquals(lgth, managerTwo.getPasswordLength());
     }
 }

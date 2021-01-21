@@ -69,6 +69,7 @@ public abstract class BasicPropertyHandler implements PropertyHandlerIf {
      * @throws IOException - when the file cannot be found.
      */
     protected void saveProperties(String aPath) throws IOException {
+
         OutputStream out = null;
         try {
             out = new FileOutputStream(aPath);
@@ -79,4 +80,5 @@ public abstract class BasicPropertyHandler implements PropertyHandlerIf {
         properties.store(out, null);
         out.close();
     }
+
 }

@@ -37,6 +37,17 @@ public class DefaultPasswordGeneratorManager implements PasswordGeneratorManager
         this.handler = handler;
     }
 
+    @Override
+    public void resetPropertiesToDefaults() throws IOException {
+        setDigitsNumber(2);
+        setLowerCaseNumber(5);
+        setUpperCaseNumber(1);
+        setSpecialCharactersNumber(1);
+        setPasswordLength(9);
+
+        saveProperties();
+    }
+
 
     public void createNewDefaultPasswordGenerator() {
         this.generator = new DefaultPasswordGenerator();
@@ -58,7 +69,7 @@ public class DefaultPasswordGeneratorManager implements PasswordGeneratorManager
         this.handler.loadProperties();
     }
 
-    public void updateProperties() throws IOException {
+    public void saveProperties() throws IOException {
         this.handler.updateProperties();
     }
 
@@ -67,19 +78,19 @@ public class DefaultPasswordGeneratorManager implements PasswordGeneratorManager
     }
 
     public void setSpecialCharactersNumber(final Integer aNumber) {
-        this.handler.setSpecialCharactersNumber(aNumber);
+        this.handler.setNumberOfSpecialCharacters(aNumber);
     }
 
     public void setLowerCaseNumber(final Integer aNumber) {
-        this.handler.setLowerCaseNumber(aNumber);
+        this.handler.setNumberOfLowerCaseCharacters(aNumber);
     }
 
     public void setUpperCaseNumber(final Integer aNumber) {
-        this.handler.setUpperCaseNumber(aNumber);
+        this.handler.setNumberOfUpperCaseCharacters(aNumber);
     }
 
     public void setDigitsNumber(final Integer aNumber) {
-        this.handler.setDigitsNumber(aNumber);
+        this.handler.setNumberOfDigits(aNumber);
     }
 
     public Integer getPasswordLength() {

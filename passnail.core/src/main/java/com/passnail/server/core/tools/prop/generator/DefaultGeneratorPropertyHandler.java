@@ -1,13 +1,16 @@
 package com.passnail.server.core.tools.prop.generator;
 
 import com.passnail.server.core.service.prop.PropertyHandlerIf;
+import com.passnail.server.core.throwable.IncorrectPropertiesException;
 import com.passnail.server.core.tools.pass.PasswordGeneratorIf;
 import com.passnail.server.core.tools.prop.BasicPropertyHandler;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import static com.passnail.server.core.tools.prop.PropertyConstants.*;
+import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
 /**
@@ -35,7 +38,26 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
 
     @Override
     public void updateProperties() throws IOException {
+        if (!arePropertiesConsistent(this.properties)) {
+            throw new IncorrectPropertiesException();
+        }
         super.saveProperties(DEFAULT_GENERATOR_PROPERTIES_PATH);
+    }
+
+    private boolean arePropertiesConsistent(Properties properties) {
+
+        final Integer LOCAL_SUM = numberOfSpecialCharacters + numberOfDigits + numberOfLowerCaseCharacters + numberOfUpperCaseCharacters;
+
+        final Integer LENGTH = parseInt(valueOf(properties.get((PASSWORD_LENGTH_PROPERTY_KEY))));
+
+        final Integer SPEC_CHARS = parseInt(valueOf(properties.get(NUMBER_OF_SPECIAL_CHARACTERS_PROPERTY_KEY)));
+        final Integer LOWER_CASE_CHARS = parseInt(valueOf(properties.get(NUMBER_OF_LOWER_CASE_CHARACTERS_PROPERTY_KEY)));
+        final Integer UPPER_CASE_CHARS = parseInt(valueOf(properties.get(NUMBER_OF_UPPER_CASE_CHARACTERS_PROPERTY_KEY)));
+        final Integer DIGITS = parseInt(valueOf(properties.get(NUMBER_OF_DIGITS_PROPERTY_KEY)));
+
+        final Integer SUM = SPEC_CHARS + LOWER_CASE_CHARS + UPPER_CASE_CHARS + DIGITS;
+
+        return SUM.equals(LENGTH) && LOCAL_SUM.equals(passwordLength);
     }
 
     @Override
@@ -74,26 +96,6 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
             this.passwordLength = aNumber;
             this.properties.setProperty(PASSWORD_LENGTH_PROPERTY_KEY, valueOf(aNumber));
         }
-    }
-
-    @Override
-    public void setSpecialCharactersNumber(Integer aNumber) {
-
-    }
-
-    @Override
-    public void setLowerCaseNumber(Integer aNumber) {
-
-    }
-
-    @Override
-    public void setUpperCaseNumber(Integer aNumber) {
-
-    }
-
-    @Override
-    public void setDigitsNumber(Integer aNumber) {
-
     }
 
     /**
@@ -152,11 +154,17 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
      * Sets the properties loaded from file.
      */
     private void setDefaultGeneratorProperties() {
-        setNumberOfDigits(Integer.parseInt(String.valueOf(properties.get(NUMBER_OF_DIGITS_PROPERTY_KEY))));
-        setNumberOfLowerCaseCharacters(Integer.parseInt(String.valueOf(properties.get(NUMBER_OF_LOWER_CASE_CHARACTERS_PROPERTY_KEY))));
-        setNumberOfSpecialCharacters(Integer.parseInt(String.valueOf(properties.get(NUMBER_OF_SPECIAL_CHARACTERS_PROPERTY_KEY))));
-        setNumberOfUpperCaseCharacters(Integer.parseInt(String.valueOf(properties.get(NUMBER_OF_UPPER_CASE_CHARACTERS_PROPERTY_KEY))));
-        setPasswordLength(Integer.parseInt(String.valueOf(properties.get(PASSWORD_LENGTH_PROPERTY_KEY))));
+
+        setNumberOfDigits(parseInt(String.valueOf(properties.get(NUMBER_OF_DIGITS_PROPERTY_KEY))));
+        setNumberOfLowerCaseCharacters(parseInt(String.valueOf(properties.get(NUMBER_OF_LOWER_CASE_CHARACTERS_PROPERTY_KEY))));
+        setNumberOfSpecialCharacters(parseInt(String.valueOf(properties.get(NUMBER_OF_SPECIAL_CHARACTERS_PROPERTY_KEY))));
+        setNumberOfUpperCaseCharacters(parseInt(String.valueOf(properties.get(NUMBER_OF_UPPER_CASE_CHARACTERS_PROPERTY_KEY))));
+        setPasswordLength(parseInt(String.valueOf(properties.get(PASSWORD_LENGTH_PROPERTY_KEY))));
+
+        if (!arePropertiesConsistent(properties)) {
+            log.error("Incorrect properties!");
+            throw new IncorrectPropertiesException();
+        }
 
         log.info("The default generator properties has been loaded.");
     }

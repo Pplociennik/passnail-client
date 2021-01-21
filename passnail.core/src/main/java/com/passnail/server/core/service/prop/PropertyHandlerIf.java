@@ -28,12 +28,12 @@ public interface PropertyHandlerIf {
 
     void setPasswordLength(final Integer aNumber);
 
-    void setSpecialCharactersNumber(final Integer aNumber);
+    void setNumberOfSpecialCharacters(final Integer aNumber);
 
-    void setLowerCaseNumber(final Integer aNumber);
+    void setNumberOfLowerCaseCharacters(final Integer aNumber);
 
-    void setUpperCaseNumber(final Integer aNumber);
+    void setNumberOfUpperCaseCharacters(final Integer aNumber);
 
-    void setDigitsNumber(final Integer aNumber);
+    void setNumberOfDigits(final Integer aNumber);
 
 }
