@@ -1,6 +1,6 @@
 package com.passnail.server.core.tools.prop;
 
-import com.passnail.server.core.tools.service.PropertyHandlerIf;
+import com.passnail.server.core.service.prop.PropertyHandlerIf;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.*;

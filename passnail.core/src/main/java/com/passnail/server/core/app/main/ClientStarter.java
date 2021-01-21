@@ -1,7 +1,7 @@
 package com.passnail.server.core.app.main;
 
 import com.passnail.server.core.app.config.ConfAttributes;
-import com.passnail.server.core.throwable.exception.WrongStartExecutingException;
+import com.passnail.server.core.throwable.WrongStartExecutingException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

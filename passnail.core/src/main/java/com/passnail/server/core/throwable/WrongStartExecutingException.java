@@ -1,4 +1,4 @@
-package com.passnail.server.core.throwable.exception;
+package com.passnail.server.core.throwable;
 
 
 /**

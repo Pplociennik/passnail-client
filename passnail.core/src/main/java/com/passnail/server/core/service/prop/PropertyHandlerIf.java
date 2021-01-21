@@ -1,4 +1,4 @@
-package com.passnail.server.core.tools.service;
+package com.passnail.server.core.service.prop;
 
 import java.io.IOException;
 import java.util.Properties;

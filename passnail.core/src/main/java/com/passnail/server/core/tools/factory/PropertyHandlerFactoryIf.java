@@ -1,6 +1,7 @@
 package com.passnail.server.core.tools.factory;
 
-import com.passnail.server.core.tools.service.PropertyHandlerIf;
+import com.passnail.server.core.service.prop.PropertyHandlerIf;
+import com.passnail.server.core.tools.prop.generator.DefaultGeneratorPropertyHandler;
 
 
 /**
@@ -9,9 +10,9 @@ import com.passnail.server.core.tools.service.PropertyHandlerIf;
 public interface PropertyHandlerFactoryIf {
 
     /**
-     * Calls the {@link com.passnail.server.core.tools.factory.impl.propertyhandler.generator.GeneratorPropertyHandlerFactory} factory and returns the {@link com.passnail.server.core.tools.prop.generator.GeneratorPropertyHandler} fabricated object.
+     * Calls the {@link com.passnail.server.core.tools.factory.impl.propertyhandler.gen.GeneratorPropertyHandlerFactory} factory and returns the {@link DefaultGeneratorPropertyHandler} fabricated object.
      *
-     * @return {@link com.passnail.server.core.tools.prop.generator.GeneratorPropertyHandler}
+     * @return {@link DefaultGeneratorPropertyHandler}
      */
     PropertyHandlerIf getGeneratorPropertyHandler();
 }
