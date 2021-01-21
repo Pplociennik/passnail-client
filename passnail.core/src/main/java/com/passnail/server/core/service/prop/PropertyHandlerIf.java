@@ -1,7 +1,6 @@
 package com.passnail.server.core.service.prop;
 
 import java.io.IOException;
-import java.util.Properties;
 
 /**
  * An interface of the property handlers.
@@ -15,12 +14,26 @@ public interface PropertyHandlerIf {
      */
     void loadProperties() throws IOException;
 
-    void saveProperties() throws IOException;
+    void updateProperties() throws IOException;
 
-    /**
-     * Returns the properties loaded from the file.
-     *
-     * @return {@link Properties}
-     */
-    Properties getProperties();
+    Integer getPasswordLength();
+
+    Integer getSpecialCharactersNumber();
+
+    Integer getLowerCaseNumber();
+
+    Integer getUpperCaseNumber();
+
+    Integer getDigitsNumber();
+
+    void setPasswordLength(final Integer aNumber);
+
+    void setSpecialCharactersNumber(final Integer aNumber);
+
+    void setLowerCaseNumber(final Integer aNumber);
+
+    void setUpperCaseNumber(final Integer aNumber);
+
+    void setDigitsNumber(final Integer aNumber);
+
 }

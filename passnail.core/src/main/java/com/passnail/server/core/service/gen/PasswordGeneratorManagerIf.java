@@ -1,5 +1,6 @@
 package com.passnail.server.core.service.gen;
 
+import com.passnail.server.core.service.prop.PropertyHandlerIf;
 import com.passnail.server.core.tools.pass.PasswordGeneratorIf;
 
 import java.io.IOException;
@@ -10,15 +11,41 @@ import java.io.IOException;
  */
 public interface PasswordGeneratorManagerIf {
 
-    PasswordGeneratorIf createDefaultPasswordGenerator() throws IOException;
+    public void createNewDefaultPasswordGenerator();
 
-    void setNewPasswordLength(final Integer aNumber);
+    public String generateNewPassword();
 
-    void setNewLowerCaseCharactersNumber(final Integer aNumber);
+    public void loadDefaultProperties() throws IOException;
 
-    void setNewUpperCaseCharactersNumber(final Integer aNumber);
+    public void updateProperties() throws IOException;
 
-    void setNewDigitsNumber(final Integer aNumber);
+    public void setPasswordLength(final Integer aNumber);
 
-    void setNewSpecialCharactersNumber(final Integer aNumber);
+    public void setSpecialCharactersNumber(final Integer aNumber);
+
+    public void setLowerCaseNumber(final Integer aNumber);
+
+    public void setUpperCaseNumber(final Integer aNumber);
+
+    public void setDigitsNumber(final Integer aNumber);
+
+    public Integer getPasswordLength();
+
+    public Integer getSpecialCharactersNumber();
+
+    public Integer getLowerCaseNumber();
+
+    public Integer getUpperCaseNumber();
+
+    public Integer getDigitsNumber();
+
+    public PasswordGeneratorIf getGenerator();
+
+    public void setGenerator(PasswordGeneratorIf generator);
+
+    public PropertyHandlerIf getHandler();
+
+    public void setHandler(PropertyHandlerIf handler);
+
+
 }
