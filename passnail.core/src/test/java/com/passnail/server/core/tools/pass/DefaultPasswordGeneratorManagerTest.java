@@ -2,6 +2,7 @@ package com.passnail.server.core.tools.pass;
 
 import com.passnail.server.core.app.config.ConfAttributes;
 import com.passnail.server.core.service.gen.PasswordGeneratorManagerIf;
+import com.passnail.server.core.throwable.IncorrectPropertiesException;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -48,17 +49,34 @@ public class DefaultPasswordGeneratorManagerTest {
     @Test
     public void testGeneratingASpecifiedNumberOfSpecialCharacters() {
 
-        String password = manager.generateNewPassword();
-
         int loadedValue = manager.getSpecialCharactersNumber();
-        int specialCharCount = 0;
 
-        for (char c : password.toCharArray()) {
-            if (c >= 33 && c <= 47) {
-                specialCharCount++;
-            }
-        }
-        assertEquals(loadedValue, specialCharCount);
+        assertEquals(loadedValue, countSpecifiedCharacters(33, 47));
+    }
+
+    @Test
+    public void testGeneratingASpecifiedNumberOfLowerCaseCharacters() {
+
+        int loadedValue = manager.getLowerCaseNumber();
+
+        assertEquals(loadedValue, countSpecifiedCharacters(97, 122));
+
+    }
+
+    @Test
+    public void testGeneratingASpecifiedNumberOfUpperCaseCharacters() {
+
+        int loadedValue = manager.getUpperCaseNumber();
+
+        assertEquals(loadedValue, countSpecifiedCharacters(65, 90));
+    }
+
+    @Test
+    public void testGeneratingASpecifiedNumberOfDigits() {
+
+        int loadedValue = manager.getDigitsNumber();
+
+        assertEquals(loadedValue, countSpecifiedCharacters(48, 57));
     }
 
     @Test
@@ -101,7 +119,7 @@ public class DefaultPasswordGeneratorManagerTest {
     }
 
     @Test
-    public void testPropertiesAfterUpdate() throws IOException {
+    public void testPropertiesAfterSaving() throws IOException {
         Integer lgth = 32;
         Integer lc = 20;
         Integer uc = 7;
@@ -120,5 +138,29 @@ public class DefaultPasswordGeneratorManagerTest {
         managerTwo.loadDefaultProperties();
 
         assertEquals(lgth, managerTwo.getPasswordLength());
+    }
+
+    @Test()
+    public void testSettingInconsistentProperties() throws IOException {
+
+        Assertions.assertThrows(IncorrectPropertiesException.class, () -> {
+            manager.setUpperCaseNumber(120);
+            manager.saveProperties();
+        });
+    }
+
+    private Integer countSpecifiedCharacters(final Integer aMinCode, final Integer aMaxCode) {
+
+        String password = manager.generateNewPassword();
+
+        int charactersCounter = 0;
+
+        for (char c : password.toCharArray()) {
+            if (c >= aMinCode && c <= aMaxCode) {
+                charactersCounter++;
+            }
+        }
+
+        return charactersCounter;
     }
 }

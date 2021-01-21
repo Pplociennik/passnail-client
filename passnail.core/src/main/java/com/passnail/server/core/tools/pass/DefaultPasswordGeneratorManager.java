@@ -104,14 +104,14 @@ public class DefaultPasswordGeneratorManager implements PasswordGeneratorManager
     }
 
     public Integer getLowerCaseNumber() {
-        return this.handler.getPasswordLength();
+        return this.handler.getLowerCaseNumber();
     }
 
     public Integer getUpperCaseNumber() {
-        return this.handler.getSpecialCharactersNumber();
+        return this.handler.getUpperCaseNumber();
     }
 
     public Integer getDigitsNumber() {
-        return this.handler.getPasswordLength();
+        return this.handler.getDigitsNumber();
     }
 }
