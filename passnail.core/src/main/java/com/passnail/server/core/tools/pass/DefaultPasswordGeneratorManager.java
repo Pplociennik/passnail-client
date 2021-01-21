@@ -6,6 +6,8 @@ import com.passnail.server.core.tools.prop.generator.DefaultGeneratorPropertyHan
 
 import java.io.IOException;
 
+import static com.passnail.server.core.tools.prop.PropertiesConstants.*;
+
 /**
  * Created by: Pszemko at środa, 20.01.2021 23:39
  * Project: passnail-client
@@ -39,11 +41,11 @@ public class DefaultPasswordGeneratorManager implements PasswordGeneratorManager
 
     @Override
     public void resetPropertiesToDefaults() throws IOException {
-        setDigitsNumber(2);
-        setLowerCaseNumber(5);
-        setUpperCaseNumber(1);
-        setSpecialCharactersNumber(1);
-        setPasswordLength(9);
+        setDigitsNumber(NUMBER_OF_DIGITS_DEFAULT_VALUE);
+        setLowerCaseNumber(NUMBER_OF_LOWER_CASE_CHARACTERS_DEFAULT_VALUE);
+        setUpperCaseNumber(NUMBER_OF_UPPER_CASE_CHARACTERS_DEFAULT_VALUE);
+        setSpecialCharactersNumber(NUMBER_OF_SPECIAL_CHARACTERS_DEFAULT_VALUE);
+        setPasswordLength(PASSWORD_LENGTH_DEFAULT_VALUE);
 
         saveProperties();
     }

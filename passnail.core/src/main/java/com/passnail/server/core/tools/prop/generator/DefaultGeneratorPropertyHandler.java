@@ -9,7 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import java.io.IOException;
 import java.util.Properties;
 
-import static com.passnail.server.core.tools.prop.PropertyConstants.*;
+import static com.passnail.server.core.tools.prop.PropertiesConstants.*;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
