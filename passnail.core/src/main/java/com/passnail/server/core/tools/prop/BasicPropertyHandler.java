@@ -18,6 +18,7 @@ public abstract class BasicPropertyHandler implements PropertyHandlerIf {
     protected Properties properties;
 
     protected BasicPropertyHandler() {
+        properties = new Properties();
     }
 
     /**

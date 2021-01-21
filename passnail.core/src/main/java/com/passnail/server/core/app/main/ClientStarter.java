@@ -24,7 +24,7 @@ public class ClientStarter {
         }
 
         ConfAttributes confAttributes = ConfAttributes.INSTANCE;
-        confAttributes.setInstallationPath(args[0]);
+        confAttributes.setInstallationPath(args[0] + "/passnail.core");
 
         SpringApplication.run(ClientStarter.class, args);
 
