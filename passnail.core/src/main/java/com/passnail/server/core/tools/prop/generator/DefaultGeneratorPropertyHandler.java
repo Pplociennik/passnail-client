@@ -14,7 +14,7 @@ import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
 /**
- * A property handler for the {@link PasswordGeneratorIf}. Contains methods for loading properties files and getting values of them.
+ * {@inheritDoc}
  */
 @Log4j2
 public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implements PropertyHandlerIf {
@@ -37,7 +37,7 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
     }
 
     @Override
-    public void updateProperties() throws IOException {
+    public void saveProperties() throws IOException {
         if (!arePropertiesConsistent(this.properties)) {
             throw new IncorrectPropertiesException();
         }

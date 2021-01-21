@@ -9,6 +9,8 @@ import java.io.IOException;
 import static com.passnail.server.core.tools.prop.PropertiesConstants.*;
 
 /**
+ * {@inheritDoc}
+ *
  * Created by: Pszemko at środa, 20.01.2021 23:39
  * Project: passnail-client
  */
@@ -72,7 +74,7 @@ public class DefaultPasswordGeneratorManager implements PasswordGeneratorManager
     }
 
     public void saveProperties() throws IOException {
-        this.handler.updateProperties();
+        this.handler.saveProperties();
     }
 
     public void setPasswordLength(final Integer aNumber) {

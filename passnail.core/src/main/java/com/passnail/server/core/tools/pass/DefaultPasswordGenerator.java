@@ -8,7 +8,7 @@ import org.passay.EnglishCharacterData;
 import org.passay.PasswordGenerator;
 
 /**
- * An implementation of the {@link PasswordGeneratorIf}. Containing methods for passwords generating and setting options for the process.
+ * {@inheritDoc}
  */
 @Log4j2
 @Getter
@@ -46,15 +46,6 @@ public class DefaultPasswordGenerator extends PasswordGenerator implements Passw
         this.digitRule = new CharacterRule(digitChars);
     }
 
-    /**
-     *
-     * @param aPasswordLength
-     * @param aSpecialCharactersNumber
-     * @param aLowerCaseNumber
-     * @param aUpperCaseNumber
-     * @param aDigitNumber
-     * @return
-     */
     public String generateNewPassword(final Integer aPasswordLength, final Integer aSpecialCharactersNumber, final Integer aLowerCaseNumber, final Integer aUpperCaseNumber, final Integer aDigitNumber) {
         specialCharactersRule.setNumberOfCharacters(aSpecialCharactersNumber);
         lowerCaseRule.setNumberOfCharacters(aLowerCaseNumber);

@@ -43,27 +43,6 @@ public abstract class BasicPropertyHandler implements PropertyHandlerIf {
     }
 
     /**
-     * Gets a value of a property with the specified name.
-     *
-     * @param aProperty A name of the property
-     * @return {@link String} being the name of the property.
-     */
-    protected String getPropertyValue(String aProperty) {
-        return properties.getProperty(aProperty);
-    }
-
-    /**
-     * Sets a value of a property with the specified name.
-     *
-     * @param aKey   A name of the property.
-     * @param aValue A new value.
-     * @return {@link String} being the name of the property.
-     */
-    protected void setPropertyValue(String aKey, String aValue) {
-        properties.setProperty(aKey, aValue);
-    }
-
-    /**
      * Saves the properties file to the specified path.
      *
      * @throws IOException - when the file cannot be found.
