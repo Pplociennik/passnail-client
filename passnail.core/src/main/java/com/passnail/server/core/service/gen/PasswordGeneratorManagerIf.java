@@ -115,6 +115,13 @@ public interface PasswordGeneratorManagerIf {
     PasswordGeneratorIf getGenerator();
 
     /**
+     * Returns a {@link PropertyHandlerIf} being hold by the manager.
+     *
+     * @return {@link PropertyHandlerIf}
+     */
+    PropertyHandlerIf getPropertyHandler();
+
+    /**
      * Sets a {@link PasswordGeneratorIf} for the manager.
      *
      * @param generator

@@ -7,6 +7,7 @@ import com.passnail.server.core.tools.prop.BasicPropertyHandler;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Properties;
 
 import static com.passnail.server.core.tools.prop.PropertiesConstants.*;
@@ -39,9 +40,11 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
     @Override
     public void saveProperties() throws IOException {
         if (!arePropertiesConsistent(this.properties)) {
+            loadProperties();
             throw new IncorrectPropertiesException();
+        } else {
+            super.saveProperties(DEFAULT_GENERATOR_PROPERTIES_PATH);
         }
-        super.saveProperties(DEFAULT_GENERATOR_PROPERTIES_PATH);
     }
 
     private boolean arePropertiesConsistent(Properties properties) {
@@ -57,7 +60,7 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
 
         final Integer SUM = SPEC_CHARS + LOWER_CASE_CHARS + UPPER_CASE_CHARS + DIGITS;
 
-        return SUM.equals(LENGTH) && LOCAL_SUM.equals(passwordLength);
+        return SUM.equals(LENGTH) && LOCAL_SUM.equals(passwordLength) && SUM.equals(LOCAL_SUM);
     }
 
     @Override
@@ -91,8 +94,9 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
      * @param aNumber
      */
     public void setPasswordLength(final Integer aNumber) {
+        checkIfNotNull(aNumber);
 
-        if (!aNumber.equals(this.passwordLength)) {
+        if (!aNumber.equals(this.passwordLength) && Objects.nonNull(aNumber)) {
             this.passwordLength = aNumber;
             this.properties.setProperty(PASSWORD_LENGTH_PROPERTY_KEY, valueOf(aNumber));
         }
@@ -104,8 +108,9 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
      * @param aNumber
      */
     public void setNumberOfLowerCaseCharacters(final Integer aNumber) {
+        checkIfNotNull(aNumber);
 
-        if (!aNumber.equals(this.numberOfLowerCaseCharacters)) {
+        if (!aNumber.equals(this.numberOfLowerCaseCharacters) && Objects.nonNull(aNumber)) {
             this.numberOfLowerCaseCharacters = aNumber;
             this.properties.setProperty(NUMBER_OF_LOWER_CASE_CHARACTERS_PROPERTY_KEY, valueOf(aNumber));
         }
@@ -117,8 +122,9 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
      * @param aNumber
      */
     public void setNumberOfUpperCaseCharacters(final Integer aNumber) {
+        checkIfNotNull(aNumber);
 
-        if (!aNumber.equals(this.numberOfUpperCaseCharacters)) {
+        if (!aNumber.equals(this.numberOfUpperCaseCharacters) && Objects.nonNull(aNumber)) {
             this.numberOfUpperCaseCharacters = aNumber;
             this.properties.setProperty(NUMBER_OF_UPPER_CASE_CHARACTERS_PROPERTY_KEY, valueOf(aNumber));
         }
@@ -130,11 +136,23 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
      * @param aNumber
      */
     public void setNumberOfDigits(final Integer aNumber) {
+        checkIfNotNull(aNumber);
 
-        if (!aNumber.equals(this.numberOfDigits)) {
+        if (!aNumber.equals(this.numberOfDigits) && Objects.nonNull(aNumber)) {
             this.numberOfDigits = aNumber;
             this.properties.setProperty(NUMBER_OF_DIGITS_PROPERTY_KEY, valueOf(aNumber));
         }
+    }
+
+    @Override
+    public void resetToDefaults() throws IOException {
+        setNumberOfDigits(NUMBER_OF_DIGITS_DEFAULT_VALUE);
+        setNumberOfLowerCaseCharacters(NUMBER_OF_LOWER_CASE_CHARACTERS_DEFAULT_VALUE);
+        setNumberOfUpperCaseCharacters(NUMBER_OF_UPPER_CASE_CHARACTERS_DEFAULT_VALUE);
+        setNumberOfSpecialCharacters(NUMBER_OF_SPECIAL_CHARACTERS_DEFAULT_VALUE);
+        setPasswordLength(PASSWORD_LENGTH_DEFAULT_VALUE);
+
+        saveProperties();
     }
 
     /**
@@ -143,11 +161,13 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
      * @param aNumber
      */
     public void setNumberOfSpecialCharacters(final Integer aNumber) {
+        checkIfNotNull(aNumber);
 
         if (!aNumber.equals(this.numberOfSpecialCharacters)) {
             this.numberOfSpecialCharacters = aNumber;
             this.properties.setProperty(NUMBER_OF_SPECIAL_CHARACTERS_PROPERTY_KEY, valueOf(aNumber));
         }
+
     }
 
     /**
@@ -167,6 +187,12 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
         }
 
         log.info("The default generator properties has been loaded.");
+    }
+
+    private void checkIfNotNull(Object aObject) {
+        if (aObject == null) {
+            throw new IncorrectPropertiesException("A property cannot be null!");
+        }
     }
 
 

@@ -28,14 +28,14 @@ public class DefaultPasswordGeneratorManagerTest {
     }
 
     @BeforeEach
-    public void preparePasswordGeneratorAndManager() throws IOException {
+    public void setUp() throws IOException {
         manager = new DefaultPasswordGeneratorManager();
         manager.createNewDefaultPasswordGenerator();
         manager.loadDefaultProperties();
     }
 
     @AfterEach
-    public void resetToDefaults() throws IOException {
+    public void tearDown() throws IOException {
         manager.resetPropertiesToDefaults();
     }
 
@@ -44,6 +44,7 @@ public class DefaultPasswordGeneratorManagerTest {
     public void testCreatingDefaultPasswordGeneratorWithDefaultProperties() {
 
         assertNotNull(manager.getGenerator());
+        assertNotNull(manager.getPropertyHandler());
     }
 
     @Test
@@ -140,7 +141,7 @@ public class DefaultPasswordGeneratorManagerTest {
         assertEquals(lgth, managerTwo.getPasswordLength());
     }
 
-    @Test()
+    @Test
     public void testSettingInconsistentProperties() throws IOException {
 
         Assertions.assertThrows(IncorrectPropertiesException.class, () -> {

@@ -1,6 +1,7 @@
 package com.passnail.server.core.service.prop;
 
 import com.passnail.server.core.tools.pass.PasswordGeneratorIf;
+import com.sun.istack.NotNull;
 
 import java.io.IOException;
 
@@ -93,4 +94,5 @@ public interface PropertyHandlerIf {
      */
     void setNumberOfDigits(final Integer aNumber);
 
+    void resetToDefaults() throws IOException;
 }

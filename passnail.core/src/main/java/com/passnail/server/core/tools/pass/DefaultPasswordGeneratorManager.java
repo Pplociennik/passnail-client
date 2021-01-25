@@ -10,7 +10,7 @@ import static com.passnail.server.core.tools.prop.PropertiesConstants.*;
 
 /**
  * {@inheritDoc}
- *
+ * <p>
  * Created by: Pszemko at środa, 20.01.2021 23:39
  * Project: passnail-client
  */
@@ -29,6 +29,11 @@ public class DefaultPasswordGeneratorManager implements PasswordGeneratorManager
         return generator;
     }
 
+    @Override
+    public PropertyHandlerIf getPropertyHandler() {
+        return this.handler;
+    }
+
     public void setGenerator(PasswordGeneratorIf generator) {
         this.generator = generator;
     }
@@ -43,13 +48,7 @@ public class DefaultPasswordGeneratorManager implements PasswordGeneratorManager
 
     @Override
     public void resetPropertiesToDefaults() throws IOException {
-        setDigitsNumber(NUMBER_OF_DIGITS_DEFAULT_VALUE);
-        setLowerCaseNumber(NUMBER_OF_LOWER_CASE_CHARACTERS_DEFAULT_VALUE);
-        setUpperCaseNumber(NUMBER_OF_UPPER_CASE_CHARACTERS_DEFAULT_VALUE);
-        setSpecialCharactersNumber(NUMBER_OF_SPECIAL_CHARACTERS_DEFAULT_VALUE);
-        setPasswordLength(PASSWORD_LENGTH_DEFAULT_VALUE);
-
-        saveProperties();
+        this.handler.resetToDefaults();
     }
 
 
