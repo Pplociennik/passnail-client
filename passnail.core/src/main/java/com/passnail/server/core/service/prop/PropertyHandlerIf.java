@@ -1,7 +1,6 @@
 package com.passnail.server.core.service.prop;
 
 import com.passnail.server.core.tools.pass.PasswordGeneratorIf;
-import com.sun.istack.NotNull;
 
 import java.io.IOException;
 
@@ -94,5 +93,23 @@ public interface PropertyHandlerIf {
      */
     void setNumberOfDigits(final Integer aNumber);
 
+    /**
+     * Resets properties to default values.
+     *
+     * @throws IOException When the file cannot be found.
+     */
+
     void resetToDefaults() throws IOException;
+
+    /**
+     * Sets all the properties to the specified values.
+     *
+     * @param aPasswordLength          A length of the password.
+     * @param aLowerCaseNumber         A number of the lower case characters.
+     * @param aUpperCaseNumber         A number of the upper case characters.
+     * @param aDigitsNumber            A number of digits.
+     * @param aSpecialCharactersNumber A number of the special characters.
+     * @throws IOException When the file cannot be found.
+     */
+    void setAll(final Integer aPasswordLength, final Integer aLowerCaseNumber, final Integer aUpperCaseNumber, final Integer aDigitsNumber, final Integer aSpecialCharactersNumber) throws IOException;
 }

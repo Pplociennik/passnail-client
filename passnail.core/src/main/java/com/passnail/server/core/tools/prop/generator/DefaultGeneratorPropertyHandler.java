@@ -155,6 +155,17 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
         saveProperties();
     }
 
+    @Override
+    public void setAll(Integer aPasswordLength, Integer aLowerCaseNumber, Integer aUpperCaseNumber, Integer aDigitsNumber, Integer aSpecialCharactersNumber) throws IOException {
+        setPasswordLength(aPasswordLength);
+        setNumberOfLowerCaseCharacters(aLowerCaseNumber);
+        setNumberOfUpperCaseCharacters(aUpperCaseNumber);
+        setNumberOfDigits(aDigitsNumber);
+        setNumberOfSpecialCharacters(aSpecialCharactersNumber);
+
+        saveProperties();
+    }
+
     /**
      * Sets a property defining a number of special characters of passwords being generated.
      *

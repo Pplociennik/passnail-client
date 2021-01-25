@@ -122,4 +122,37 @@ public class DefaultGeneratorPropertyHandlerTest {
         assertEquals(password.length(), 74);
 
     }
+
+    @Test
+    public void testSettingCorrectPropertiesUsingMethodForAll() throws IOException {
+        Integer lengthForChange = 74;
+        Integer lowerCaseForChange = 23;
+        Integer upperCaseForChange = 10;
+        Integer digitsForChange = 14;
+        Integer specialCharsForChange = 27;
+
+        handler.setAll(lengthForChange, lowerCaseForChange, upperCaseForChange, digitsForChange, specialCharsForChange);
+        handler.saveProperties();
+
+        Integer lengthAfter = handler.getPasswordLength();
+        Integer lowerCaseAfter = handler.getLowerCaseNumber();
+        Integer upperCaseAfter = handler.getUpperCaseNumber();
+        Integer digitsAfter = handler.getDigitsNumber();
+        Integer specialCharsAfter = handler.getSpecialCharactersNumber();
+
+        PasswordGeneratorManagerIf manager = new DefaultPasswordGeneratorManager();
+        manager.createNewDefaultPasswordGenerator();
+        manager.loadDefaultProperties();
+
+        String password = manager.generateNewPassword();
+
+        assertEquals(lengthAfter, lengthForChange);
+        assertEquals(lowerCaseAfter, lowerCaseForChange);
+        assertEquals(upperCaseAfter, upperCaseForChange);
+        assertEquals(digitsAfter, digitsForChange);
+        assertEquals(specialCharsAfter, specialCharsForChange);
+
+        assertEquals(password.length(), 74);
+
+    }
 }

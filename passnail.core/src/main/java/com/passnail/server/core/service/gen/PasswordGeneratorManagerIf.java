@@ -149,5 +149,17 @@ public interface PasswordGeneratorManagerIf {
      */
     void resetPropertiesToDefaults() throws IOException;
 
+    /**
+     * Sets all the properties to the specified values.
+     *
+     * @param aPasswordLength          A length of the password.
+     * @param aLowerCaseNumber         A number of the lower case characters.
+     * @param aUpperCaseNumber         A number of the upper case characters.
+     * @param aDigitsNumber            A number of digits.
+     * @param aSpecialCharactersNumber A number of the special characters.
+     * @throws IOException When the file cannot be found.
+     */
+    void setAllProperties(final Integer aPasswordLength, final Integer aLowerCaseNumber, final Integer aUpperCaseNumber, final Integer aDigitsNumber, final Integer aSpecialCharactersNumber) throws IOException;
+
 
 }

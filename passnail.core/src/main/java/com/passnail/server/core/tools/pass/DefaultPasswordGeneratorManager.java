@@ -6,8 +6,6 @@ import com.passnail.server.core.tools.prop.generator.DefaultGeneratorPropertyHan
 
 import java.io.IOException;
 
-import static com.passnail.server.core.tools.prop.PropertiesConstants.*;
-
 /**
  * {@inheritDoc}
  * <p>
@@ -49,6 +47,11 @@ public class DefaultPasswordGeneratorManager implements PasswordGeneratorManager
     @Override
     public void resetPropertiesToDefaults() throws IOException {
         this.handler.resetToDefaults();
+    }
+
+    @Override
+    public void setAllProperties(Integer aPasswordLength, Integer aLowerCaseNumber, Integer aUpperCaseNumber, Integer aDigitsNumber, Integer aSpecialCharactersNumber) throws IOException {
+        this.handler.setAll(aPasswordLength, aLowerCaseNumber, aUpperCaseNumber, aDigitsNumber, aSpecialCharactersNumber);
     }
 
 
