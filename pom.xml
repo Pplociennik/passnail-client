@@ -34,7 +34,7 @@
         <module>passnail.core</module>
         <module>passnail.data</module>
         <module>passnail.security</module>
-        <module>passnail.web</module>
+        <module>passnail.connect</module>
         <module>passnail.test</module>
         <module>passnail.gui</module>
     </modules>

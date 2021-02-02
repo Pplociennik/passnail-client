@@ -8,14 +8,14 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * A Data Transfer Object for transferring the {@link com.passnail.data.model.entity.CredentialsEntity} entity class.
+ * A Data Transfer Object for transferring the {@link com.passnail.data.model.entity.CredentialsEntity} database objects.
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class CredentialsDTO implements Serializable {
+public class CredentialsDto implements Serializable {
 
     private UUID ID;
 

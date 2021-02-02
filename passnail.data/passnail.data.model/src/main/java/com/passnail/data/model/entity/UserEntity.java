@@ -44,14 +44,14 @@ public class UserEntity {
     /**
      * A encrypted {@link String} being the user's password to the application.
      */
-    @Column(name = "USR_PASS", nullable = false)
+    @Column(name = "USR_PASS", nullable = true)
     private String password;
 
 
     /**
      * A {@link String} being the user's email address;
      */
-    @Column(name = "USR_EMAIL", nullable = false, unique = true)
+    @Column(name = "USR_EMAIL", nullable = true, unique = false)
     private String emailAddress;
 
 
@@ -60,6 +60,13 @@ public class UserEntity {
      */
     @Column(name = "USR_CRT")
     private Date creationDate;
+
+
+    /**
+     * A flag to distinguish if user is local or not.
+     */
+    @Column(name = "USR_LOCAL", nullable = false, updatable = false)
+    private Boolean local;
 
 
     /**
