@@ -4,7 +4,7 @@ import com.passnail.server.core.app.config.ConfAttributes;
 import com.passnail.server.core.service.gen.PasswordGeneratorManagerIf;
 import com.passnail.server.core.service.prop.PropertyHandlerIf;
 import com.passnail.server.core.throwable.IncorrectPropertiesException;
-import com.passnail.server.core.tools.pass.DefaultPasswordGeneratorManager;
+import com.passnail.server.core.service.gen.DefaultPasswordGeneratorManager;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;

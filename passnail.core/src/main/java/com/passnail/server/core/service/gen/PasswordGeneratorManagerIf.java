@@ -1,7 +1,7 @@
 package com.passnail.server.core.service.gen;
 
+import com.passnail.client.core.tools.pass.PasswordGeneratorIf;
 import com.passnail.server.core.service.prop.PropertyHandlerIf;
-import com.passnail.server.core.tools.pass.PasswordGeneratorIf;
 
 import java.io.IOException;
 
@@ -12,12 +12,12 @@ import java.io.IOException;
 public interface PasswordGeneratorManagerIf {
 
     /**
-     * Creates a new instance of {@link com.passnail.server.core.tools.pass.DefaultPasswordGenerator}.
+     * Creates a new instance of {@link com.passnail.client.core.tools.pass.DefaultPasswordGenerator}.
      */
     void createNewDefaultPasswordGenerator();
 
     /**
-     * Returns a new password generated using the {@link PasswordGeneratorIf}.
+     * Returns a new password generated using the {@link com.passnail.client.core.tools.pass.PasswordGeneratorIf}.
      *
      * @return {@link String} Generated password
      */
@@ -108,9 +108,9 @@ public interface PasswordGeneratorManagerIf {
     Integer getDigitsNumber();
 
     /**
-     * Returns a {@link PasswordGeneratorIf} being hold by the manager.
+     * Returns a {@link com.passnail.client.core.tools.pass.PasswordGeneratorIf} being hold by the manager.
      *
-     * @return {@link PasswordGeneratorIf}
+     * @return {@link com.passnail.client.core.tools.pass.PasswordGeneratorIf}
      */
     PasswordGeneratorIf getGenerator();
 

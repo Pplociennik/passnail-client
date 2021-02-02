@@ -1,4 +1,4 @@
-package com.passnail.server.core.tools.pass;
+package com.passnail.client.core.tools.pass;
 
 /**
  * Default Password Generator. Generates password depending od the number of specified characters.

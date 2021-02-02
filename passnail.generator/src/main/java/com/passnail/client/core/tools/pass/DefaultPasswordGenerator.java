@@ -1,4 +1,4 @@
-package com.passnail.server.core.tools.pass;
+package com.passnail.client.core.tools.pass;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -39,7 +39,7 @@ public class DefaultPasswordGenerator extends PasswordGenerator implements Passw
     };
     private final CharacterRule specialCharactersRule;
 
-    DefaultPasswordGenerator() {
+    public DefaultPasswordGenerator() {
         this.specialCharactersRule = new CharacterRule(specialChars);
         this.lowerCaseRule = new CharacterRule(lowerCaseChars);
         this.upperCaseRule = new CharacterRule(upperCaseChars);

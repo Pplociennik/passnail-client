@@ -2,7 +2,6 @@ package com.passnail.server.core.tools.prop.generator;
 
 import com.passnail.server.core.service.prop.PropertyHandlerIf;
 import com.passnail.server.core.throwable.IncorrectPropertiesException;
-import com.passnail.server.core.tools.pass.PasswordGeneratorIf;
 import com.passnail.server.core.tools.prop.BasicPropertyHandler;
 import lombok.extern.log4j.Log4j2;
 
@@ -27,7 +26,7 @@ public class DefaultGeneratorPropertyHandler extends BasicPropertyHandler implem
     private Integer numberOfSpecialCharacters;
 
     /**
-     * Loads properties for the {@link PasswordGeneratorIf}.
+     * Loads properties for the {@link com.passnail.client.core.tools.pass.PasswordGeneratorIf}.
      *
      * @throws IOException
      */

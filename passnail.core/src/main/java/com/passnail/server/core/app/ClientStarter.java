@@ -1,4 +1,4 @@
-package com.passnail.server.core.app.main;
+package com.passnail.server.core.app;
 
 import com.passnail.server.core.app.config.ConfAttributes;
 import com.passnail.server.core.throwable.WrongStartExecutingException;

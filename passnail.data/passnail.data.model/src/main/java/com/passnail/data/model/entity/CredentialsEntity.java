@@ -86,7 +86,6 @@ public class CredentialsEntity {
      * An {@link UUID} typed identifier of the user being the credentials' owner.
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "USR_CREDS", nullable = false)
-    @Column(name = "CRED_OWNER")
+    @JoinColumn(name = "ID", insertable = false, updatable = false, nullable = false, unique = true)
     private UserEntity credentialsOwner;
 }

@@ -37,6 +37,7 @@
         <module>passnail.connect</module>
         <module>passnail.test</module>
         <module>passnail.gui</module>
+        <module>passnail.generator</module>
     </modules>
 
 

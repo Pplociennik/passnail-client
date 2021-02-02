@@ -1,10 +1,10 @@
-package com.passnail.web.service;
+package com.passnail.connect.service.impl;
 
+import com.passnail.connect.service.UserServiceIf;
 import com.passnail.data.access.model.dao.CredentialsRepository;
 import com.passnail.data.access.model.dao.UserRepository;
 import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.transfer.model.dto.LocalUserDto;
-import com.passnail.data.transfer.model.dto.UserDto;
 import com.passnail.security.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +19,7 @@ import java.util.Date;
  * Project: passnail-client
  */
 @Service
-public class UserService {
+public class UserService implements UserServiceIf {
 
     @Autowired
     private UserRepository userRepository;

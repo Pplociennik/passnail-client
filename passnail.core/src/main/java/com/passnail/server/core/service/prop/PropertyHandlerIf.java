@@ -1,7 +1,5 @@
 package com.passnail.server.core.service.prop;
 
-import com.passnail.server.core.tools.pass.PasswordGeneratorIf;
-
 import java.io.IOException;
 
 /**
@@ -59,9 +57,9 @@ public interface PropertyHandlerIf {
     Integer getDigitsNumber();
 
     /**
-     * Returns a {@link PasswordGeneratorIf} being hold by the manager.
+     * Returns a {@link com.passnail.client.core.tools.pass.PasswordGeneratorIf} being hold by the manager.
      *
-     * @return {@link PasswordGeneratorIf}
+     * @return {@link com.passnail.client.core.tools.pass.PasswordGeneratorIf}
      */
     void setPasswordLength(final Integer aNumber);
 
