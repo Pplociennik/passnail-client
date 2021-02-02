@@ -17,12 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.passnail</groupId>
-            <artifactId>passnail.web.api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.passnail</groupId>
-            <artifactId>passnail.web.iwa</artifactId>
+            <artifactId>passnail.connect</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
