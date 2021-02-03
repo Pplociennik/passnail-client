@@ -173,14 +173,8 @@ public class DefaultPasswordGeneratorManagerTest {
         int charactersCounter = 0;
 
         for (char c : password.toCharArray()) {
-            if (c >= 33 && c <= 47) {
-                if (c >= 58 && c <= 64) {
-                    if (c >= 91 && c <= 96) {
-                        if (c >= 123 && c <= 126) {
-                            charactersCounter++;
-                        }
-                    }
-                }
+            if ((c >= 33 && c <= 47) || (c >= 58 && c <= 64) || (c >= 91 && c <= 96) || (c >= 123 && c <= 126)) {
+                charactersCounter++;
             }
         }
 
