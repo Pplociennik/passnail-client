@@ -53,7 +53,7 @@ public class DefaultPasswordGeneratorManagerTest {
 
         int loadedValue = manager.getSpecialCharactersNumber();
 
-        assertEquals(loadedValue, countSpecifiedCharacters(33, 47));
+        assertEquals(loadedValue, countSpecialCharacters());
     }
 
     @Test
@@ -164,5 +164,27 @@ public class DefaultPasswordGeneratorManagerTest {
         }
 
         return charactersCounter;
+    }
+
+    private int countSpecialCharacters() {
+
+        String password = manager.generateNewPassword();
+
+        int charactersCounter = 0;
+
+        for (char c : password.toCharArray()) {
+            if (c >= 33 && c <= 47) {
+                if (c >= 58 && c <= 64) {
+                    if (c >= 91 && c <= 96) {
+                        if (c >= 123 && c <= 126) {
+                            charactersCounter++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return charactersCounter;
+
     }
 }
