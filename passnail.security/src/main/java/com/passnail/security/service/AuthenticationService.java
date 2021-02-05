@@ -30,7 +30,7 @@ public class AuthenticationService {
         Objects.nonNull(aLogin);
 
         UserEntity userByLogin = userRepository.findByLogin(aLogin);
-        if (userByLogin == null) {
+        if (userByLogin != null) {
             throw new AuthenticationException("Login '" + aLogin + "' is already taken!");
         }
     }

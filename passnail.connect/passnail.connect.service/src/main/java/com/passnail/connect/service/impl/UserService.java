@@ -56,4 +56,9 @@ public class UserService implements UserServiceIf {
 
     }
 
+    @Override
+    public UserEntity findByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
 }

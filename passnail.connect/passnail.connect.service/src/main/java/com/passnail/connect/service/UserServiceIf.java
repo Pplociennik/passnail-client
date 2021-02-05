@@ -1,5 +1,6 @@
 package com.passnail.connect.service;
 
+import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.transfer.model.dto.LocalUserDto;
 
 /**
@@ -9,4 +10,6 @@ import com.passnail.data.transfer.model.dto.LocalUserDto;
 public interface UserServiceIf {
 
     void createNewLocalUser(LocalUserDto aUserDto);
+
+    UserEntity findByLogin(final String login);
 }
