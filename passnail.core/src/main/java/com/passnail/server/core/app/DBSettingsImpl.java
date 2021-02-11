@@ -7,7 +7,7 @@ package com.passnail.server.core.app;
 public class DBSettingsImpl implements DBSettings {
 
 
-    private String JDBConnectionUrl = "jdbc:h2:file:D:\\DEV_PROJECTS\\passnail-client\\passnail-client\\pszemek_bazaDanych";
+    private String JDBConnectionUrl = "jdbc:h2:file:D:\\DEV_PROJECTS\\passnail-client\\passnail-client\\pszemek_bazaDanych;DB_CLOSE_DELAY=-1";
     private String userName = "sa";
     private String password = "sa";
     private String driverClassName = "org.h2.Driver";
