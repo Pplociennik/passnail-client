@@ -70,6 +70,13 @@ public class UserEntity {
 
 
     /**
+     * An identifier for online data synchronization.
+     */
+    @Column(name = "USR_ONLINE_ID")
+    private String onlineID;
+
+
+    /**
      * A {@link Set} of {@link CredentialsEntity} typed objects being a list of credentials created by user.
      */
     @OneToMany(mappedBy = "credentialsOwner", fetch = FetchType.EAGER)

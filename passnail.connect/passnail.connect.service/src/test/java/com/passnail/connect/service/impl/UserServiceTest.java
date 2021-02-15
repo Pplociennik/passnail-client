@@ -1,6 +1,6 @@
 package com.passnail.connect.service.impl;
 
-import com.passnail.data.transfer.model.dto.LocalUserDto;
+import com.passnail.data.transfer.model.dto.UserDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -19,8 +19,8 @@ public class UserServiceTest {
 
     @Test
     public void testCreatingNewLocalUser() {
-        LocalUserDto userDto = Mockito.mock(LocalUserDto.class);
+        UserDto userDto = Mockito.mock(UserDto.class);
 
-        userService.createNewLocalUser(userDto);
+        userService.createNewUser(userDto);
     }
 }

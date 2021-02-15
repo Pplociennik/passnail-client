@@ -2,7 +2,7 @@ package com.passnail.security.service;
 
 import com.passnail.data.access.model.dao.UserRepository;
 import com.passnail.data.model.entity.UserEntity;
-import com.passnail.data.transfer.model.dto.LocalUserDto;
+import com.passnail.data.transfer.model.dto.UserDto;
 import com.passnail.security.throwable.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class AuthenticationService {
     private UserRepository userRepository;
 
 
-    public void validateNewLocalUserCredentials(LocalUserDto aUserDto) {
+    public void validateNewUserCredentials(UserDto aUserDto) {
         Objects.nonNull(aUserDto);
         checkIfLoginUnique(aUserDto.getLogin());
     }

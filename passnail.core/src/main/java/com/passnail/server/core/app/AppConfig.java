@@ -2,13 +2,11 @@ package com.passnail.server.core.app;
 
 import com.passnail.connect.ConnectModuleConfig;
 import com.passnail.data.access.model.dao.DataAccessModuleConfig;
-import com.passnail.data.model.entity.DataModelModuleConfig;
+import com.passnail.data.model.DataModelModuleConfig;
 import com.passnail.security.SecurityModuleConfig;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 /**
  * Created by: Pszemko at wtorek, 02.02.2021 23:33

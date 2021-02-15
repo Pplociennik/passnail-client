@@ -2,7 +2,7 @@ package com.passnail.server.core.throwable;
 
 /**
  * An exception being thrown when the properties were not set correctly.
- *
+ * <p>
  * Created by: Pszemko at czwartek, 21.01.2021 21:57
  * Project: passnail-client
  */

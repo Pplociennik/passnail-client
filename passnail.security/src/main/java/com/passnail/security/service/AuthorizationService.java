@@ -4,6 +4,7 @@ import com.passnail.data.access.model.dao.CredentialsRepository;
 import com.passnail.data.access.model.dao.UserRepository;
 import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.transfer.model.dto.LocalUserDto;
+import com.passnail.data.transfer.model.dto.UserDto;
 import com.passnail.security.throwable.AuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,7 +39,7 @@ public class AuthorizationService {
      * @param aUserDto
      * @return
      */
-    public UserEntity authorizeLocalUser(LocalUserDto aUserDto) {
+    public UserEntity authorizeLocalUser(UserDto aUserDto) {
         Objects.nonNull(aUserDto);
 
         UserEntity userForAuthorization = userRepository.findByLogin(aUserDto.getLogin());

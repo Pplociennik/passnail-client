@@ -4,7 +4,7 @@ import com.passnail.connect.service.UserServiceIf;
 import com.passnail.data.access.model.dao.CredentialsRepository;
 import com.passnail.data.access.model.dao.UserRepository;
 import com.passnail.data.model.entity.UserEntity;
-import com.passnail.data.transfer.model.dto.LocalUserDto;
+import com.passnail.data.transfer.model.dto.UserDto;
 import com.passnail.security.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -38,12 +38,12 @@ public class UserService implements UserServiceIf {
      *
      * @param aUserDto
      */
-    public void createNewLocalUser(LocalUserDto aUserDto) {
+    public void createNewUser(UserDto aUserDto) {
 
-        authenticationService.validateNewLocalUserCredentials(aUserDto);
+        authenticationService.validateNewUserCredentials(aUserDto);
         Date creationDate = new Date();
 
-        UserEntity newLocalUserEntity = UserEntity.builder()
+        UserEntity newUserEntity = UserEntity.builder()
                 .creationDate(creationDate)
                 .login(aUserDto.getLogin())
                 .password(
@@ -52,7 +52,7 @@ public class UserService implements UserServiceIf {
                 .local(true)
                 .build();
 
-        userRepository.save(newLocalUserEntity);
+        userRepository.save(newUserEntity);
 
     }
 

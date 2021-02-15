@@ -1,7 +1,5 @@
 package com.passnail.server.core.app.config.datasource;
 
-import com.passnail.server.core.app.config.ConfAttributes;
-
 /**
  * Created by: Pszemko at piątek, 05.02.2021 02:23
  * Project: passnail-client

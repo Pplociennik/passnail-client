@@ -1,7 +1,7 @@
 package com.passnail.server.core;
 
 import com.passnail.connect.service.impl.UserService;
-import com.passnail.data.transfer.model.dto.LocalUserDto;
+import com.passnail.data.transfer.model.dto.UserDto;
 import com.passnail.server.core.app.AppConfig;
 import com.passnail.server.core.app.config.ConfAttributes;
 import com.passnail.server.core.app.config.datasource.DataSourceSettings;
@@ -44,11 +44,11 @@ public class DataSourceSettingsImplTest {
 
         switcher.applySettings(ds);
 
-        LocalUserDto dto = new LocalUserDto();
+        UserDto dto = new UserDto();
         dto.setLogin("EX2");
         dto.setLocal(true);
         dto.setPassword("ex2");
-        userService.createNewLocalUser(dto);
+        userService.createNewUser(dto);
 
         Assertions.assertNotNull(userService.findByLogin(dto.getLogin()));
     }
