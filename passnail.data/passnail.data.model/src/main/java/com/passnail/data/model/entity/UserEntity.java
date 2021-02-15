@@ -72,7 +72,7 @@ public class UserEntity {
     /**
      * An identifier for online data synchronization.
      */
-    @Column(name = "USR_ONLINE_ID")
+    @Column(name = "USR_ONLINE_ID", unique = true)
     private String onlineID;
 
 
