@@ -1,4 +1,4 @@
-package com.passnail.server.core.app;
+package com.passnail.server.core.app.config.datasource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
@@ -17,23 +17,23 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
 
     private volatile int key = DEFAULT;
 
-    void setKey(int key){
+    void setKey(int key) {
         this.key = key;
     }
 
-    private Map<Object,Object> dataSources = new HashMap();
+    private Map<Object, Object> dataSources = new HashMap();
 
     RoutingDataSource() {
         setTargetDataSources(dataSources);
     }
 
-    void addDataSource(int key, DataSource dataSource){
-        dataSources.put(new Integer(key),dataSource);
+    void addDataSource(int key, DataSource dataSource) {
+        dataSources.put(Integer.valueOf(key), dataSource);
     }
 
     @Override
     protected Object determineCurrentLookupKey() {
-        return new Integer(key);
+        return Integer.valueOf(key);
     }
 
     @Override

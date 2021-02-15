@@ -1,4 +1,4 @@
-package com.passnail.server.core.app;
+package com.passnail.server.core.app.config.datasource;
 
 import com.passnail.data.model.entity.CredentialsEntity;
 import com.passnail.data.model.entity.UserEntity;
@@ -21,22 +21,21 @@ import java.util.EnumSet;
  * Project: passnail-client
  */
 @Component
-public class DBSettingsSwitcher {
+public class DataSourceSettingsSwitcher {
 
     @Autowired
     private AbstractRoutingDataSource routingDataSource;
 
-    public void applySettings(DBSettings dbSettings) {
+    public void applySettings(DataSourceSettings dataSourceSettings) {
 
         if (routingDataSource instanceof RoutingDataSource) {
-            // by default Spring uses DataSource from apache tomcat
 
             DataSource dataSource = DataSourceBuilder
                     .create()
-                    .username(dbSettings.getUserName())
-                    .password(dbSettings.getPassword())
-                    .url(dbSettings.JDBConnectionURL())
-                    .driverClassName(dbSettings.driverClassName())
+                    .username(dataSourceSettings.getUserName())
+                    .password(dataSourceSettings.getPassword())
+                    .url(dataSourceSettings.JDBConnectionURL())
+                    .driverClassName(dataSourceSettings.driverClassName())
                     .build();
 
             RoutingDataSource rds = (RoutingDataSource) routingDataSource;
@@ -44,20 +43,20 @@ public class DBSettingsSwitcher {
             rds.addDataSource(RoutingDataSource.NEW, dataSource);
             rds.setKey(RoutingDataSource.NEW);
 
-            updateDDL(dbSettings);
+            updateDDL(dataSourceSettings);
         }
     }
 
-    private void updateDDL(DBSettings dbSettings) {
+    private void updateDDL(DataSourceSettings dataSourceSettings) {
 
-        /** worked on hibernate 5*/
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .applySetting("hibernate.connection.url", dbSettings.JDBConnectionURL())
-                .applySetting("hibernate.connection.username", dbSettings.getUserName())
-                .applySetting("hibernate.connection.password", dbSettings.getPassword())
-                .applySetting("hibernate.connection.driver_class", dbSettings.driverClassName())
-                .applySetting("hibernate.dialect", dbSettings.dialect())
+                .applySetting("hibernate.connection.url", dataSourceSettings.JDBConnectionURL())
+                .applySetting("hibernate.connection.username", dataSourceSettings.getUserName())
+                .applySetting("hibernate.connection.password", dataSourceSettings.getPassword())
+                .applySetting("hibernate.connection.driver_class", dataSourceSettings.driverClassName())
+                .applySetting("hibernate.dialect", dataSourceSettings.dialect())
                 .applySetting("show.sql", "false")
+                .applySetting("hibernate.ddl-auto", dataSourceSettings.getDdlAuto())
                 .build();
 
 
