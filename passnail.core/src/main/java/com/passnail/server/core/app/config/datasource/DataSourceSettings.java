@@ -35,4 +35,6 @@ public interface DataSourceSettings {
     void setPassword(String password);
 
     void setDdlAuto(String ddlAuto);
+
+    void setTestUrl();
 }

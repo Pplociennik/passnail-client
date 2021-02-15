@@ -26,7 +26,7 @@ public class DefaultDataSourceConfig {
         return DataSourceBuilder
                 .create()
                 .driverClassName("org.h2.Driver")
-                .url("jdbc:h2:file:" + conf.getInstallationPath() + "/data/UNAuthenDB")
+                .url("jdbc:h2:file:./data/UNAuthenDB")
                 .username(conf.getAuthDbLogin())
                 .password(conf.getAuthDbPassword())
                 .build();

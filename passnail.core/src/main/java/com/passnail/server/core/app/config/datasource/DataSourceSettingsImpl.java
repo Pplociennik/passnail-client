@@ -91,4 +91,9 @@ public class DataSourceSettingsImpl implements DataSourceSettings {
     public void setDdlAuto(String ddlAuto) {
         this.ddlAuto = ddlAuto;
     }
+
+    @Override
+    public void setTestUrl() {
+        this.JDBConnectionUrl = "jdbc:h2:file:./data/Pszemko_CREDDB";
+    }
 }

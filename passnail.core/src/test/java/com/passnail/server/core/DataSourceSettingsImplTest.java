@@ -30,7 +30,7 @@ public class DataSourceSettingsImplTest {
 
     @BeforeAll
     private static void setAttributes() {
-        conf.setInstallationPath(System.getProperty("user.dir"));
+//        conf.setInstallationPath("C:/");
         conf.setAuthDbLogin("ex");
         conf.setAuthDbPassword("ex");
     }
@@ -38,9 +38,9 @@ public class DataSourceSettingsImplTest {
     @Test
     public void testDatabaseSwitcher() {
         DataSourceSettings ds = new DataSourceSettingsImpl();
+        ds.setTestUrl();
         ds.setUserName(conf.getAuthDbLogin());
         ds.setPassword(conf.getAuthDbPassword());
-        ds.setJDBConnectionUrlForUsername(conf.getAuthDbLogin());
 
         switcher.applySettings(ds);
 
