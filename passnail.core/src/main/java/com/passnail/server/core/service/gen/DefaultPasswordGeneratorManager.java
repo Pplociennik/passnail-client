@@ -3,7 +3,6 @@ package com.passnail.server.core.service.gen;
 import com.passnail.client.core.tools.pass.DefaultPasswordGenerator;
 import com.passnail.client.core.tools.pass.PasswordGeneratorIf;
 import com.passnail.server.core.service.prop.PropertyHandlerIf;
-
 import com.passnail.server.core.tools.prop.generator.DefaultGeneratorPropertyHandler;
 
 import java.io.IOException;

@@ -1,7 +1,6 @@
 package com.passnail.server.core.app;
 
-import com.passnail.server.core.app.config.ConfAttributes;
-import com.passnail.server.core.throwable.WrongStartExecutingException;
+import com.passnail.server.core.app.config.AttributesInitializer;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,15 +15,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 public class ClientStarter {
 
+    private static AttributesInitializer init;
+
     public static void main(String[] args) {
-
-        if (args.length == 0 || args[0].equals("PROJECT_ENV_PATH")) {
-            log.error("Incorrect env variables' values!");
-            throw new WrongStartExecutingException();
-        }
-
-        ConfAttributes confAttributes = ConfAttributes.INSTANCE;
-        confAttributes.setInstallationPath(args[0] + "/passnail.core");
+        init = new AttributesInitializer();
+        init.setAttributes(args);
 
         SpringApplication.run(ClientStarter.class, args);
 

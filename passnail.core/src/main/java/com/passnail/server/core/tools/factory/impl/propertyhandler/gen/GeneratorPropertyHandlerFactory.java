@@ -1,7 +1,7 @@
 package com.passnail.server.core.tools.factory.impl.propertyhandler.gen;
 
-import com.passnail.server.core.tools.prop.generator.DefaultGeneratorPropertyHandler;
 import com.passnail.server.core.service.prop.PropertyHandlerIf;
+import com.passnail.server.core.tools.prop.generator.DefaultGeneratorPropertyHandler;
 
 
 /**

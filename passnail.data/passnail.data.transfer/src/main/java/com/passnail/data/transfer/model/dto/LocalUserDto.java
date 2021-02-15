@@ -1,11 +1,8 @@
 package com.passnail.data.transfer.model.dto;
 
-import com.passnail.data.model.entity.CredentialsEntity;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -25,11 +22,4 @@ public class LocalUserDto implements Serializable {
 
     private String login;
 
-    private String password;
-
-    private Date creationDate;
-
-    private Boolean local;
-
-    private Set<CredentialsEntity> savedCredentials;
 }
