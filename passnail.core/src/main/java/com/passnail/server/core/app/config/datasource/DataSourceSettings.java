@@ -26,7 +26,7 @@ public interface DataSourceSettings {
 
     Object getDdlAuto();
 
-    void setJDBConnectionUrlForUsername(String username);
+    void setJDBConnectionUrlForUsername(String username, String baseDir);
 
     void setUserName(String userName);
 

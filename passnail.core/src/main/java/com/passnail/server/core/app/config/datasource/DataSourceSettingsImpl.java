@@ -76,8 +76,10 @@ public class DataSourceSettingsImpl implements DataSourceSettings {
         return ddlAuto;
     }
 
-    public void setJDBConnectionUrlForUsername(String username) {
-        this.JDBConnectionUrl = "jdbc:h2:file:" + confAttributes.getDbPath() + username + "_CREDDB";
+    public void setJDBConnectionUrlForUsername(String username, String baseDir) {
+        StringBuilder url = new StringBuilder();
+        url.append("jdbc:h2:file:").append(baseDir == null ? confAttributes.getDbPath() : baseDir).append(username).append("_CREDDB");
+        this.JDBConnectionUrl = url.toString();
     }
 
     public void setUserName(String userName) {

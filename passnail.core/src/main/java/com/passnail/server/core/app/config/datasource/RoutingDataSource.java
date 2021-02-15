@@ -40,4 +40,9 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
     protected DataSource determineTargetDataSource() {
         return (DataSource) dataSources.get(key);
     }
+
+    @Override
+    public void setDefaultTargetDataSource(Object defaultTargetDataSource) {
+        super.setDefaultTargetDataSource(defaultTargetDataSource);
+    }
 }

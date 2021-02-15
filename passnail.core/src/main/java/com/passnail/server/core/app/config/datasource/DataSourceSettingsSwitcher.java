@@ -68,5 +68,6 @@ public class DataSourceSettingsSwitcher {
         SchemaUpdate schemaUpdate = new SchemaUpdate();
         schemaUpdate.setFormat(true);
         schemaUpdate.execute(EnumSet.of(TargetType.DATABASE), metadata);
+
     }
 }
