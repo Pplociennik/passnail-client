@@ -36,6 +36,9 @@ public class ValidationService implements ValidationServiceIf {
         if (!aPassword.equals(aPasswordRepeat)) {
             throw new AuthenticationException("Passwords do not match!");
         }
+        if (!matcher.find()) {
+            throw new AuthenticationException("Password must contain at least 8 characters containing at least: 1 capital letter, 1 lowercase letter, 1 digit and 1 special character.");
+        }
     }
 
     private void validateEmail(String aEmail) {
