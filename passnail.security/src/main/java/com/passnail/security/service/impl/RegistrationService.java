@@ -10,6 +10,7 @@ import com.passnail.security.config.datasource.DataSourceSettingsImpl;
 import com.passnail.security.config.datasource.DataSourceSettingsSwitcher;
 import com.passnail.security.service.RegistrationServiceIf;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -30,6 +31,9 @@ public class RegistrationService implements RegistrationServiceIf {
     @Autowired
     private DataSourceSettingsSwitcher switcher;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
 
     @Override
     public UserEntity registerNewOfflineUserProfile(RegistrationDto aDto) {
@@ -47,7 +51,7 @@ public class RegistrationService implements RegistrationServiceIf {
                 .creationDate(creationDate)
                 .emailAddress(aDto.getEmail())
                 .login(aDto.getLogin())
-                .password(aDto.getPassword())
+                .password(encoder.encode(aDto.getPassword()))
                 .build();
 
         userService.registerNewLocalUser(localEntity);
@@ -66,7 +70,7 @@ public class RegistrationService implements RegistrationServiceIf {
         ds.setDdlAuto("create");
         ds.setJDBConnectionUrlForUsername(aLogin, "./data");
         ds.setUserName(aLogin);
-        ds.setPassword(aPassword);
+        ds.setPassword(encoder.encode(aPassword));
 
         switcher.applySettings(ds);
     }
