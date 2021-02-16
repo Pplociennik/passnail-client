@@ -1,5 +1,6 @@
-package com.passnail.data.access.model.dao;
+package com.passnail.data.access.model;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -9,5 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @Configuration
 @EnableJpaRepositories
+@ComponentScan
 public class DataAccessModuleConfig {
 }

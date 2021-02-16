@@ -1,4 +1,4 @@
-package com.passnail.server.core.app.config.datasource;
+package com.passnail.security.config.datasource;
 
 import com.passnail.server.core.app.config.ConfAttributes;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.passnail.server.core.app.config.datasource;
+package com.passnail.security.config.datasource;
 
 /**
  * Created by: Pszemko at piątek, 05.02.2021 02:23

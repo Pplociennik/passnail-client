@@ -1,4 +1,4 @@
-package com.passnail.server.core.app.config.datasource;
+package com.passnail.security.config.datasource;
 
 import com.passnail.data.model.entity.CredentialsEntity;
 import com.passnail.data.model.entity.UserEntity;

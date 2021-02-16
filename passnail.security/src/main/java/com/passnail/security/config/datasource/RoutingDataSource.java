@@ -1,4 +1,4 @@
-package com.passnail.server.core.app.config.datasource;
+package com.passnail.security.config.datasource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

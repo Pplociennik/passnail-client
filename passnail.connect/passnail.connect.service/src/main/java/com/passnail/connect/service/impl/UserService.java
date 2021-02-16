@@ -4,13 +4,10 @@ import com.passnail.connect.service.UserServiceIf;
 import com.passnail.data.access.model.dao.CredentialsRepository;
 import com.passnail.data.access.model.dao.UserRepository;
 import com.passnail.data.model.entity.UserEntity;
-import com.passnail.data.transfer.model.dto.UserDto;
-import com.passnail.security.service.AuthenticationService;
+import com.passnail.security.service.impl.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 /**
  * A service containing functions for managing users stored in the local database.
@@ -33,32 +30,19 @@ public class UserService implements UserServiceIf {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
-    /**
-     * Creates a new local (offline) user and saves it in the local database.
-     *
-     * @param aUserDto
-     */
-    public void createNewUser(UserDto aUserDto) {
 
-        authenticationService.validateNewUserCredentials(aUserDto);
-        Date creationDate = new Date();
-
-        UserEntity newUserEntity = UserEntity.builder()
-                .creationDate(creationDate)
-                .login(aUserDto.getLogin())
-                .password(
-                        encoder
-                                .encode(aUserDto.getPassword()))
-                .local(true)
-                .build();
-
-        userRepository.save(newUserEntity);
-
+    @Override
+    public UserEntity findByLogin(String aLogin) {
+        return userRepository.findByLogin(aLogin);
     }
 
     @Override
-    public UserEntity findByLogin(String login) {
-        return userRepository.findByLogin(login);
+    public UserEntity findByEmail(String aEmail) {
+        return userRepository.findByEmailAddress(aEmail);
     }
 
+    @Override
+    public void registerNewLocalUser(UserEntity aEntity) {
+        userRepository.save(aEntity);
+    }
 }

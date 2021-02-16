@@ -1,6 +1,5 @@
-package com.passnail.server.core.app.config.datasource;
+package com.passnail.security.config.datasource;
 
-import com.passnail.server.core.app.config.ConfAttributes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -16,7 +15,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class DataSourceSettingsImpl implements DataSourceSettings {
 
-    private ConfAttributes confAttributes = ConfAttributes.INSTANCE;
 
     private String JDBConnectionUrl;
     private String userName;
@@ -78,7 +76,7 @@ public class DataSourceSettingsImpl implements DataSourceSettings {
 
     public void setJDBConnectionUrlForUsername(String username, String baseDir) {
         StringBuilder url = new StringBuilder();
-        url.append("jdbc:h2:file:").append(baseDir == null ? confAttributes.getDbPath() : baseDir).append(username).append("_CREDDB");
+        url.append("jdbc:h2:file:").append(baseDir == null ? "./" : baseDir).append(username).append("_CREDDB");
         this.JDBConnectionUrl = url.toString();
     }
 
