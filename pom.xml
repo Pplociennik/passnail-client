@@ -48,6 +48,7 @@
         <version.jasypt.spring.boot.starter>3.0.3</version.jasypt.spring.boot.starter>
         <version.lombok>1.18.16</version.lombok>
         <version.maven.javadoc.plugin>3.2.0</version.maven.javadoc.plugin>
+        <version.dependency.check.plugin>6.1.1</version.dependency.check.plugin>
 
         <version.spring.boot.strater.data.jdbc>2.4.2</version.spring.boot.strater.data.jdbc>
 
@@ -105,7 +106,6 @@
             <version>${version.junit.jupiter.api}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -114,6 +114,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${version.maven.javadoc.plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${version.dependency.check.plugin}</version>
             </plugin>
         </plugins>
     </build>
