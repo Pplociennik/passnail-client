@@ -1,6 +1,6 @@
 package com.passnail.server.core;
 
-import com.passnail.data.service.UserService;
+import com.passnail.data.service.impl.UserService;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
 import com.passnail.security.config.datasource.DataSourceSettings;
 import com.passnail.security.config.datasource.DataSourceSettingsImpl;
@@ -63,7 +63,7 @@ public class DataSourceSettingsImplTest {
         String u2 = "ex_user_2";
 
         DataSourceSettings ds2 = new DataSourceSettingsImpl();
-        ds2.setJDBConnectionUrlForUsername(u2, "./");
+        ds2.setJDBConnectionUrlForUsername(u2, null);
         ds2.setUserName(u2);
         ds2.setPassword(u2);
 

@@ -68,7 +68,7 @@ public class RegistrationService implements RegistrationServiceIf {
     private void switchDatabase(String aLogin, String aPassword) {
         DataSourceSettings ds = new DataSourceSettingsImpl();
         ds.setDdlAuto("create");
-        ds.setJDBConnectionUrlForUsername(aLogin, "./data");
+        ds.setJDBConnectionUrlForUsername(aLogin, "./data/");
         ds.setUserName(aLogin);
         ds.setPassword(encoder.encode(aPassword));
 

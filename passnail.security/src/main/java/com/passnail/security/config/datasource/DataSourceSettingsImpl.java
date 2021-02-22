@@ -76,7 +76,7 @@ public class DataSourceSettingsImpl implements DataSourceSettings {
 
     public void setJDBConnectionUrlForUsername(String username, String baseDir) {
         StringBuilder url = new StringBuilder();
-        url.append("jdbc:h2:file:").append(baseDir == null ? "./" : baseDir).append(username).append("_CREDDB");
+        url.append("jdbc:h2:file:").append(baseDir == null ? "./data/" : baseDir).append(username).append("_CREDDB");
         this.JDBConnectionUrl = url.toString();
     }
 
@@ -94,6 +94,6 @@ public class DataSourceSettingsImpl implements DataSourceSettings {
 
     @Override
     public void setTestUrl() {
-        this.JDBConnectionUrl = "jdbc:h2:file:./data/Pszemko_CREDDB";
+        this.JDBConnectionUrl = "jdbc:h2:file:./data/TEST_CREDDB";
     }
 }

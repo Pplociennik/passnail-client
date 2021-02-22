@@ -1,8 +1,9 @@
-package com.passnail.data.service;
+package com.passnail.data.service.impl;
 
 import com.passnail.data.access.model.dao.CredentialsRepository;
 import com.passnail.data.access.model.dao.UserRepository;
 import com.passnail.data.model.entity.UserEntity;
+import com.passnail.data.service.UserServiceIf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

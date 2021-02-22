@@ -1,7 +1,8 @@
-package com.passnail.data.service;
+package com.passnail.data.service.impl;
 
 import com.passnail.data.access.model.dao.LocalUserRepository;
 import com.passnail.data.model.entity.LocalUserEntity;
+import com.passnail.data.service.LocalUserServiceIf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
