@@ -1,6 +1,8 @@
 package com.passnail.security.config.datasource;
 
+import com.passnail.common.config.RoutingDataSource;
 import com.passnail.data.model.entity.CredentialsEntity;
+import com.passnail.data.model.entity.LocalUserEntity;
 import com.passnail.data.model.entity.UserEntity;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -63,6 +65,7 @@ public class DataSourceSettingsSwitcher {
         MetadataSources metadataSources = new MetadataSources(registry);
         metadataSources.addAnnotatedClass(UserEntity.class);
         metadataSources.addAnnotatedClass(CredentialsEntity.class);
+        metadataSources.addAnnotatedClass(LocalUserEntity.class);
         Metadata metadata = metadataSources.buildMetadata();
 
         SchemaUpdate schemaUpdate = new SchemaUpdate();

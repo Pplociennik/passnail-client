@@ -38,6 +38,7 @@
         <module>passnail.test</module>
         <module>passnail.gui</module>
         <module>passnail.generator</module>
+        <module>passnail.common</module>
     </modules>
 
 

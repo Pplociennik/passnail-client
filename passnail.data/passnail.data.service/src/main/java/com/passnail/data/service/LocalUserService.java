@@ -1,6 +1,5 @@
-package com.passnail.connect.service.impl;
+package com.passnail.data.service;
 
-import com.passnail.connect.service.LocalUserServiceIf;
 import com.passnail.data.access.model.dao.LocalUserRepository;
 import com.passnail.data.model.entity.LocalUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;

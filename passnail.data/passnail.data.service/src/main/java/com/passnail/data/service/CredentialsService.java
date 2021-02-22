@@ -1,4 +1,4 @@
-package com.passnail.connect.service;
+package com.passnail.data.service;
 
 import com.passnail.data.access.model.dao.CredentialsRepository;
 import com.passnail.data.access.model.dao.UserRepository;

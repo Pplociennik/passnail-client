@@ -1,6 +1,6 @@
-package com.passnail.security.config.datasource;
+package com.passnail.server.core.app.config;
 
-import com.passnail.server.core.app.config.ConfAttributes;
+import com.passnail.common.config.RoutingDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;

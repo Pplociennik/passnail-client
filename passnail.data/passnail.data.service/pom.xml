@@ -3,33 +3,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>passnail.connect</artifactId>
+        <artifactId>passnail.data</artifactId>
         <groupId>com.passnail</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>passnail.connect.service</artifactId>
-
-    <packaging>jar</packaging>
-
-
+    <artifactId>passnail.data.service</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.passnail</groupId>
-            <artifactId>passnail.data.transfer</artifactId>
+            <artifactId>passnail.data.model</artifactId>
             <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.passnail</groupId>
             <artifactId>passnail.data.access</artifactId>
             <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.passnail</groupId>
-            <artifactId>passnail.data.model</artifactId>
-            <version>${project.parent.version}</version>
+            <artifactId>passnail.data.transfer</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
+
 
 </project>

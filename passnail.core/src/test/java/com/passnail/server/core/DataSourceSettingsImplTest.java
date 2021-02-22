@@ -1,12 +1,13 @@
 package com.passnail.server.core;
 
-import com.passnail.connect.service.impl.UserService;
-import com.passnail.data.transfer.model.dto.UserDto;
-import com.passnail.server.core.app.AppConfig;
-import com.passnail.server.core.app.config.ConfAttributes;
+import com.passnail.data.service.UserService;
+import com.passnail.data.transfer.model.dto.RegistrationDto;
 import com.passnail.security.config.datasource.DataSourceSettings;
 import com.passnail.security.config.datasource.DataSourceSettingsImpl;
 import com.passnail.security.config.datasource.DataSourceSettingsSwitcher;
+import com.passnail.security.service.AuthenticationServiceIf;
+import com.passnail.server.core.app.AppConfig;
+import com.passnail.server.core.app.config.ConfAttributes;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +33,9 @@ public class DataSourceSettingsImplTest {
     @Autowired
     private DataSourceSettingsSwitcher switcher;
 
+    @Autowired
+    private AuthenticationServiceIf authenticationService;
+
     @BeforeEach
     private void setAttributes() {
 //        conf.setInstallationPath("C:/");
@@ -45,14 +49,16 @@ public class DataSourceSettingsImplTest {
         ds.setTestUrl();
         ds.setUserName(conf.getAuthDbLogin());
         ds.setPassword(conf.getAuthDbPassword());
+        ds.setDdlAuto("create");
 
         switcher.applySettings(ds);
 
-        UserDto dto = new UserDto();
+        RegistrationDto dto = new RegistrationDto();
         dto.setLogin("EX2");
-        dto.setLocal(true);
-        dto.setPassword("ex2");
-        userService.createNewUser(dto);
+        dto.setPassword("ex2A!dfgs");
+        dto.setPasswordRepeat("ex2A!dfgs");
+        dto.setEmail("ex2@ex.com");
+        authenticationService.registerNewUserProfile(dto);
 
         String u2 = "ex_user_2";
 
@@ -62,12 +68,13 @@ public class DataSourceSettingsImplTest {
         ds2.setPassword(u2);
 
 
-        UserDto dto2 = new UserDto();
+        RegistrationDto dto2 = new RegistrationDto();
         dto2.setLogin("EX23232");
-        dto2.setLocal(true);
-        dto2.setPassword("ex223232");
+        dto2.setPassword("ex2A!dfgs");
+        dto2.setPasswordRepeat("ex2A!dfgs");
+        dto2.setEmail("ex22323@ex.com");
         switcher.applySettings(ds2);
-        userService.createNewUser(dto2);
+        authenticationService.registerNewUserProfile(dto2);
 
         Assertions.assertNotNull(userService.findByLogin(dto2.getLogin()));
         Assertions.assertNull(userService.findByLogin(dto.getLogin()));

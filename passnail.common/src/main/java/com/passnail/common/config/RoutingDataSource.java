@@ -1,4 +1,4 @@
-package com.passnail.security.config.datasource;
+package com.passnail.common.config;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
@@ -12,22 +12,22 @@ import java.util.Map;
  */
 public class RoutingDataSource extends AbstractRoutingDataSource {
 
-    static final int DEFAULT = 0;
-    static final int NEW = 1;
+    public static final int DEFAULT = 0;
+    public static final int NEW = 1;
 
     private volatile int key = DEFAULT;
 
-    void setKey(int key) {
+    public void setKey(int key) {
         this.key = key;
     }
 
     private Map<Object, Object> dataSources = new HashMap();
 
-    RoutingDataSource() {
+    public RoutingDataSource() {
         setTargetDataSources(dataSources);
     }
 
-    void addDataSource(int key, DataSource dataSource) {
+    public void addDataSource(int key, DataSource dataSource) {
         dataSources.put(Integer.valueOf(key), dataSource);
     }
 

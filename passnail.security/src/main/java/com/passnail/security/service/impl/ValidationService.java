@@ -1,6 +1,6 @@
 package com.passnail.security.service.impl;
 
-import com.passnail.connect.service.LocalUserServiceIf;
+import com.passnail.data.service.LocalUserServiceIf;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
 import com.passnail.security.service.SecurityConstants;
 import com.passnail.security.service.ValidationServiceIf;

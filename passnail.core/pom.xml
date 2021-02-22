@@ -33,12 +33,12 @@
         <dependency>
             <groupId>com.passnail</groupId>
             <artifactId>passnail.generator</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.passnail</groupId>
             <artifactId>passnail.connect.service</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.passnail</groupId>
@@ -53,7 +53,24 @@
         <dependency>
             <groupId>com.passnail</groupId>
             <artifactId>passnail.data.model</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.data.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.common</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.security</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>

@@ -1,9 +1,9 @@
 package com.passnail.security.service.impl;
 
-import com.passnail.connect.service.LocalUserServiceIf;
-import com.passnail.connect.service.UserServiceIf;
 import com.passnail.data.model.entity.LocalUserEntity;
 import com.passnail.data.model.entity.UserEntity;
+import com.passnail.data.service.LocalUserServiceIf;
+import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
 import com.passnail.security.config.datasource.DataSourceSettings;
 import com.passnail.security.config.datasource.DataSourceSettingsImpl;
