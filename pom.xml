@@ -49,6 +49,7 @@
         <version.lombok>1.18.16</version.lombok>
         <version.maven.javadoc.plugin>3.2.0</version.maven.javadoc.plugin>
         <version.dependency.check.plugin>6.1.1</version.dependency.check.plugin>
+        <version.clean.plugin>3.1.0</version.clean.plugin>
 
         <version.spring.boot.strater.data.jdbc>2.4.2</version.spring.boot.strater.data.jdbc>
 
@@ -119,6 +120,27 @@
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <version>${version.dependency.check.plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${version.clean.plugin}</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>./passnail.core</directory>
+                            <includes>
+                                <include>*.db</include>
+                            </includes>
+                        </fileset>
+                        <fileset>
+                            <directory>./passnail.core/data</directory>
+                            <includes>
+                                <include>*.db</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
             </plugin>
         </plugins>
     </build>
