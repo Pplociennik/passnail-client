@@ -44,10 +44,10 @@ public class RegistrationService implements RegistrationServiceIf {
 
     @Override
     public void registerNewOfflineUserProfile(RegistrationDto aDto) {
-        registerLocalUserName(aDto.getLogin());
+        registerLocalUserName(aDto);
         registerLocalUser(aDto);
 
-        loginService.authenticateAndLoginUser(mapRegistrationDtoToLoginDto(aDto));
+//        loginService.authenticateAndLoginUser(mapRegistrationDtoToLoginDto(aDto));
     }
 
     private LoginDto mapRegistrationDtoToLoginDto(RegistrationDto aDto) {
@@ -68,14 +68,16 @@ public class RegistrationService implements RegistrationServiceIf {
                 .build();
 
         userService.registerNewLocalUser(localEntity);
+        authorizeNewlyRegisteredUser(aDto);
     }
 
 
-    private void registerLocalUserName(String aLogin) {
-        LocalUserEntity localLogin = new LocalUserEntity();
-        localLogin.setLogin(aLogin);
+    private void registerLocalUserName(RegistrationDto aDto) {
+        LocalUserEntity localUserName = new LocalUserEntity();
+        localUserName.setLogin(aDto.getLogin());
+        localUserName.setEmailAddress(aDto.getEmail());
 
-        localUserService.registerNewLocalUserName(localLogin);
+        localUserService.registerNewLocalUserName(localUserName);
     }
 
     private void switchDatabase(String aLogin, String aPassword) {
@@ -83,8 +85,11 @@ public class RegistrationService implements RegistrationServiceIf {
         ds.setDdlAuto("create");
         ds.setJDBConnectionUrlForUsername(aLogin, "./data/");
         ds.setUserName(aLogin);
-        ds.setPassword(encoder.encode(aPassword));
+        ds.setPassword(aPassword);
 
         switcher.applySettings(ds);
+    }
+
+    private void authorizeNewlyRegisteredUser(RegistrationDto aDto) {
     }
 }

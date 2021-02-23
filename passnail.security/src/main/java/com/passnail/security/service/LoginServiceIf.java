@@ -1,6 +1,5 @@
 package com.passnail.security.service;
 
-import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.transfer.model.dto.LoginDto;
 
 /**
