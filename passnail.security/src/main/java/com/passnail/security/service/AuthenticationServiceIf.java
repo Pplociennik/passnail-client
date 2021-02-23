@@ -10,7 +10,7 @@ import com.passnail.data.transfer.model.dto.RegistrationDto;
  */
 public interface AuthenticationServiceIf {
 
-    UserEntity registerNewUserProfile(RegistrationDto aDto);
+    void registerNewUserProfile(RegistrationDto aDto);
 
-    UserEntity authenticateUser(LoginDto aDto);
+    void authenticateUser(LoginDto aDto);
 }

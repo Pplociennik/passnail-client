@@ -56,6 +56,9 @@
         <version.javax.servlet.api>4.0.1</version.javax.servlet.api>
         <version.passay>1.6.0</version.passay>
         <version.junit.jupiter.api>5.7.0</version.junit.jupiter.api>
+
+        <version.java.jwt>3.13.0</version.java.jwt>
+        <version.jjwt>0.9.1</version.jjwt>
     </properties>
 
 

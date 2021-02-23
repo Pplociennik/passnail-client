@@ -14,4 +14,6 @@ import java.util.UUID;
 public interface LocalUserRepository extends JpaRepository<LocalUserEntity, UUID> {
 
     LocalUserEntity findByLogin(String login);
+
+    LocalUserEntity findByEmailAddress(String emailAddress);
 }

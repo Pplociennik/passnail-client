@@ -16,6 +16,11 @@ public class LocalUserService implements LocalUserServiceIf {
     @Autowired
     private LocalUserRepository localUserRepository;
 
+    @Override
+    public Boolean localEmailExists(String aEmail) {
+        return (localUserRepository.findByEmailAddress(aEmail) != null ? true : false);
+    }
+
     public Boolean localLoginExists(String aLogin) {
         return (localUserRepository.findByLogin(aLogin) != null ? true : false);
     }
@@ -23,6 +28,11 @@ public class LocalUserService implements LocalUserServiceIf {
     @Override
     public void registerNewLocalUserName(LocalUserEntity aLocalEntity) {
         localUserRepository.save(aLocalEntity);
+    }
+
+    @Override
+    public LocalUserEntity getByEmailAddress(String aEmail) {
+        return localUserRepository.findByEmailAddress(aEmail);
     }
 
 }

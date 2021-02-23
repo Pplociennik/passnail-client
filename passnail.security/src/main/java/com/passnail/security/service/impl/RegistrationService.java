@@ -4,10 +4,13 @@ import com.passnail.data.model.entity.LocalUserEntity;
 import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.service.LocalUserServiceIf;
 import com.passnail.data.service.UserServiceIf;
+import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
 import com.passnail.security.config.datasource.DataSourceSettings;
 import com.passnail.security.config.datasource.DataSourceSettingsImpl;
 import com.passnail.security.config.datasource.DataSourceSettingsSwitcher;
+import com.passnail.security.map.RegistrationDtoToLoginDtoMapper;
+import com.passnail.security.service.LoginServiceIf;
 import com.passnail.security.service.RegistrationServiceIf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +24,10 @@ import java.util.Date;
  */
 @Service
 public class RegistrationService implements RegistrationServiceIf {
+
+
+    @Autowired
+    private LoginServiceIf loginService;
 
     @Autowired
     private LocalUserServiceIf localUserService;
@@ -36,10 +43,16 @@ public class RegistrationService implements RegistrationServiceIf {
 
 
     @Override
-    public UserEntity registerNewOfflineUserProfile(RegistrationDto aDto) {
+    public void registerNewOfflineUserProfile(RegistrationDto aDto) {
         registerLocalUserName(aDto.getLogin());
         registerLocalUser(aDto);
-        return userService.findByEmail(aDto.getEmail());
+
+        loginService.authenticateAndLoginUser(mapRegistrationDtoToLoginDto(aDto));
+    }
+
+    private LoginDto mapRegistrationDtoToLoginDto(RegistrationDto aDto) {
+        RegistrationDtoToLoginDtoMapper mapper = new RegistrationDtoToLoginDtoMapper();
+        return mapper.map(aDto);
     }
 
     private void registerLocalUser(RegistrationDto aDto) {

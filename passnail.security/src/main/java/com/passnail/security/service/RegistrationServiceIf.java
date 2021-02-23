@@ -8,5 +8,5 @@ import com.passnail.data.transfer.model.dto.RegistrationDto;
  * Project: passnail-client
  */
 public interface RegistrationServiceIf {
-    UserEntity registerNewOfflineUserProfile(RegistrationDto aDto);
+    void registerNewOfflineUserProfile(RegistrationDto aDto);
 }

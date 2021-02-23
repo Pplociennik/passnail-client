@@ -31,4 +31,12 @@ public class LocalUserEntity {
 
     @Column(name = "USR_LOCAL_LOGIN", nullable = false, unique = true)
     private String login;
+
+
+    /**
+     * A {@link String} being the user's email address;
+     */
+    @Column(name = "USR_EMAIL", nullable = true, unique = false)
+    private String emailAddress;
 }
+

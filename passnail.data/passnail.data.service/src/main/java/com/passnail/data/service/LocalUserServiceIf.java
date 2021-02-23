@@ -8,7 +8,11 @@ import com.passnail.data.model.entity.LocalUserEntity;
  */
 public interface LocalUserServiceIf {
 
+    Boolean localEmailExists(String aEmail);
+
     Boolean localLoginExists(String aLogin);
 
     void registerNewLocalUserName(LocalUserEntity aLocalEntity);
+
+    LocalUserEntity getByEmailAddress(String aEmail);
 }
