@@ -33,15 +33,6 @@ public class LoginValidationService implements LoginValidationServiceIf {
     private DataSourceSettingsSwitcher switcher;
 
 
-    @Override
-    public void validateLocalLoginOrEmail(String aLoginOrEmail) {
-        if (aLoginOrEmail.contains("@")) {
-            validateEmail(aLoginOrEmail);
-        } else {
-            validateLogin(aLoginOrEmail);
-        }
-    }
-
     private void validateLogin(String aLogin) {
         if (!localUserService.localLoginExists(aLogin)) {
             throw new AuthenticationException("User '" + aLogin + "' does not exist!");
@@ -62,6 +53,19 @@ public class LoginValidationService implements LoginValidationServiceIf {
         UserEntity user = userService.findByLogin(login);
         if (!encoder.matches(aDto.getPassword(), user.getPassword())) {
             throw new AuthenticationException("Invalid password!");
+        }
+    }
+
+    @Override
+    public void validateLoginData(LoginDto aDto) {
+        validateLocalLoginOrEmail(aDto.getLoginOrEmail());
+    }
+
+    private void validateLocalLoginOrEmail(String aLoginOrEmail) {
+        if (aLoginOrEmail.contains("@")) {
+            validateEmail(aLoginOrEmail);
+        } else {
+            validateLogin(aLoginOrEmail);
         }
     }
 

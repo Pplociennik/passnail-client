@@ -8,7 +8,7 @@ import com.passnail.data.transfer.model.dto.LoginDto;
  */
 public interface LoginValidationServiceIf {
 
-    void validateLocalLoginOrEmail(String aLoginOrEmail);
-
     void validatePasswordInUserDb(LoginDto aDto);
+
+    void validateLoginData(LoginDto aDto);
 }

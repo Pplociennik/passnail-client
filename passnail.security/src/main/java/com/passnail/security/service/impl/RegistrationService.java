@@ -47,7 +47,7 @@ public class RegistrationService implements RegistrationServiceIf {
         registerLocalUserName(aDto);
         registerLocalUser(aDto);
 
-//        loginService.authenticateAndLoginUser(mapRegistrationDtoToLoginDto(aDto));
+        loginService.authenticateAndLoginUser(mapRegistrationDtoToLoginDto(aDto));
     }
 
     private LoginDto mapRegistrationDtoToLoginDto(RegistrationDto aDto) {

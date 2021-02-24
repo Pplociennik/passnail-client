@@ -47,7 +47,7 @@ public class JWTService implements JWTServiceIf {
 
         JWTVerifier verifier = JWT.require(algorithm)
                 .build();
-        DecodedJWT jwt = verifier.verify(aKey);
+        DecodedJWT jwt = verifier.verify(aToken);
 
         String userName = claims.getSubject();
         Date expDate = claims.getExpiration();

@@ -5,6 +5,7 @@ import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
 import com.passnail.security.service.AuthenticationServiceIf;
 import com.passnail.security.service.RegistrationServiceIf;
+import com.passnail.security.session.SessionData;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +27,8 @@ public class RegistrationTest {
 
     @Test
     public void testRegistration() {
+        SessionData sessionData = SessionData.INSTANCE;
+
         RegistrationDto dto = new RegistrationDto();
         dto.setEmail("myexampleemail@gmail.com");
         dto.setLogin("EX22222");
@@ -35,5 +38,7 @@ public class RegistrationTest {
         authenticationService.registerNewUserProfile(dto);
 
         assertNotNull(userService.findByLogin("EX22222"));
+        assertNotNull(sessionData.getPassword());
+        assertNotNull(sessionData.getToken());
     }
 }

@@ -2,10 +2,7 @@ package com.passnail.security.service.impl;
 
 import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
-import com.passnail.security.service.AuthenticationServiceIf;
-import com.passnail.security.service.LoginServiceIf;
-import com.passnail.security.service.RegistrationServiceIf;
-import com.passnail.security.service.RegistrationValidationServiceIf;
+import com.passnail.security.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +22,9 @@ public class AuthenticationService implements AuthenticationServiceIf {
     @Autowired
     private RegistrationValidationServiceIf validationService;
 
+    @Autowired
+    private LoginValidationServiceIf loginValidationService;
+
 
     @Override
     public void registerNewUserProfile(RegistrationDto aDto) {
@@ -34,6 +34,7 @@ public class AuthenticationService implements AuthenticationServiceIf {
 
     @Override
     public void authenticateUser(LoginDto aDto) {
+        loginValidationService.validateLoginData(aDto);
         loginService.authenticateAndLoginUser(aDto);
     }
 }

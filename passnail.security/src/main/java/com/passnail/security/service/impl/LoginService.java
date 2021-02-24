@@ -8,7 +8,7 @@ import com.passnail.security.session.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Created by: Pszemko at wtorek, 16.02.2021 00:29
@@ -34,13 +34,12 @@ public class LoginService implements LoginServiceIf {
         if (validateOnlineId(aDto.getOnlineID())) {
             authorizeOnlineWithSynchronization(aDto);
         } else {
-            authorizeOffline(aDto);
+            authorizeOfflineByPassword(aDto);
         }
     }
 
-    private void authorizeOffline(LoginDto aDto) {
-        Objects.requireNonNull(aDto);
-        loginValidationService.validateLocalLoginOrEmail(aDto.getLoginOrEmail());
+    private void authorizeOfflineByPassword(LoginDto aDto) {
+        requireNonNull(aDto);
         loginValidationService.validatePasswordInUserDb(aDto);
 
         createSession(aDto);
