@@ -1,6 +1,6 @@
 package com.passnail.core.tools.prop.generator;
 
-import com.passnail.core.main.test.ConfAttributes;
+import com.passnail.core.main.config.ConfAttributes;
 import com.passnail.core.service.gen.DefaultPasswordGeneratorManager;
 import com.passnail.core.service.prop.PropertyHandlerIf;
 import com.passnail.core.throwable.IncorrectPropertiesException;

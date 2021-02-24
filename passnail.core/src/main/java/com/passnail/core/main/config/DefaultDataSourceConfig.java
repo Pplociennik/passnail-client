@@ -1,4 +1,4 @@
-package com.passnail.core.main.test;
+package com.passnail.core.main.config;
 
 import com.passnail.common.config.RoutingDataSource;
 import org.springframework.beans.factory.annotation.Autowired;

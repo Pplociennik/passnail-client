@@ -16,9 +16,6 @@
 
 
     <properties>
-        <value.spring.datasource.url>jdbc:h2:file:./bazaDanych</value.spring.datasource.url>
-        <value.spring.datasource.username>sa</value.spring.datasource.username>
-        <value.spring.datasource.password>sa</value.spring.datasource.password>
         <value.spring.datasource.driverClassName>org.h2.Driver</value.spring.datasource.driverClassName>
         <value.spring.jpa.database-platform>org.hibernate.dialect.H2Dialect</value.spring.jpa.database-platform>
         <value.spring.jpa.hibernate.ddl-auto>create</value.spring.jpa.hibernate.ddl-auto>

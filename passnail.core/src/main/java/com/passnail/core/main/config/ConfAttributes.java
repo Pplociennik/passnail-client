@@ -1,4 +1,4 @@
-package com.passnail.core.main.test;
+package com.passnail.core.main.config;
 
 
 import lombok.Getter;

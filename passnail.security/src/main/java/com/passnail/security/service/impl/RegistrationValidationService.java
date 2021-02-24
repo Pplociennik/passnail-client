@@ -2,7 +2,7 @@ package com.passnail.security.service.impl;
 
 import com.passnail.data.service.LocalUserServiceIf;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
-import com.passnail.security.service.SecurityConstants;
+import com.passnail.security.SecurityConstants;
 import com.passnail.security.service.RegistrationValidationServiceIf;
 import com.passnail.security.throwable.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;

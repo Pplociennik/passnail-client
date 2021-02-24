@@ -1,6 +1,6 @@
 package com.passnail.core.main;
 
-import com.passnail.core.main.test.AttributesInitializer;
+import com.passnail.core.main.config.AttributesInitializer;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

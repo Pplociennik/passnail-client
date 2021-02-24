@@ -1,8 +1,9 @@
 package com.passnail.core.tools;
 
-import com.passnail.core.main.test.AppConfig;
+import com.passnail.core.main.config.AppConfig;
 import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
+import com.passnail.security.service.AuthenticationServiceIf;
 import com.passnail.security.service.RegistrationServiceIf;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class RegistrationTest {
 
     @Autowired
-    private RegistrationServiceIf registrationService;
+    private AuthenticationServiceIf authenticationService;
 
     @Autowired
     private UserServiceIf userService;
@@ -28,10 +29,10 @@ public class RegistrationTest {
         RegistrationDto dto = new RegistrationDto();
         dto.setEmail("myexampleemail@gmail.com");
         dto.setLogin("EX22222");
-        dto.setPassword("ex_password!2");
-        dto.setPasswordRepeat("ex_password!2");
+        dto.setPassword("eXpassword!2");
+        dto.setPasswordRepeat("eXpassword!2");
 
-        registrationService.registerNewOfflineUserProfile(dto);
+        authenticationService.registerNewUserProfile(dto);
 
         assertNotNull(userService.findByLogin("EX22222"));
     }

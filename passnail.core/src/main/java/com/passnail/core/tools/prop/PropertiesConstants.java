@@ -1,6 +1,6 @@
 package com.passnail.core.tools.prop;
 
-import com.passnail.core.main.test.ConfAttributes;
+import com.passnail.core.main.config.ConfAttributes;
 
 /**
  * A class holding the constants containing the information needed for the property handlers.

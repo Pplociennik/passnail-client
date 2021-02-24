@@ -1,7 +1,7 @@
 package com.passnail.core.tools;
 
-import com.passnail.core.main.test.AppConfig;
-import com.passnail.core.main.test.ConfAttributes;
+import com.passnail.core.main.config.AppConfig;
+import com.passnail.core.main.config.ConfAttributes;
 import com.passnail.data.service.impl.UserService;
 import com.passnail.security.config.datasource.DataSourceSettingsSwitcher;
 import com.passnail.security.service.AuthenticationServiceIf;

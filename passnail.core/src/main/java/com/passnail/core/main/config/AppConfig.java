@@ -1,10 +1,11 @@
-package com.passnail.core.main.test;
+package com.passnail.core.main.config;
 
 import com.passnail.connect.ConnectModuleConfig;
 import com.passnail.data.DataServiceModuleConfig;
 import com.passnail.data.access.model.DataAccessModuleConfig;
 import com.passnail.data.model.DataModelModuleConfig;
 import com.passnail.security.SecurityModuleConfig;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @ComponentScan
+@EnableAutoConfiguration
 @Import({
         ConnectModuleConfig.class,
         DataAccessModuleConfig.class,

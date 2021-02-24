@@ -1,4 +1,4 @@
-package com.passnail.core.main.test;
+package com.passnail.core.main.config;
 
 import com.passnail.core.throwable.WrongStartExecutingException;
 import lombok.extern.log4j.Log4j2;
