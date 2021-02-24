@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.LoginDto;
+import com.passnail.security.SecurityConstants;
 import com.passnail.security.service.JWTServiceIf;
 import com.passnail.security.throwable.AuthenticationException;
 import com.passnail.security.throwable.AuthorizationException;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.regex.Matcher;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 import static com.passnail.security.SecurityConstants.SESSION_EXPIRATION_TIME_MILIS;
@@ -63,7 +65,8 @@ public class JWTService implements JWTServiceIf {
 
     @Override
     public String createToken(LoginDto aDto) {
-        UserEntity user = aDto.getLoginOrEmail().contains("@") ?
+        Matcher matcher = SecurityConstants.VALID_EMAIL_ADDRESS_REGEX.matcher(aDto.getLoginOrEmail());
+        UserEntity user = matcher.find() ?
                 userService.findByEmail(aDto.getLoginOrEmail()) :
                 userService.findByLogin(aDto.getLoginOrEmail());
 

@@ -4,6 +4,7 @@ import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.service.LocalUserServiceIf;
 import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.LoginDto;
+import com.passnail.security.SecurityConstants;
 import com.passnail.security.config.datasource.DataSourceSettings;
 import com.passnail.security.config.datasource.DataSourceSettingsImpl;
 import com.passnail.security.config.datasource.DataSourceSettingsSwitcher;
@@ -12,6 +13,8 @@ import com.passnail.security.throwable.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.regex.Matcher;
 
 /**
  * Created by: Pszemko at wtorek, 23.02.2021 00:38
@@ -62,7 +65,8 @@ public class LoginValidationService implements LoginValidationServiceIf {
     }
 
     private void validateLocalLoginOrEmail(String aLoginOrEmail) {
-        if (aLoginOrEmail.contains("@")) {
+        Matcher matcher = SecurityConstants.VALID_EMAIL_ADDRESS_REGEX.matcher(aLoginOrEmail);
+        if (matcher.find()) {
             validateEmail(aLoginOrEmail);
         } else {
             validateLogin(aLoginOrEmail);
@@ -82,7 +86,8 @@ public class LoginValidationService implements LoginValidationServiceIf {
     }
 
     private String getUserLogin(LoginDto aDto) {
-        return !aDto.getLoginOrEmail().contains("@") ?
+        Matcher matcher = SecurityConstants.VALID_EMAIL_ADDRESS_REGEX.matcher(aDto.getLoginOrEmail());
+        return !matcher.find() ?
                 aDto.getLoginOrEmail() :
                 localUserService.getByEmailAddress(aDto.getLoginOrEmail()).getLogin();
     }

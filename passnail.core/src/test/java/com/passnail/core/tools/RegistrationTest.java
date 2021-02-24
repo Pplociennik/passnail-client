@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
@@ -26,7 +27,7 @@ public class RegistrationTest {
     private UserServiceIf userService;
 
     @Test
-    public void testRegistration() {
+    public void testRegistrationWithLoginAfterwards() {
         SessionData sessionData = SessionData.INSTANCE;
 
         RegistrationDto dto = new RegistrationDto();
@@ -38,7 +39,7 @@ public class RegistrationTest {
         authenticationService.registerNewUserProfile(dto);
 
         assertNotNull(userService.findByLogin("EX22222"));
-        assertNotNull(sessionData.getPassword());
         assertNotNull(sessionData.getToken());
+        assertEquals(sessionData.getPassword(), dto.getPassword());
     }
 }
