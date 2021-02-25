@@ -11,4 +11,6 @@ public interface JWTServiceIf {
     void isValid(String aToken, String aKey);
 
     String createToken(LoginDto aDto);
+
+    String createOnlineToken(LoginDto aDto);
 }

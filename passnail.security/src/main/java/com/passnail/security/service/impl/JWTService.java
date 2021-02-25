@@ -8,12 +8,14 @@ import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.security.SecurityConstants;
+import com.passnail.security.service.AuthenticationServiceIf;
 import com.passnail.security.service.JWTServiceIf;
 import com.passnail.security.throwable.AuthenticationException;
 import com.passnail.security.throwable.AuthorizationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -37,9 +39,12 @@ public class JWTService implements JWTServiceIf {
     @Autowired
     private JWTService jwtService;
 
+    @Autowired
+    private AuthenticationServiceIf authenticationService;
+
 
     @Override
-    public void isValid(String aToken, String aKey) {
+    public void isValid(@NonNull final String aToken, @NonNull final String aKey) {
         Claims claims = Jwts.parser()
                 .setSigningKey(aKey.getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(aToken)
@@ -55,16 +60,17 @@ public class JWTService implements JWTServiceIf {
         Date expDate = claims.getExpiration();
 
         if (userService.findByLogin(userName) == null) {
-            throw new AuthorizationException("You are not allowed!");
+            throw new AuthenticationException("You are not allowed!");
         }
 
         if (new Date().after(expDate)) {
-            throw new AuthenticationException("Session expired!");
+            authenticationService.logout();
+            throw new AuthorizationException("Session expired!");
         }
     }
 
     @Override
-    public String createToken(LoginDto aDto) {
+    public String createToken(@NonNull final LoginDto aDto) {
         Matcher matcher = SecurityConstants.VALID_EMAIL_ADDRESS_REGEX.matcher(aDto.getLoginOrEmail());
         UserEntity user = matcher.find() ?
                 userService.findByEmail(aDto.getLoginOrEmail()) :
@@ -72,6 +78,27 @@ public class JWTService implements JWTServiceIf {
 
         String token = JWT.create()
                 .withSubject(user.getLogin())
+                .withExpiresAt(new Date(System.currentTimeMillis() + SESSION_EXPIRATION_TIME_MILIS))
+                .sign(HMAC512(aDto.getPassword().getBytes()));
+
+        jwtService.isValid(token, aDto.getPassword());
+
+        return token;
+    }
+
+    @Override
+    public String createOnlineToken(@NonNull final LoginDto aDto) {
+        Matcher matcher = SecurityConstants.VALID_EMAIL_ADDRESS_REGEX.matcher(aDto.getLoginOrEmail());
+        UserEntity user = matcher.find() ?
+                userService.findByEmail(aDto.getLoginOrEmail()) :
+                userService.findByLogin(aDto.getLoginOrEmail());
+        String onlineId = aDto.getOnlineID() != null ?
+                aDto.getOnlineID() :
+                user.getLogin();
+
+        String token = JWT.create()
+                .withSubject(onlineId)
+                .withClaim("email", user.getEmailAddress())
                 .withExpiresAt(new Date(System.currentTimeMillis() + SESSION_EXPIRATION_TIME_MILIS))
                 .sign(HMAC512(aDto.getPassword().getBytes()));
 

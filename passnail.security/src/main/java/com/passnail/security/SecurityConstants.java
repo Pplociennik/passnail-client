@@ -16,6 +16,12 @@ public class SecurityConstants {
 
     public static final Integer SESSION_EXPIRATION_TIME_MILIS = 300000;
 
+    public static final String UNAUTHORIZED_TOKEN_SESSION_DATA = "404_TKN_DAT";
+
+    public static final String UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA = "404_ONL_TKN_DAT";
+
+    public static final String UNAUTHORIZED_PASSWORD_SESSION_DATA = "404_PASS_DAT";
+
     private SecurityConstants() {
     }
 }

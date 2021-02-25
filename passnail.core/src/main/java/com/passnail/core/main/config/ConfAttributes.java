@@ -21,7 +21,7 @@ public enum ConfAttributes {
     /**
      * A private constructor.
      */
-    private ConfAttributes() {
+    ConfAttributes() {
     }
 
     // ATTRIBUTES ===========================================================

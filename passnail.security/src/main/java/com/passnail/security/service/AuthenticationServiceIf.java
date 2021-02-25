@@ -13,4 +13,6 @@ public interface AuthenticationServiceIf {
     void registerNewUserProfile(RegistrationDto aDto);
 
     void authenticateUser(LoginDto aDto);
+
+    void logout();
 }
