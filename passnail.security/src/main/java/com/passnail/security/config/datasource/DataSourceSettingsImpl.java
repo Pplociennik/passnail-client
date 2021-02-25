@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import static com.passnail.security.SecurityConstants.*;
+
 /**
  * Created by: Pszemko at piątek, 05.02.2021 02:28
  * Project: passnail-client
@@ -94,17 +96,17 @@ public class DataSourceSettingsImpl implements DataSourceSettings {
 
     @Override
     public void setTestProperties() {
-        this.JDBConnectionUrl = "jdbc:h2:file:./data/test/TEST_CREDDB";
-        this.userName = "test_username";
-        this.password = "test_password";
-        this.ddlAuto = "create";
+        this.JDBConnectionUrl = DB_TEST_URL;
+        this.userName = DB_TEST_USERNAME;
+        this.password = DB_TEST_PASSWORD;
+        this.ddlAuto = DB_TEST_DDL;
     }
 
     @Override
     public void setDefaultAuthDbProperties() {
-        this.JDBConnectionUrl = "jdbc:h2:file:./data/UNAuthenDB.mv";
-        this.userName = System.getenv("USERNAME");
-        this.password = System.getenv("COMPUTERNAME");
-        this.ddlAuto = "update";
+        this.JDBConnectionUrl = DB_DEFAULT_AUTH_URL;
+        this.userName = DB_DEFAULT_AUTH_USERNAME;
+        this.password = DB_DEFAULT_AUTH_PASSWORD;
+        this.ddlAuto = DB_DEFAULT_AUTH_DDL;
     }
 }
