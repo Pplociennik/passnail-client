@@ -78,7 +78,7 @@ public class AuthenticationTest {
     }
 
     @Test
-    public void testRegistrationWithLogoutAndLoginAfterwards() {
+    public void testRegistrationWithLogoutAndLoginAfterwards() throws InterruptedException {
         SessionData sessionData = SessionData.INSTANCE;
 
         Long currentTime = System.currentTimeMillis();
@@ -95,7 +95,7 @@ public class AuthenticationTest {
         assertEquals(sessionData.getToken(), UNAUTHORIZED_TOKEN_SESSION_DATA);
 
         LoginDto loginDto = LoginDto.builder()
-                .loginOrEmail("myexampleemail@gmail.com")
+                .loginOrEmail(currentTime + "@gmail.com")
                 .password("eXpassword!2")
                 .build();
 

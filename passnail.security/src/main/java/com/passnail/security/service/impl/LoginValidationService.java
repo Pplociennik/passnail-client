@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
 
+import static com.passnail.security.SecurityConstants.VALID_EMAIL_ADDRESS_REGEX;
+
 /**
  * Created by: Pszemko at wtorek, 23.02.2021 00:38
  * Project: passnail-client
@@ -37,12 +39,25 @@ public class LoginValidationService implements LoginValidationServiceIf {
 
 
     private void validateLogin(String aLogin) {
+        if (aLogin == null || aLogin.length() == 0) {
+            throw new AuthenticationException("Login not specified!");
+        }
+        if (localUserService.localLoginExists(aLogin)) {
+            throw new AuthenticationException("Specified login is not available!");
+        }
         if (!localUserService.localLoginExists(aLogin)) {
             throw new AuthenticationException("User '" + aLogin + "' does not exist!");
         }
     }
 
     private void validateEmail(String aEmail) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(aEmail);
+        if (aEmail == null || aEmail.length() == 0) {
+            throw new AuthenticationException("Email not specified!");
+        }
+        if (!matcher.find()) {
+            throw new AuthenticationException("Specified email is not correct!");
+        }
         if (!localUserService.localEmailExists(aEmail)) {
             throw new AuthenticationException("A profile with email '" + aEmail + "' does not exist!");
         }

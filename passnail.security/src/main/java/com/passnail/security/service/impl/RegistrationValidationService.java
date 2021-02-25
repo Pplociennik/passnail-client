@@ -32,7 +32,7 @@ public class RegistrationValidationService implements RegistrationValidationServ
 
     private void validatePassword(String aPassword, String aPasswordRepeat) {
         Matcher matcher = VALID_PASSWORD_REGEX.matcher(aPassword);
-        if (aPassword == null && aPasswordRepeat == null) {
+        if ((aPassword == null && aPasswordRepeat == null) || (aPassword.length() == 0 && aPasswordRepeat.length() == 0)) {
             throw new AuthenticationException("Password not specified!");
         }
         if (!aPassword.equals(aPasswordRepeat)) {
@@ -45,6 +45,9 @@ public class RegistrationValidationService implements RegistrationValidationServ
 
     private void validateEmail(String aEmail) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(aEmail);
+        if (aEmail == null || aEmail.length() == 0) {
+            throw new AuthenticationException("Email not specified!");
+        }
         if (!matcher.find()) {
             throw new AuthenticationException("Specified email is not correct!");
         }
@@ -54,7 +57,7 @@ public class RegistrationValidationService implements RegistrationValidationServ
     }
 
     private void validateLogin(String aLogin) {
-        if (aLogin == null) {
+        if (aLogin == null || aLogin.length() == 0) {
             throw new AuthenticationException("Login not specified!");
         }
         if (localUserService.localLoginExists(aLogin)) {
