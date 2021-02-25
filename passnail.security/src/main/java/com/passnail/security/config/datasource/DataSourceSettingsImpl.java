@@ -93,7 +93,10 @@ public class DataSourceSettingsImpl implements DataSourceSettings {
     }
 
     @Override
-    public void setTestUrl() {
-        this.JDBConnectionUrl = "jdbc:h2:file:./data/TEST_CREDDB";
+    public void setTestProperties() {
+        this.JDBConnectionUrl = "jdbc:h2:file:./data/test/TEST_CREDDB";
+        this.userName = "test_username";
+        this.password = "test_password";
+        this.ddlAuto = "create";
     }
 }

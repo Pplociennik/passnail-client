@@ -73,4 +73,10 @@ public class DataSourceSettingsSwitcher {
         schemaUpdate.execute(EnumSet.of(TargetType.DATABASE), metadata);
 
     }
+
+    public void switchToTestDatabase() {
+        DataSourceSettings ds = new DataSourceSettingsImpl();
+        ds.setTestProperties();
+        applySettings(ds);
+    }
 }

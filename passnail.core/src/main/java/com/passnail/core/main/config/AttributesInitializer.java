@@ -14,7 +14,7 @@ public class AttributesInitializer {
         validateAttributes(args);
 
         ConfAttributes confAttributes = ConfAttributes.INSTANCE;
-        confAttributes.setInstallationPath(args[0] + "/passnail.core");
+        confAttributes.setInstallationPath(args[0]);
         confAttributes.setDbPath(args[1]);
         confAttributes.setAuthDbLogin(args[2]);
         confAttributes.setAuthDbPassword(args[3]);

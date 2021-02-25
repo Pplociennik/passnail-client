@@ -34,5 +34,5 @@ public interface DataSourceSettings {
 
     void setDdlAuto(String ddlAuto);
 
-    void setTestUrl();
+    void setTestProperties();
 }

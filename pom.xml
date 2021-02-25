@@ -144,6 +144,12 @@
                                 <include>*.db</include>
                             </includes>
                         </fileset>
+                        <fileset>
+                            <directory>./passnail.core/data/test</directory>
+                            <includes>
+                                <include>*.db</include>
+                            </includes>
+                        </fileset>
                     </filesets>
                 </configuration>
             </plugin>
