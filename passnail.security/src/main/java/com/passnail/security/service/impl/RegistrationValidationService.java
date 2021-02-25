@@ -2,13 +2,15 @@ package com.passnail.security.service.impl;
 
 import com.passnail.data.service.LocalUserServiceIf;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
-import com.passnail.security.SecurityConstants;
 import com.passnail.security.service.RegistrationValidationServiceIf;
 import com.passnail.security.throwable.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
+
+import static com.passnail.security.SecurityConstants.VALID_EMAIL_ADDRESS_REGEX;
+import static com.passnail.security.SecurityConstants.VALID_PASSWORD_REGEX;
 
 /**
  * Created by: Pszemko at wtorek, 16.02.2021 00:24
@@ -29,7 +31,7 @@ public class RegistrationValidationService implements RegistrationValidationServ
     }
 
     private void validatePassword(String aPassword, String aPasswordRepeat) {
-        Matcher matcher = SecurityConstants.VALID_PASSWORD_REGEX.matcher(aPassword);
+        Matcher matcher = VALID_PASSWORD_REGEX.matcher(aPassword);
         if (aPassword == null && aPasswordRepeat == null) {
             throw new AuthenticationException("Password not specified!");
         }
@@ -42,7 +44,7 @@ public class RegistrationValidationService implements RegistrationValidationServ
     }
 
     private void validateEmail(String aEmail) {
-        Matcher matcher = SecurityConstants.VALID_EMAIL_ADDRESS_REGEX.matcher(aEmail);
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(aEmail);
         if (!matcher.find()) {
             throw new AuthenticationException("Specified email is not correct!");
         }

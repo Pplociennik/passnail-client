@@ -79,4 +79,10 @@ public class DataSourceSettingsSwitcher {
         ds.setTestProperties();
         applySettings(ds);
     }
+
+    public void switchToDefaultAuthDatabase() {
+        DataSourceSettings ds = new DataSourceSettingsImpl();
+        ds.setDefaultAuthDbProperties();
+        applySettings(ds);
+    }
 }

@@ -2,6 +2,7 @@ package com.passnail.security.service.impl;
 
 import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
+import com.passnail.security.config.datasource.DataSourceSettingsSwitcher;
 import com.passnail.security.service.*;
 import com.passnail.security.session.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class AuthenticationService implements AuthenticationServiceIf {
     @Autowired
     private LoginValidationServiceIf loginValidationService;
 
+    @Autowired
+    private DataSourceSettingsSwitcher switcher;
+
 
     @Override
     public void registerNewUserProfile(RegistrationDto aDto) {
@@ -47,5 +51,7 @@ public class AuthenticationService implements AuthenticationServiceIf {
         sessionData.setToken(UNAUTHORIZED_TOKEN_SESSION_DATA);
         sessionData.setOnlineToken(UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA);
         sessionData.setPassword(UNAUTHORIZED_PASSWORD_SESSION_DATA);
+
+        switcher.switchToDefaultAuthDatabase();
     }
 }

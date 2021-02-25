@@ -99,4 +99,12 @@ public class DataSourceSettingsImpl implements DataSourceSettings {
         this.password = "test_password";
         this.ddlAuto = "create";
     }
+
+    @Override
+    public void setDefaultAuthDbProperties() {
+        this.JDBConnectionUrl = "jdbc:h2:file:./data/UNAuthenDB.mv";
+        this.userName = System.getenv("USERNAME");
+        this.password = System.getenv("COMPUTERNAME");
+        this.ddlAuto = "update";
+    }
 }

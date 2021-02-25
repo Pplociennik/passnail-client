@@ -35,4 +35,6 @@ public interface DataSourceSettings {
     void setDdlAuto(String ddlAuto);
 
     void setTestProperties();
+
+    void setDefaultAuthDbProperties();
 }

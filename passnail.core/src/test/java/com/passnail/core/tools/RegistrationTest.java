@@ -72,6 +72,8 @@ public class RegistrationTest {
 
         authenticationService.logout();
 
+        switcher.switchToDefaultAuthDatabase();
+
         assertEquals(sessionData.getToken(), UNAUTHORIZED_TOKEN_SESSION_DATA);
     }
 }
