@@ -35,8 +35,9 @@ public class AuthenticationTest {
 
 
     @BeforeEach
-    public void clearData() throws IOException {
+    public void clearData() throws IOException, InterruptedException {
         switcher.switchToTestDatabase();
+        Thread.sleep(1);
     }
 
 
@@ -46,7 +47,7 @@ public class AuthenticationTest {
 
         Long currentTime = System.currentTimeMillis();
         RegistrationDto dto = new RegistrationDto();
-        dto.setEmail("myexampleemail@gmail.com");
+        dto.setEmail(currentTime + "@gmail.com");
         dto.setLogin("test_user_" + currentTime);
         dto.setPassword("eXpassword!2");
         dto.setPasswordRepeat("eXpassword!2");
@@ -64,7 +65,7 @@ public class AuthenticationTest {
 
         Long currentTime = System.currentTimeMillis();
         RegistrationDto dto = new RegistrationDto();
-        dto.setEmail("myexampleemail@gmail.com");
+        dto.setEmail(currentTime + "@gmail.com");
         dto.setLogin("test_user_" + currentTime);
         dto.setPassword("eXpassword!2");
         dto.setPasswordRepeat("eXpassword!2");
@@ -82,7 +83,7 @@ public class AuthenticationTest {
 
         Long currentTime = System.currentTimeMillis();
         RegistrationDto dto = new RegistrationDto();
-        dto.setEmail("myexampleemail@gmail.com");
+        dto.setEmail(currentTime + "@gmail.com");
         dto.setLogin("test_user_" + currentTime);
         dto.setPassword("eXpassword!2");
         dto.setPasswordRepeat("eXpassword!2");

@@ -48,6 +48,9 @@ public class RegistrationValidationService implements RegistrationValidationServ
         if (!matcher.find()) {
             throw new AuthenticationException("Specified email is not correct!");
         }
+        if (localUserService.localEmailExists(aEmail)) {
+            throw new AuthenticationException("Specified email is not available!");
+        }
     }
 
     private void validateLogin(String aLogin) {
