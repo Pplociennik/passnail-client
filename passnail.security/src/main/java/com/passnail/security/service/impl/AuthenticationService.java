@@ -46,12 +46,16 @@ public class AuthenticationService implements AuthenticationServiceIf {
     }
 
     @Override
-    public void logout() {
+    public void logout(Boolean aTestDb) {
         SessionData sessionData = SessionData.INSTANCE;
         sessionData.setToken(UNAUTHORIZED_TOKEN_SESSION_DATA);
         sessionData.setOnlineToken(UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA);
         sessionData.setPassword(UNAUTHORIZED_PASSWORD_SESSION_DATA);
 
-        switcher.switchToDefaultAuthDatabase();
+        if (aTestDb) {
+            switcher.switchToTestDatabase();
+        } else {
+            switcher.switchToDefaultAuthDatabase();
+        }
     }
 }

@@ -14,5 +14,5 @@ public interface AuthenticationServiceIf {
 
     void authenticateUser(LoginDto aDto);
 
-    void logout();
+    void logout(Boolean aTestDb);
 }

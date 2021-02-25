@@ -64,7 +64,6 @@ public class JWTService implements JWTServiceIf {
         }
 
         if (new Date().after(expDate)) {
-            authenticationService.logout();
             throw new AuthorizationException("Session expired!");
         }
     }
