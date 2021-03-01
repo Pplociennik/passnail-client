@@ -1,10 +1,10 @@
 package com.passnail.core.tools.prop.generator;
 
+import com.passnail.common.throwable.core.IncorrectPropertiesException;
 import com.passnail.core.service.prop.PropertyHandlerIf;
-import com.passnail.core.tools.prop.PropertiesConstants;
-import com.passnail.core.throwable.IncorrectPropertiesException;
-import com.passnail.core.tools.prop.BasicPropertyHandler;
 import com.passnail.core.tools.pass.PasswordGeneratorIf;
+import com.passnail.core.tools.prop.BasicPropertyHandler;
+import com.passnail.core.tools.prop.PropertiesConstants;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;

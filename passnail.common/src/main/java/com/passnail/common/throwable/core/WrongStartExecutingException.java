@@ -1,4 +1,4 @@
-package com.passnail.core.throwable;
+package com.passnail.common.throwable.core;
 
 
 /**

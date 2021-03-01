@@ -11,6 +11,8 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import javax.sql.DataSource;
 
 /**
+ * Configuration of the default datasource, which is the default authentication database.
+ * <p>
  * Created by: Pszemko at piątek, 05.02.2021 02:20
  * Project: passnail-client
  */
@@ -19,6 +21,11 @@ public class DefaultDataSourceConfig {
 
     private ConfAttributes conf = ConfAttributes.INSTANCE;
 
+    /**
+     * Creates the default datasource configuration properties.
+     *
+     * @return
+     */
     @Bean
     @Qualifier("default")
     @ConfigurationProperties(prefix = "spring.datasource")
@@ -32,6 +39,12 @@ public class DefaultDataSourceConfig {
                 .build();
     }
 
+    /**
+     * Registers the default datasource.
+     *
+     * @param defaultDataSource
+     * @return
+     */
     @Bean
     @Primary
     @Scope("singleton")

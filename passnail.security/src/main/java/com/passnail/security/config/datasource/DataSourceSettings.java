@@ -1,6 +1,8 @@
 package com.passnail.security.config.datasource;
 
 /**
+ * A class being the representation of settings of the datasource.
+ * <p>
  * Created by: Pszemko at piątek, 05.02.2021 02:23
  * Project: passnail-client
  */

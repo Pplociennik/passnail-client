@@ -1,9 +1,9 @@
 package com.passnail.security.service.impl;
 
+import com.passnail.common.throwable.security.AuthenticationException;
 import com.passnail.data.service.LocalUserServiceIf;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
 import com.passnail.security.service.RegistrationValidationServiceIf;
-import com.passnail.security.throwable.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,8 @@ import static com.passnail.security.SecurityConstants.VALID_EMAIL_ADDRESS_REGEX;
 import static com.passnail.security.SecurityConstants.VALID_PASSWORD_REGEX;
 
 /**
+ * {@inheritDoc}
+ * <p>
  * Created by: Pszemko at wtorek, 16.02.2021 00:24
  * Project: passnail-client
  */

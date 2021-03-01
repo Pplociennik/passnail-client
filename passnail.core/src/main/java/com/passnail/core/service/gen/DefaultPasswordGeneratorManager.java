@@ -1,8 +1,8 @@
 package com.passnail.core.service.gen;
 
+import com.passnail.core.service.prop.PropertyHandlerIf;
 import com.passnail.core.tools.pass.DefaultPasswordGenerator;
 import com.passnail.core.tools.pass.PasswordGeneratorIf;
-import com.passnail.core.service.prop.PropertyHandlerIf;
 import com.passnail.core.tools.prop.generator.DefaultGeneratorPropertyHandler;
 
 import java.io.IOException;

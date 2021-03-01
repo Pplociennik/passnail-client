@@ -4,14 +4,14 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.passnail.common.throwable.security.AuthenticationException;
+import com.passnail.common.throwable.security.AuthorizationException;
 import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.security.SecurityConstants;
 import com.passnail.security.service.AuthenticationServiceIf;
 import com.passnail.security.service.JWTServiceIf;
-import com.passnail.security.throwable.AuthenticationException;
-import com.passnail.security.throwable.AuthorizationException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,8 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 import static com.passnail.security.SecurityConstants.SESSION_EXPIRATION_TIME_MILIS;
 
 /**
+ * {@inheritDoc}
+ * <p>
  * Created by: Pszemko at poniedziałek, 22.02.2021 23:28
  * Project: passnail-client
  */

@@ -16,6 +16,8 @@ import java.util.regex.Matcher;
 import static java.util.Objects.requireNonNull;
 
 /**
+ * {@inheritDoc}
+ * <p>
  * Created by: Pszemko at wtorek, 16.02.2021 00:29
  * Project: passnail-client
  */

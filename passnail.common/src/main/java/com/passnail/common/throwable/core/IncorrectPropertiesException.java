@@ -1,4 +1,4 @@
-package com.passnail.core.throwable;
+package com.passnail.common.throwable.core;
 
 /**
  * An exception being thrown when the properties were not set correctly.

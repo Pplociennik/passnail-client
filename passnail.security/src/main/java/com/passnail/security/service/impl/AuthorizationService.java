@@ -1,9 +1,9 @@
 package com.passnail.security.service.impl;
 
+import com.passnail.common.throwable.security.AuthorizationException;
 import com.passnail.security.service.AuthorizationServiceIf;
 import com.passnail.security.service.JWTServiceIf;
 import com.passnail.security.session.SessionData;
-import com.passnail.security.throwable.AuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,8 @@ import static com.passnail.security.SecurityConstants.UNAUTHORIZED_PASSWORD_SESS
 import static com.passnail.security.SecurityConstants.UNAUTHORIZED_TOKEN_SESSION_DATA;
 
 /**
+ * {@inheritDoc}
+ * <p>
  * Created by: Pszemko at czwartek, 25.02.2021 01:26
  * Project: passnail-client
  */

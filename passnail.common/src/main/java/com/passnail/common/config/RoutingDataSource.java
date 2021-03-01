@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * A data source object for keeping database's connection properties.
+ * <p>
  * Created by: Pszemko at piątek, 05.02.2021 02:21
  * Project: passnail-client
  */

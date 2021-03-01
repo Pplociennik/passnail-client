@@ -18,6 +18,8 @@ import static com.passnail.security.SecurityConstants.UNAUTHORIZED_TOKEN_SESSION
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * This tests the authentication process, containing registration, logging in and logging out.
+ * <p>
  * Created by: Pszemko at wtorek, 23.02.2021 02:39
  * Project: passnail-client
  */
@@ -35,19 +37,20 @@ public class AuthenticationTest {
 
 
     @BeforeEach
-    public void clearData() throws IOException, InterruptedException {
+    public void prepare() throws IOException, InterruptedException {
         switcher.switchToTestDatabase();
-        Thread.sleep(1);
     }
 
-
+    /**
+     * Tests registration process with logging in afterwards.
+     */
     @Test
     public void testRegistrationWithLoginAfterwards() {
         SessionData sessionData = SessionData.INSTANCE;
 
         Long currentTime = System.currentTimeMillis();
         RegistrationDto dto = new RegistrationDto();
-        dto.setEmail(currentTime + "@gmail.com");
+        dto.setEmail(currentTime + "@passtest.com");
         dto.setLogin("test_user_" + currentTime);
         dto.setPassword("eXpassword!2");
         dto.setPasswordRepeat("eXpassword!2");
@@ -59,13 +62,16 @@ public class AuthenticationTest {
         assertEquals(sessionData.getPassword(), dto.getPassword());
     }
 
+    /**
+     * Tests registration process with logging in and logging out afterwards.
+     */
     @Test
     public void testRegistrationWithLogoutAfterwards() {
         SessionData sessionData = SessionData.INSTANCE;
 
         Long currentTime = System.currentTimeMillis();
         RegistrationDto dto = new RegistrationDto();
-        dto.setEmail(currentTime + "@gmail.com");
+        dto.setEmail(currentTime + "@passtest.com");
         dto.setLogin("test_user_" + currentTime);
         dto.setPassword("eXpassword!2");
         dto.setPasswordRepeat("eXpassword!2");
@@ -77,13 +83,18 @@ public class AuthenticationTest {
         assertEquals(sessionData.getToken(), UNAUTHORIZED_TOKEN_SESSION_DATA);
     }
 
+    /**
+     * Tests registration process with logging out and logging in afterwards.
+     *
+     * @throws InterruptedException
+     */
     @Test
     public void testRegistrationWithLogoutAndLoginAfterwards() throws InterruptedException {
         SessionData sessionData = SessionData.INSTANCE;
 
         Long currentTime = System.currentTimeMillis();
         RegistrationDto dto = new RegistrationDto();
-        dto.setEmail(currentTime + "@gmail.com");
+        dto.setEmail(currentTime + "@passtest.com");
         dto.setLogin("test_user_" + currentTime);
         dto.setPassword("eXpassword!2");
         dto.setPasswordRepeat("eXpassword!2");
@@ -95,7 +106,7 @@ public class AuthenticationTest {
         assertEquals(sessionData.getToken(), UNAUTHORIZED_TOKEN_SESSION_DATA);
 
         LoginDto loginDto = LoginDto.builder()
-                .loginOrEmail(currentTime + "@gmail.com")
+                .loginOrEmail(currentTime + "@passtest.com")
                 .password("eXpassword!2")
                 .build();
 
@@ -103,5 +114,23 @@ public class AuthenticationTest {
 
         assertNotEquals(sessionData.getToken(), UNAUTHORIZED_TOKEN_SESSION_DATA);
         assertEquals(sessionData.getPassword(), "eXpassword!2");
+    }
+
+    /**
+     * Tests registration of many new accounts in loop.
+     */
+    @Test
+    public void testMultipleRegistration() {
+
+        for (int i = 0; i < 50; i++) {
+            RegistrationDto dto = new RegistrationDto();
+            dto.setLogin("TEST_LOGIN_" + i);
+            dto.setEmail("exEmail" + i + "@passtest.com");
+            dto.setPassword("EXpass!11" + i);
+            dto.setPasswordRepeat("EXpass!11" + i);
+
+            authenticationService.registerNewUserProfile(dto);
+            authenticationService.logout(true);
+        }
     }
 }

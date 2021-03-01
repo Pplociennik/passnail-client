@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 /**
+ * {@inheritDoc}
+ * <p>
  * Created by: Pszemko at wtorek, 16.02.2021 00:29
  * Project: passnail-client
  */

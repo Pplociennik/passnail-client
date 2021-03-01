@@ -1,17 +1,24 @@
 package com.passnail.core.tools.prop.generator;
 
+import com.passnail.common.throwable.core.IncorrectPropertiesException;
 import com.passnail.core.main.config.ConfAttributes;
 import com.passnail.core.service.gen.DefaultPasswordGeneratorManager;
-import com.passnail.core.service.prop.PropertyHandlerIf;
-import com.passnail.core.throwable.IncorrectPropertiesException;
 import com.passnail.core.service.gen.PasswordGeneratorManagerIf;
-import org.junit.jupiter.api.*;
+import com.passnail.core.service.prop.PropertyHandlerIf;
+import com.passnail.core.tools.pass.DefaultPasswordGenerator;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
+ * This tests the {@link DefaultGeneratorPropertyHandler} containing loading, changing and saving properties of the {@link DefaultPasswordGenerator}.
+ * <p>
  * Created by: Pszemko at poniedziałek, 25.01.2021 22:33
  * Project: passnail-client
  */
@@ -39,20 +46,26 @@ public class DefaultGeneratorPropertyHandlerTest {
     @Test
     public void testImpossibleValueSetting() {
 
-        Assertions.assertThrows(IncorrectPropertiesException.class, () -> {
+        assertThrows(IncorrectPropertiesException.class, () -> {
             handler.setNumberOfUpperCaseCharacters(45);
             handler.saveProperties();
         });
     }
 
+    /**
+     * Tests exception handling while setting the null value parameter.
+     */
     @Test
     public void testSettingANullValueParameter() {
 
-        Assertions.assertThrows(IncorrectPropertiesException.class, () -> {
+        assertThrows(IncorrectPropertiesException.class, () -> {
             handler.setNumberOfUpperCaseCharacters(null);
         });
     }
 
+    /**
+     * Tests if properties are correct after unsuccessful changing a property.
+     */
     @Test
     public void testPropertiesAfterUnsuccessfulPropertyChange() {
 
@@ -86,6 +99,11 @@ public class DefaultGeneratorPropertyHandlerTest {
         assertEquals(specialCharsAfter, specialCharsDefault);
     }
 
+    /**
+     * Tests if setting correct properties works properly.
+     *
+     * @throws IOException
+     */
     @Test
     public void testSettingCorrectProperties() throws IOException {
         Integer lengthForChange = 74;
@@ -123,6 +141,11 @@ public class DefaultGeneratorPropertyHandlerTest {
 
     }
 
+    /**
+     * Tests if setting properties in a single method works properly.
+     *
+     * @throws IOException
+     */
     @Test
     public void testSettingCorrectPropertiesUsingMethodForAll() throws IOException {
         Integer lengthForChange = 74;

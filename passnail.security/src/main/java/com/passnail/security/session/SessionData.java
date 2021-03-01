@@ -5,6 +5,8 @@ import lombok.Getter;
 import static com.passnail.security.SecurityConstants.*;
 
 /**
+ * A Singleton enum holding the authorized user's tokens.
+ * <p>
  * Created by: Pszemko at wtorek, 23.02.2021 00:04
  * Project: passnail-client
  */
@@ -19,9 +21,19 @@ public enum SessionData {
         this.password = UNAUTHORIZED_PASSWORD_SESSION_DATA;
     }
 
-
+    /**
+     * A token of the logged user.
+     */
     private String token;
+
+    /**
+     * An online token for synchronization.
+     */
     private String onlineToken;
+
+    /**
+     * A key for the decryption.
+     */
     private String password;
 
 

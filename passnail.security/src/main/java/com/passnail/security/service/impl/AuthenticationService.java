@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import static com.passnail.security.SecurityConstants.*;
 
 /**
+ * {@inheritDoc}
+ * <p>
  * Created by: Pszemko at wtorek, 02.02.2021 19:20
  * Project: passnail-client
  */
@@ -24,7 +26,7 @@ public class AuthenticationService implements AuthenticationServiceIf {
     private RegistrationServiceIf registrationService;
 
     @Autowired
-    private RegistrationValidationServiceIf validationService;
+    private RegistrationValidationServiceIf registrationValidationService;
 
     @Autowired
     private LoginValidationServiceIf loginValidationService;
@@ -35,7 +37,7 @@ public class AuthenticationService implements AuthenticationServiceIf {
 
     @Override
     public void registerNewUserProfile(RegistrationDto aDto) {
-        validationService.validateRegistrationData(aDto);
+        registrationValidationService.validateRegistrationData(aDto);
         registrationService.registerNewOfflineUserProfile(aDto);
     }
 

@@ -1,4 +1,4 @@
-package com.passnail.security.throwable;
+package com.passnail.common.throwable.security;
 
 /**
  * Created by: Pszemko at czwartek, 25.02.2021 01:16

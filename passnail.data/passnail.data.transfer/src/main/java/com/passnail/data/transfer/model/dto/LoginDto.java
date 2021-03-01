@@ -5,6 +5,8 @@ import lombok.*;
 import java.io.Serializable;
 
 /**
+ * A Data Transfer Object for transferring the login data.
+ * <p>
  * Created by: Pszemko at wtorek, 16.02.2021 00:36
  * Project: passnail-client
  */

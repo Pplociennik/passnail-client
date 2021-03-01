@@ -27,11 +27,23 @@ public enum ConfAttributes {
     // ATTRIBUTES ===========================================================
 
     /**
-     * A variable holding a path to the application installation directory.
+     * A variable holding a path to the application's installation directory.
      */
     private String installationPath;
+
+    /**
+     * A variable holding a path to the application's default authentication database.
+     */
     private String dbPath;
+
+    /**
+     * A variable holding a login to the application's default auth database.
+     */
     private String authDbLogin;
+
+    /**
+     * A variable holding a password to the application's default auth database.
+     */
     private String authDbPassword;
 
     // SETTERS ==============================================================

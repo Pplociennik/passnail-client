@@ -19,6 +19,8 @@ import javax.sql.DataSource;
 import java.util.EnumSet;
 
 /**
+ * A service for switching datasource at runtime. It changes the properties of the current datasource and loads the new one.
+ * <p>
  * Created by: Pszemko at piątek, 05.02.2021 02:22
  * Project: passnail-client
  */
@@ -28,6 +30,11 @@ public class DataSourceSettingsSwitcher {
     @Autowired
     private AbstractRoutingDataSource routingDataSource;
 
+    /**
+     * Applies the specified datasource settings and connects to the new datasource.
+     *
+     * @param dataSourceSettings The datasource settings representation object - {@link DataSourceSettingsImpl}.
+     */
     public void applySettings(DataSourceSettings dataSourceSettings) {
 
         if (routingDataSource instanceof RoutingDataSource) {
@@ -49,6 +56,11 @@ public class DataSourceSettingsSwitcher {
         }
     }
 
+    /**
+     * Applies settings and updates the database's schema.
+     *
+     * @param dataSourceSettings The datasource settings representation object - {@link DataSourceSettingsImpl}.
+     */
     private void updateDDL(DataSourceSettings dataSourceSettings) {
 
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -74,12 +86,18 @@ public class DataSourceSettingsSwitcher {
 
     }
 
+    /**
+     * Loads test properties and connects to the test local authentication database.
+     */
     public void switchToTestDatabase() {
         DataSourceSettings ds = new DataSourceSettingsImpl();
         ds.setTestProperties();
         applySettings(ds);
     }
 
+    /**
+     * Loads test properties and connects to the default local authentication database.
+     */
     public void switchToDefaultAuthDatabase() {
         DataSourceSettings ds = new DataSourceSettingsImpl();
         ds.setDefaultAuthDbProperties();

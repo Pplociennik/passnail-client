@@ -1,19 +1,24 @@
 package com.passnail.core.tools.pass;
 
+import com.passnail.common.throwable.core.IncorrectPropertiesException;
 import com.passnail.core.main.config.ConfAttributes;
 import com.passnail.core.service.gen.DefaultPasswordGeneratorManager;
 import com.passnail.core.service.gen.PasswordGeneratorManagerIf;
-import com.passnail.core.throwable.IncorrectPropertiesException;
-import org.junit.jupiter.api.*;
+import com.passnail.core.tools.prop.generator.DefaultGeneratorPropertyHandler;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * This tests if the {@link DefaultPasswordGeneratorManager} works properly.
+ * <p>
  * Created by: Pszemko at czwartek, 21.01.2021 02:45
  * Project: passnail-client
  */
@@ -40,7 +45,9 @@ public class DefaultPasswordGeneratorManagerTest {
         manager.resetPropertiesToDefaults();
     }
 
-
+    /**
+     * Tests creating a {@link DefaultPasswordGenerator} with default properties using {@link DefaultGeneratorPropertyHandler}.
+     */
     @Test
     public void testCreatingDefaultPasswordGeneratorWithDefaultProperties() {
 
@@ -48,6 +55,9 @@ public class DefaultPasswordGeneratorManagerTest {
         assertNotNull(manager.getPropertyHandler());
     }
 
+    /**
+     * Tests if password with specified number of special characters is being properly generated.
+     */
     @Test
     public void testGeneratingASpecifiedNumberOfSpecialCharacters() {
 
@@ -56,6 +66,9 @@ public class DefaultPasswordGeneratorManagerTest {
         assertEquals(loadedValue, countSpecialCharacters());
     }
 
+    /**
+     * Tests if password with specified number of lower case letters is being properly generated.
+     */
     @Test
     public void testGeneratingASpecifiedNumberOfLowerCaseCharacters() {
 
@@ -65,6 +78,9 @@ public class DefaultPasswordGeneratorManagerTest {
 
     }
 
+    /**
+     * Tests if password with specified number of upper case letters is being properly generated.
+     */
     @Test
     public void testGeneratingASpecifiedNumberOfUpperCaseCharacters() {
 
@@ -73,6 +89,9 @@ public class DefaultPasswordGeneratorManagerTest {
         assertEquals(loadedValue, countSpecifiedCharacters(65, 90));
     }
 
+    /**
+     * Tests if password with specified number of digits is being properly generated.
+     */
     @Test
     public void testGeneratingASpecifiedNumberOfDigits() {
 
@@ -81,6 +100,9 @@ public class DefaultPasswordGeneratorManagerTest {
         assertEquals(loadedValue, countSpecifiedCharacters(48, 57));
     }
 
+    /**
+     * Tests an uniqueness of passwords being generated.
+     */
     @Test
     public void testPasswordsUniqueness() {
 
@@ -95,6 +117,9 @@ public class DefaultPasswordGeneratorManagerTest {
         assertEquals(passwordsNumber, generatedPasswords.size());
     }
 
+    /**
+     * Tests if generated password has a valid length.
+     */
     @Test
     public void testGeneratedPasswordLength() {
 
@@ -103,6 +128,9 @@ public class DefaultPasswordGeneratorManagerTest {
         assertEquals(passwordLength, manager.generateNewPassword().length());
     }
 
+    /**
+     * Tests if passwords are being generating properly after changing properties.
+     */
     @Test
     public void testPasswordGenerationAfterPropertiesChange() {
 
@@ -120,6 +148,11 @@ public class DefaultPasswordGeneratorManagerTest {
         assertEquals(lgth, manager.generateNewPassword().length());
     }
 
+    /**
+     * Tests saving properties. Checks if properties were saved correctly.
+     *
+     * @throws IOException
+     */
     @Test
     public void testPropertiesAfterSaving() throws IOException {
         Integer lgth = 32;
@@ -142,15 +175,27 @@ public class DefaultPasswordGeneratorManagerTest {
         assertEquals(lgth, managerTwo.getPasswordLength());
     }
 
+    /**
+     * Tests if setting inconsistent properties is managed properly.
+     *
+     * @throws IOException
+     */
     @Test
     public void testSettingInconsistentProperties() throws IOException {
 
-        Assertions.assertThrows(IncorrectPropertiesException.class, () -> {
+        assertThrows(IncorrectPropertiesException.class, () -> {
             manager.setUpperCaseNumber(120);
             manager.saveProperties();
         });
     }
 
+    /**
+     * Counts the specified characters.
+     *
+     * @param aMinCode Min. ASCII code taken into consideration during the counting process.
+     * @param aMaxCode Max. ASCII code taken into consideration during the counting process.
+     * @return Number of the characters in the newly generated password.
+     */
     private Integer countSpecifiedCharacters(final Integer aMinCode, final Integer aMaxCode) {
 
         String password = manager.generateNewPassword();
@@ -166,6 +211,11 @@ public class DefaultPasswordGeneratorManagerTest {
         return charactersCounter;
     }
 
+    /**
+     * Counts special characters in newly generated password.
+     *
+     * @return Number of the characters in the newly generated password.
+     */
     private int countSpecialCharacters() {
 
         String password = manager.generateNewPassword();
