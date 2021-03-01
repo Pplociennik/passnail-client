@@ -15,6 +15,7 @@
         <module>passnail.data.model</module>
         <module>passnail.data.access</module>
         <module>passnail.data.transfer</module>
+        <module>passnail.data.service</module>
     </modules>
 
 

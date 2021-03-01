@@ -35,9 +35,10 @@
         <module>passnail.data</module>
         <module>passnail.security</module>
         <module>passnail.connect</module>
-        <module>passnail.test</module>
         <module>passnail.gui</module>
         <module>passnail.generator</module>
+        <module>passnail.common</module>
+        <module>passnail.test</module>
     </modules>
 
 
@@ -47,12 +48,19 @@
         <version.jasypt.spring.boot.starter>3.0.3</version.jasypt.spring.boot.starter>
         <version.lombok>1.18.16</version.lombok>
         <version.maven.javadoc.plugin>3.2.0</version.maven.javadoc.plugin>
+        <version.dependency.check.plugin>6.1.1</version.dependency.check.plugin>
+        <version.clean.plugin>3.1.0</version.clean.plugin>
+        <version.surefire.plugin>3.0.0-M5</version.surefire.plugin>
+        <version.compiler.plugin>3.8.1</version.compiler.plugin>
 
         <version.spring.boot.strater.data.jdbc>2.4.2</version.spring.boot.strater.data.jdbc>
 
         <version.javax.servlet.api>4.0.1</version.javax.servlet.api>
         <version.passay>1.6.0</version.passay>
         <version.junit.jupiter.api>5.7.0</version.junit.jupiter.api>
+
+        <version.java.jwt>3.13.0</version.java.jwt>
+        <version.jjwt>0.9.1</version.jjwt>
     </properties>
 
 
@@ -104,7 +112,6 @@
             <version>${version.junit.jupiter.api}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -113,6 +120,38 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${version.maven.javadoc.plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${version.dependency.check.plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${version.clean.plugin}</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>./passnail.core</directory>
+                            <includes>
+                                <include>*.db</include>
+                            </includes>
+                        </fileset>
+                        <fileset>
+                            <directory>./passnail.core/data</directory>
+                            <includes>
+                                <include>*.db</include>
+                            </includes>
+                        </fileset>
+                        <fileset>
+                            <directory>./passnail.core/data/test</directory>
+                            <includes>
+                                <include>*.db</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
             </plugin>
         </plugins>
     </build>

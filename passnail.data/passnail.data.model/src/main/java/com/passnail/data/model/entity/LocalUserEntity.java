@@ -29,6 +29,14 @@ public class LocalUserEntity {
     @Column(name = "USR_LOC_ID", nullable = false, unique = true, updatable = false, insertable = false)
     private UUID ID;
 
-    @Column(name = "USR_LOCAL_NAME", nullable = false, unique = true)
-    private String username;
+    @Column(name = "USR_LOCAL_LOGIN", nullable = false, unique = true)
+    private String login;
+
+
+    /**
+     * A {@link String} being the user's email address;
+     */
+    @Column(name = "USR_EMAIL", nullable = true, unique = false)
+    private String emailAddress;
 }
+

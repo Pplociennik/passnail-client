@@ -16,9 +16,6 @@
 
 
     <properties>
-        <value.spring.datasource.url>jdbc:h2:file:./bazaDanych</value.spring.datasource.url>
-        <value.spring.datasource.username>sa</value.spring.datasource.username>
-        <value.spring.datasource.password>sa</value.spring.datasource.password>
         <value.spring.datasource.driverClassName>org.h2.Driver</value.spring.datasource.driverClassName>
         <value.spring.jpa.database-platform>org.hibernate.dialect.H2Dialect</value.spring.jpa.database-platform>
         <value.spring.jpa.hibernate.ddl-auto>create</value.spring.jpa.hibernate.ddl-auto>
@@ -33,12 +30,12 @@
         <dependency>
             <groupId>com.passnail</groupId>
             <artifactId>passnail.generator</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.passnail</groupId>
             <artifactId>passnail.connect.service</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.passnail</groupId>
@@ -52,8 +49,20 @@
         </dependency>
         <dependency>
             <groupId>com.passnail</groupId>
-            <artifactId>passnail.data.model</artifactId>
-            <version>${parent.version}</version>
+            <artifactId>passnail.data.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.common</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.security</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
@@ -65,6 +74,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.compiler.plugin}</version>
                     <configuration>
                         <source>11</source>
                         <target>11</target>
@@ -88,7 +98,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.passnail.server.core.app.ClientStarter</mainClass>
+                            <mainClass>com.passnail.core.main.ClientStarter</mainClass>
                         </configuration>
                     </execution>
                 </executions>

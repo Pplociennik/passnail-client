@@ -28,12 +28,7 @@
         <dependency>
             <groupId>com.passnail</groupId>
             <artifactId>passnail.data.model</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.passnail</groupId>
-            <artifactId>passnail.security</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
