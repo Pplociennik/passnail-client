@@ -54,6 +54,7 @@
         <version.compiler.plugin>3.8.1</version.compiler.plugin>
 
         <version.spring.boot.strater.data.jdbc>2.4.2</version.spring.boot.strater.data.jdbc>
+        <version.javafx.graphics>16-ea+7</version.javafx.graphics>
 
         <version.javax.servlet.api>4.0.1</version.javax.servlet.api>
         <version.passay>1.6.0</version.passay>

@@ -4,6 +4,7 @@ import com.passnail.connect.ConnectModuleConfig;
 import com.passnail.data.DataServiceModuleConfig;
 import com.passnail.data.access.model.DataAccessModuleConfig;
 import com.passnail.data.model.DataModelModuleConfig;
+import com.passnail.gui.config.GuiModuleConfig;
 import com.passnail.security.SecurityModuleConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,7 +25,8 @@ import org.springframework.context.annotation.Import;
         DataAccessModuleConfig.class,
         DataModelModuleConfig.class,
         DataServiceModuleConfig.class,
-        SecurityModuleConfig.class
+        SecurityModuleConfig.class,
+        GuiModuleConfig.class
 })
 public class AppConfig {
 

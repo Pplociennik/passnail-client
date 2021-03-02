@@ -64,6 +64,16 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.gui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${version.javafx.graphics}</version>
+        </dependency>
 
     </dependencies>
 

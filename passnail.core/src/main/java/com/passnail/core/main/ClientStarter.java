@@ -1,8 +1,8 @@
 package com.passnail.core.main;
 
 import com.passnail.core.main.config.AttributesInitializer;
+import javafx.application.Application;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -21,7 +21,8 @@ public class ClientStarter {
         init = new AttributesInitializer();
         init.setAttributes(args);
 
-        SpringApplication.run(ClientStarter.class, args);
+//        SpringApplication.run(ClientStarter.class, args);
+        Application.launch(GuiApplication.class, args);
 
     }
 
