@@ -19,6 +19,8 @@
         <value.spring.datasource.driverClassName>org.h2.Driver</value.spring.datasource.driverClassName>
         <value.spring.jpa.database-platform>org.hibernate.dialect.H2Dialect</value.spring.jpa.database-platform>
         <value.spring.jpa.hibernate.ddl-auto>create</value.spring.jpa.hibernate.ddl-auto>
+
+        <value.spring.gui.stage.title>${project.version}</value.spring.gui.stage.title>
     </properties>
 
     <dependencies>
@@ -68,11 +70,6 @@
             <groupId>com.passnail</groupId>
             <artifactId>passnail.gui</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${version.javafx.graphics}</version>
         </dependency>
 
     </dependencies>

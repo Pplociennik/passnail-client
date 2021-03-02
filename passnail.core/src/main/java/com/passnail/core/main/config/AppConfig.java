@@ -4,7 +4,7 @@ import com.passnail.connect.ConnectModuleConfig;
 import com.passnail.data.DataServiceModuleConfig;
 import com.passnail.data.access.model.DataAccessModuleConfig;
 import com.passnail.data.model.DataModelModuleConfig;
-import com.passnail.gui.config.GuiModuleConfig;
+import com.passnail.gui.GuiModuleConfig;
 import com.passnail.security.SecurityModuleConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;

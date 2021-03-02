@@ -11,5 +11,17 @@
 
     <artifactId>passnail.gui</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${version.javafx}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${version.javafx}</version>
+        </dependency>
+    </dependencies>
 
 </project>
