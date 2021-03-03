@@ -1,20 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<TabPane id="authTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="com.passnail.gui.control.AuthController">
-  <tabs>
-    <Tab id="authLoginTab" text="Login">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
-    <Tab id="authRegisterTab" text="Register">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
-  </tabs>
-</TabPane>
+<AnchorPane id="root" fx:id="root" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.passnail.gui.control.AuthController">
+   <children>
+      <TabPane id="authTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab id="authLoginTab" text="Login">
+               <content>
+                  <SplitPane dividerPositions="0.5" pickOnBounds="false" prefHeight="160.0" prefWidth="200.0">
+                    <items>
+                      <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="400.0">
+                           <children>
+                              <TextField id="loginField" layoutX="200.0" layoutY="97.0" />
+                              <TextField id="passwordField" layoutX="200.0" layoutY="161.0" />
+                              <TextField id="onlineIdField" layoutX="200.0" layoutY="218.0" />
+                              <Label layoutX="73.0" layoutY="101.0" text="Login/Email*" textAlignment="CENTER" />
+                              <Label layoutX="73.0" layoutY="165.0" text="Password*" textAlignment="CENTER" />
+                              <Label layoutX="73.0" layoutY="222.0" text="OnlineID" textAlignment="CENTER" />
+                              <Label layoutX="156.0" layoutY="14.0" text="Login">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label id="errorLabel" layoutX="16.0" layoutY="250.0" prefHeight="43.0" prefWidth="360.0" textAlignment="JUSTIFY" />
+                              <Button id="loginButton" layoutX="115.0" layoutY="308.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="162.0" text="Login" />
+                           </children></AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="14.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@testIMG.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="14.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@testIMG.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="14.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@testIMG.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="TOP_LEFT" layoutX="44.0" layoutY="89.0" prefHeight="60.0" prefWidth="144.0" text="A login or email address connected with your local profile." wrapText="true" />
+                              <Label alignment="TOP_LEFT" layoutX="45.0" layoutY="148.0" prefHeight="46.0" prefWidth="146.0" text="A password connected with your user profile." wrapText="true" />
+                              <Label alignment="TOP_LEFT" layoutX="44.0" layoutY="210.0" prefHeight="75.0" prefWidth="147.0" text="This is optional. Use it if you are logging on a new machine and had online synchronization enabled." wrapText="true" />
+                           </children></AnchorPane>
+                    </items>
+                  </SplitPane>
+               </content>
+          </Tab>
+          <Tab id="authRegisterTab" text="Register">
+               <content>
+                  <SplitPane dividerPositions="0.625" pickOnBounds="false" prefHeight="160.0" prefWidth="200.0">
+                    <items>
+                      <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="400.0">
+                           <children>
+                              <Label layoutX="135.0" layoutY="14.0" text="Register">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="loginField" layoutX="191.0" layoutY="78.0" />
+                              <TextField id="emailField" layoutX="191.0" layoutY="124.0" />
+                              <TextField id="passwordField" layoutX="191.0" layoutY="173.0" />
+                              <TextField id="repeatPasswordField" layoutX="191.0" layoutY="221.0" />
+                              <Label layoutX="28.0" layoutY="262.0" prefHeight="39.0" prefWidth="333.0" />
+                              <Button id="registerButton" layoutX="110.0" layoutY="308.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="162.0" text="Register" />
+                              <Label layoutX="83.0" layoutY="82.0" text="Login*" />
+                              <Label layoutX="84.0" layoutY="128.0" text="Email*" />
+                              <Label layoutX="73.0" layoutY="177.0" text="Password*" />
+                              <Label layoutX="53.0" layoutY="225.0" text="Repeat password*" />
+                           </children></AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="14.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@testIMG.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="14.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@testIMG.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="14.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@testIMG.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="14.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@testIMG.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="55.0" layoutY="64.0" prefHeight="41.0" prefWidth="134.0" text="A login being a username of your profile." wrapText="true" />
+                              <Label layoutX="53.0" layoutY="111.0" prefHeight="32.0" prefWidth="138.0" text="An email address." wrapText="true" />
+                              <Label layoutX="53.0" layoutY="155.0" prefHeight="53.0" prefWidth="138.0" text="Min. length 8, at least 1: digit, special character, lower/upper case letter." wrapText="true" />
+                              <Label layoutX="53.0" layoutY="218.0" prefHeight="35.0" prefWidth="138.0" text="Must be the same as password." wrapText="true" />
+                           </children></AnchorPane>
+                    </items>
+                  </SplitPane>
+               </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

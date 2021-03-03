@@ -1,6 +1,9 @@
 package com.passnail.gui.control;
 
+import com.passnail.gui.GuiConstants;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -11,7 +14,11 @@ import java.util.ResourceBundle;
  * Project: passnail-client
  */
 @Component
-public class AuthController {
+public class AuthController implements Initializable {
+
+
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private ResourceBundle resources;
@@ -19,8 +26,11 @@ public class AuthController {
     @FXML
     private URL location;
 
-    @FXML
-    void initialize() {
+    private GuiConstants constants = GuiConstants.INSTANCE;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 }

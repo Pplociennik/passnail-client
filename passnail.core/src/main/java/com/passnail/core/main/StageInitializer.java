@@ -21,9 +21,11 @@ import static com.passnail.core.main.GuiApplication.StageReadyEvent;
 @Component
 public class StageInitializer implements ApplicationListener<StageReadyEvent> {
 
-    @Value("classpath:/splash.fxml")
-    private Resource guiResource;
+    @Value("classpath:/auth.fxml")
+    private Resource authResource;
+
     private String applicationTitle;
+
     private ApplicationContext applicationContext;
 
     public StageInitializer(@Value("${spring.gui.stage.title}") String applicationTitle, ApplicationContext applicationContext) {
@@ -35,14 +37,13 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     public void onApplicationEvent(StageReadyEvent stageReadyEvent) {
         FXMLLoader fxmlLoader = null;
         try {
-            fxmlLoader = new FXMLLoader(guiResource.getURL());
+            fxmlLoader = new FXMLLoader(authResource.getURL());
             fxmlLoader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
-
 
             Parent parent = fxmlLoader.load();
             Stage stage = stageReadyEvent.getStage();
             stage.setTitle(applicationTitle);
-            stage.setScene(new Scene(parent, 800, 600));
+            stage.setScene(new Scene(parent, 600, 400));
             stage.show();
 
         } catch (IOException e) {
@@ -50,4 +51,5 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
             throw new RuntimeException();
         }
     }
+
 }
