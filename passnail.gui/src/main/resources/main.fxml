@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.passnail.gui.control.MainController">
+   <children>
+      <SplitPane dividerPositions="0.12" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="27.0" minWidth="600.0" orientation="VERTICAL" prefHeight="27.0" prefWidth="600.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label fx:id="mainPaneHelpLabel" alignment="CENTER" layoutX="-3.0" layoutY="1.0" prefHeight="17.0" prefWidth="600.0" textAlignment="CENTER" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.7582781456953642" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="376.0" minWidth="600.0" prefHeight="376.0" prefWidth="600.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <AnchorPane layoutX="365.0" prefHeight="374.0" prefWidth="85.0">
+                     <children>
+                        <Button fx:id="toolsBarNewCredentialsButton" layoutX="17.0" layoutY="35.0" maxHeight="52.0" maxWidth="52.0" minHeight="52.0" minWidth="52.0" mnemonicParsing="false" onMouseClicked="#newCredentialsButtonOnMouseClicked" onMouseEntered="#newCredentialsButtonOnMouseEntered" onMouseExited="#newCredentialsButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                           <graphic>
+                              <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@test_New_Credes.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="toolsBarQuickPasswordButton" layoutX="17.0" layoutY="281.0" maxHeight="52.0" maxWidth="52.0" minHeight="52.0" minWidth="52.0" mnemonicParsing="false" onMouseClicked="#quickPasswordOnMouseClicked" onMouseEntered="#quickPasswordOnMouseEntered" onMouseExited="#quickPasswordOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                           <graphic>
+                              <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@test_Quick_Pass.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="toolsBarShowLibraryButton" layoutX="17.0" layoutY="195.0" maxHeight="52.0" maxWidth="52.0" minHeight="52.0" minWidth="52.0" mnemonicParsing="false" onMouseClicked="#showLibraryButtonOnMouseClicked" onMouseEntered="#showLibraryButtonOnMouseEntered" onMouseExited="#showLibraryButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                           <graphic>
+                              <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@test_Show_Lib.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="toolsBarGeneratorSettingsButton" layoutX="17.0" layoutY="117.0" maxHeight="52.0" maxWidth="52.0" minHeight="52.0" minWidth="52.0" mnemonicParsing="false" onMouseClicked="#generatorSettingsButtonOnMouseClicked" onMouseEntered="#generatorSettingsOnMouseEntered" onMouseExited="#generatorSettingsOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                           <graphic>
+                              <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@test_Gen_Setts.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="374.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                     </children>
+                  </AnchorPane>
+                  <ListView fx:id="mainPaneLastCredsList" layoutY="-6.0" prefHeight="382.0" prefWidth="200.0" />
+                  <ImageView fitHeight="186.0" fitWidth="169.0" layoutX="200.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@test_Logo.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="128.0" layoutY="98.0" rotate="90.0" text="Last credentials...">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="userBarLogin" alignment="CENTER" layoutX="11.0" layoutY="35.0" prefHeight="19.0" prefWidth="125.0" text="&lt;username&gt;" textAlignment="CENTER" />
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="70.0" text="OnlineID:" textAlignment="CENTER" />
+                  <Label fx:id="userBarOnlineIdLabel" alignment="CENTER" layoutX="58.0" layoutY="70.0" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" />
+                  <Line endX="100.0" layoutX="42.0" layoutY="147.0" startX="-48.0" />
+                  <Label layoutX="7.0" layoutY="106.0" text="Passwords:" />
+                  <Label fx:id="userBarPasswordsLabel" alignment="CENTER" layoutX="65.0" layoutY="106.0" prefHeight="17.0" prefWidth="78.0" textAlignment="CENTER" />
+                  <Button fx:id="userBarLogoutButton" layoutX="39.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#logoutUser" onMouseEntered="#logoutButtonOnMouseEntered" onMouseExited="#logoutButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@test_Logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="userBarSettingsButton" layoutX="39.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#settingsButtonOnMouseClicked" onMouseEntered="#settingsButtonOnMouseEntered" onMouseExited="#settingsButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@test_Settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff09" height="60.0" layoutX="35.0" layoutY="197.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff09" height="60.0" layoutX="35.0" layoutY="281.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff0c" height="27.0" layoutX="7.0" layoutY="31.0" stroke="BLACK" strokeType="INSIDE" width="132.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

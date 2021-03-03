@@ -3,10 +3,12 @@ package com.passnail.gui.control;
 import com.passnail.common.throwable.security.AuthenticationException;
 import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
-import com.passnail.gui.GuiConstants;
 import com.passnail.security.service.AuthenticationServiceIf;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -14,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -66,7 +69,7 @@ public class AuthController implements Initializable {
 
 
     @FXML
-    void loginUser(MouseEvent event) {
+    void loginUser(MouseEvent event) throws IOException {
 
         try {
             authenticationService.authenticateUser(createLoginDto());
@@ -75,10 +78,12 @@ public class AuthController implements Initializable {
                 loginErrorLabel.setText(e.getMessage());
             });
         }
+
+        switchScene();
     }
 
     @FXML
-    void registerUser(MouseEvent event) {
+    void registerUser(MouseEvent event) throws IOException {
 
         try {
             authenticationService.registerNewUserProfile(createRegistrationDto());
@@ -92,6 +97,8 @@ public class AuthController implements Initializable {
                 registrationRptPasswordField.setText("");
             });
         }
+
+        switchScene();
     }
 
     private RegistrationDto createRegistrationDto() {
@@ -103,8 +110,23 @@ public class AuthController implements Initializable {
                 .build();
     }
 
-    private GuiConstants constants = GuiConstants.INSTANCE;
+    private void switchScene() throws IOException {
 
+        run(() -> {
+            var mainResource = this.getClass().getResource("/main.fxml");
+            Parent parent = null;
+            try {
+                parent = new FXMLLoader(mainResource).load();
+                Scene scene = root.getScene();
+                scene.setRoot(parent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
