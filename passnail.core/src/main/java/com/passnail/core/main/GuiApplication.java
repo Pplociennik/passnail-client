@@ -1,5 +1,7 @@
 package com.passnail.core.main;
 
+import com.passnail.gui.config.FxmlView;
+import com.passnail.gui.control.tools.StageManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,6 +16,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class GuiApplication extends Application {
 
     private ConfigurableApplicationContext applicationContext;
+    protected StageManager stageManager;
 
     @Override
     public void init() {
@@ -28,17 +31,23 @@ public class GuiApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-        String[] args = getParameters().getRaw().toArray(new String[0]);
-        applicationContext.publishEvent(new StageReadyEvent(stage));
+//        String[] args = getParameters().getRaw().toArray(new String[0]);
+//        applicationContext.publishEvent(new StageReadyEvent(stage));
+        stageManager = applicationContext.getBean(StageManager.class, stage);
+        displayInitialScene();
     }
 
-    static class StageReadyEvent extends ApplicationEvent {
-        public StageReadyEvent(Stage stage) {
-            super(stage);
-        }
-
-        public Stage getStage() {
-            return ((Stage) getSource());
-        }
+    protected void displayInitialScene() {
+        stageManager.switchScene(FxmlView.AUTH);
     }
+
+//    static class StageReadyEvent extends ApplicationEvent {
+//        public StageReadyEvent(Stage stage) {
+//            super(stage);
+//        }
+//
+//        public Stage getStage() {
+//            return ((Stage) getSource());
+//        }
+//    }
 }
