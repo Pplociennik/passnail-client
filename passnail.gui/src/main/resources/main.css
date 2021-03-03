@@ -5,3 +5,9 @@
 .label {
     -fx-font-size: 35;
 }
+
+.errorLabel {
+    -fx-alignment: center;
+    -fx-font-size: 12;
+    -fx-color-label-visible: red;
+}
