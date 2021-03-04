@@ -33,4 +33,10 @@ public interface JWTServiceIf {
      * @return An online token.
      */
     String createOnlineToken(LoginDto aDto);
+
+    String getAuthorizedUserName(String aToken, String aKey);
+
+    String getAuthorizedOnlineId(String aOnlineToken, String aKey);
+
+
 }

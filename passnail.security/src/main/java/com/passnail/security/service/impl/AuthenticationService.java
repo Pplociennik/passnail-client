@@ -53,6 +53,9 @@ public class AuthenticationService implements AuthenticationServiceIf {
         sessionData.setToken(UNAUTHORIZED_TOKEN_SESSION_DATA);
         sessionData.setOnlineToken(UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA);
         sessionData.setPassword(UNAUTHORIZED_PASSWORD_SESSION_DATA);
+        sessionData.setAuthorizedOnlineId(UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA);
+        sessionData.setAuthorizedUsername(UNAUTHORIZED_USERNAME_SESSION_DATA);
+        sessionData.setAuthorizedPassNumber(String.valueOf(0));
 
         if (aTestDb) {
             switcher.switchToTestDatabase();

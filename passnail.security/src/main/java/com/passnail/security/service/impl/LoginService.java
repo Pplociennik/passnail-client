@@ -60,6 +60,14 @@ public class LoginService implements LoginServiceIf {
         sessionData.setPassword(aDto.getPassword());
         sessionData.setToken(jwtService.createToken(aDto));
         sessionData.setOnlineToken(getOnlineToken(aDto));
+        sessionData.setAuthorizedUsername(getLogin(aDto));
+        sessionData.setAuthorizedOnlineId(aDto.getOnlineID());
+        sessionData.setAuthorizedPassNumber(
+                String.valueOf(
+                        userService.findByLogin(
+                                getLogin(aDto)
+                        )
+                                .getSavedCredentials().size()));
     }
 
     private String getOnlineToken(LoginDto aDto) {
@@ -79,5 +87,11 @@ public class LoginService implements LoginServiceIf {
 
     private Boolean validateOnlineId(String onlineID) {
         return onlineID != null;
+    }
+
+    private String getLogin(LoginDto aDto) {
+        return !aDto.getLoginOrEmail().contains("@") ?
+                aDto.getLoginOrEmail() :
+                userService.findByEmail(aDto.getLoginOrEmail()).getLogin();
     }
 }

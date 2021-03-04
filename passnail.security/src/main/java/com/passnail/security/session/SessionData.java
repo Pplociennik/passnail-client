@@ -1,5 +1,6 @@
 package com.passnail.security.session;
 
+import com.passnail.security.SecurityConstants;
 import lombok.Getter;
 
 import static com.passnail.security.SecurityConstants.*;
@@ -16,6 +17,10 @@ public enum SessionData {
     INSTANCE();
 
     SessionData() {
+        this.authorizedUsername = SecurityConstants.UNAUTHORIZED_USERNAME_SESSION_DATA;
+        this.authorizedOnlineId = authorizedOnlineId = UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA;
+        this.authorizedPassNumber = authorizedPassNumber = String.valueOf(0);
+
         this.token = UNAUTHORIZED_TOKEN_SESSION_DATA;
         this.onlineToken = UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA;
         this.password = UNAUTHORIZED_PASSWORD_SESSION_DATA;
@@ -36,6 +41,12 @@ public enum SessionData {
      */
     private String password;
 
+    private String authorizedUsername;
+
+    private String authorizedOnlineId;
+
+    private String authorizedPassNumber;
+
 
     public void setToken(String token) {
         this.token = token;
@@ -47,5 +58,17 @@ public enum SessionData {
 
     public void setOnlineToken(String onlineToken) {
         this.onlineToken = onlineToken;
+    }
+
+    public void setAuthorizedUsername(String authorizedUsername) {
+        this.authorizedUsername = authorizedUsername;
+    }
+
+    public void setAuthorizedOnlineId(String authorizedOnlineId) {
+        this.authorizedOnlineId = authorizedOnlineId;
+    }
+
+    public void setAuthorizedPassNumber(String authorizedPassNumber) {
+        this.authorizedPassNumber = authorizedPassNumber;
     }
 }

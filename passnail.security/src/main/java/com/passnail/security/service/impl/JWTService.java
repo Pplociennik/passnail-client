@@ -107,4 +107,30 @@ public class JWTService implements JWTServiceIf {
 
         return token;
     }
+
+    @Override
+    public String getAuthorizedUserName(String aToken, String aKey) {
+        return getTokenSubject(aToken, aKey);
+
+    }
+
+    private String getTokenSubject(String aToken, String aKey) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(aKey.getBytes(StandardCharsets.UTF_8))
+                .parseClaimsJws(aToken)
+                .getBody();
+
+        Algorithm algorithm = HMAC512(aKey);
+
+        JWTVerifier verifier = JWT.require(algorithm)
+                .build();
+        DecodedJWT jwt = verifier.verify(aToken);
+
+        return claims.getSubject();
+    }
+
+    @Override
+    public String getAuthorizedOnlineId(String aOnlineToken, String aKey) {
+        return getTokenSubject(aOnlineToken, aKey);
+    }
 }

@@ -1,14 +1,22 @@
 package com.passnail.gui.control;
 
+import com.passnail.gui.config.FxmlView;
 import com.passnail.gui.control.tools.PlatformUtils;
+import com.passnail.gui.control.tools.StageManager;
+import com.passnail.security.service.AuthenticationServiceIf;
+import com.passnail.security.service.JWTServiceIf;
+import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,6 +28,16 @@ import static com.passnail.gui.GuiConstants.*;
  */
 @Component
 public class MainController implements Initializable {
+
+    @Autowired
+    private JWTServiceIf jwtService;
+
+    @Autowired
+    private AuthenticationServiceIf authenticationService;
+
+    @Autowired
+    @Lazy(value = true)
+    private StageManager stageManager;
 
 
     @FXML
@@ -62,7 +80,7 @@ public class MainController implements Initializable {
     private Button userBarSettingsButton;
 
     @FXML
-    void generatorSettingsButtonOnMouseClicked(MouseEvent event) {
+    void generatorSettingsButtonOnMouseClicked(MouseEvent event) throws IOException {
 
     }
 
@@ -87,8 +105,9 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void logoutUser(MouseEvent event) {
-
+    void logoutUser(MouseEvent event) throws IOException {
+        authenticationService.logout(false);
+        switchToAuthScene();
     }
 
     @FXML
@@ -151,8 +170,24 @@ public class MainController implements Initializable {
         showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 
+    @FXML
+    void onMouseMoved(MouseEvent event) {
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        prepareUserInfo();
+    }
+
+    private void prepareUserInfo() {
+        SessionData sessionData = SessionData.INSTANCE;
+
+        PlatformUtils.run(() -> {
+            userBarLogin.setText(sessionData.getAuthorizedUsername());
+            userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
+            userBarPasswordsLabel.setText(sessionData.getAuthorizedPassNumber());
+        });
 
     }
 
@@ -160,5 +195,9 @@ public class MainController implements Initializable {
         PlatformUtils.run(() -> {
             mainPaneHelpLabel.setText(aMessage);
         });
+    }
+
+    private void switchToAuthScene() throws IOException {
+        stageManager.switchScene(FxmlView.AUTH);
     }
 }

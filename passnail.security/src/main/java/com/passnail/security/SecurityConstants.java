@@ -86,6 +86,8 @@ public class SecurityConstants {
      */
     public static final String DB_TEST_DDL = "create";
 
+    public static final String UNAUTHORIZED_USERNAME_SESSION_DATA = "404_USERNAME";
+
     private SecurityConstants() {
     }
 }

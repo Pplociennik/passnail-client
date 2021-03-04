@@ -3,17 +3,17 @@ package com.passnail.gui.control;
 import com.passnail.common.throwable.security.AuthenticationException;
 import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
+import com.passnail.gui.config.FxmlView;
+import com.passnail.gui.control.tools.StageManager;
 import com.passnail.security.service.AuthenticationServiceIf;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -31,6 +31,10 @@ public class AuthController implements Initializable {
 
     @Autowired
     private AuthenticationServiceIf authenticationService;
+
+    @Autowired
+    @Lazy(value = true)
+    private StageManager stageManager;
 
 
     @FXML
@@ -111,21 +115,7 @@ public class AuthController implements Initializable {
     }
 
     private void switchScene() throws IOException {
-
-        run(() -> {
-            var mainResource = this.getClass().getResource("/main.fxml");
-            Parent parent = null;
-            try {
-                parent = new FXMLLoader(mainResource).load();
-                Scene scene = root.getScene();
-                scene.setRoot(parent);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        });
-
-
+        stageManager.switchScene(FxmlView.MAIN);
     }
 
     @Override
