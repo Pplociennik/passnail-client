@@ -20,13 +20,13 @@ import java.util.ResourceBundle;
 import static com.passnail.gui.GuiConstants.*;
 
 /**
- * Created by: Pszemko at środa, 03.03.2021 20:14
+ * Created by: Pszemko at piątek, 05.03.2021 17:37
  * Project: passnail-client
  */
+//TODO Javadoc
 @Component
 @Lazy(value = true)
-public class MainController implements Initializable {
-
+public class NewCredentialsController implements Initializable {
 
     @Autowired
     private AuthenticationServiceIf authenticationService;
@@ -48,20 +48,69 @@ public class MainController implements Initializable {
     @FXML
     private Label userBarPasswordsLabel;
 
+
     @FXML
-    void generatorSettingsButtonOnMouseClicked(MouseEvent event) throws IOException {
+    void backButtonClicked(MouseEvent event) {
+        switchToMainScene();
+    }
+
+    @FXML
+    void backButtonEntered(MouseEvent event) {
+        showHelpMessage(BACK_BUTTON_HELP_MESSAGE);
+    }
+
+    @FXML
+    void backButtonExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+    @FXML
+    void generatorSettingsButtonClicked(MouseEvent event) throws IOException {
 
     }
 
     @FXML
-    void generatorSettingsOnMouseEntered(MouseEvent event) {
+    void generatorSettingsButtonEntered(MouseEvent event) {
         showHelpMessage(GENERATOR_SETTINGS_BUTTON_HELP_MESSAGE);
     }
 
     @FXML
-    void generatorSettingsOnMouseExited(MouseEvent event) {
+    void generatorSettingsButtonExited(MouseEvent event) {
         showHelpMessage(EMPTY_HELP_MESSAGE);
     }
+
+
+    @FXML
+    void showLibraryButtonClicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void showLibraryButtonEntered(MouseEvent event) {
+        showHelpMessage(SHOW_LIBRARY_BUTTON_HELP_MESSAGE);
+    }
+
+    @FXML
+    void showLibraryButtonExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+
+    @FXML
+    void quickPasswordButtonClicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void quickPasswordButtonEntered(MouseEvent event) {
+        showHelpMessage(QUICK_PASSWORD_BUTTON_HELP_MESSAGE);
+    }
+
+    @FXML
+    void quickPasswordButtonExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
 
     @FXML
     void logoutButtonOnMouseEntered(MouseEvent event) {
@@ -74,44 +123,11 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void logoutUser(MouseEvent event) {
+    void logoutButtonClicked(MouseEvent event) {
         authenticationService.logout(false);
         switchToAuthScene();
     }
 
-    @FXML
-    void newCredentialsButtonOnMouseClicked(MouseEvent event) {
-        switchToNewCredentialsScene();
-    }
-
-    private void switchToNewCredentialsScene() {
-        stageManager.switchScene(FxmlView.NEWCREDENTIALS);
-    }
-
-    @FXML
-    void newCredentialsButtonOnMouseEntered(MouseEvent event) {
-        showHelpMessage(NEW_CREDENTIALS_BUTTON_HELP_MESSAGE);
-    }
-
-    @FXML
-    void newCredentialsButtonOnMouseExited(MouseEvent event) {
-        showHelpMessage(EMPTY_HELP_MESSAGE);
-    }
-
-    @FXML
-    void quickPasswordOnMouseClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void quickPasswordOnMouseEntered(MouseEvent event) {
-        showHelpMessage(QUICK_PASSWORD_BUTTON_HELP_MESSAGE);
-    }
-
-    @FXML
-    void quickPasswordOnMouseExited(MouseEvent event) {
-        showHelpMessage(EMPTY_HELP_MESSAGE);
-    }
 
     @FXML
     void settingsButtonOnMouseClicked(MouseEvent event) {
@@ -128,25 +144,38 @@ public class MainController implements Initializable {
         showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 
+
     @FXML
-    void showLibraryButtonOnMouseClicked(MouseEvent event) {
+    void generatePasswordButtonClicked(MouseEvent event) {
 
     }
 
     @FXML
-    void showLibraryButtonOnMouseEntered(MouseEvent event) {
-        showHelpMessage(SHOW_LIBRARY_BUTTON_HELP_MESSAGE);
+    void generatePasswordButtonEntered(MouseEvent event) {
+        showHelpMessage(GENERATE_NEW_PASSWORD_HELP_MESSAGE);
     }
 
     @FXML
-    void showLibraryButtonOnMouseExited(MouseEvent event) {
+    void generatePasswordButtonExited(MouseEvent event) {
         showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 
+
     @FXML
-    void onMouseMoved(MouseEvent event) {
+    void saveCredentialsButtonClicked(MouseEvent event) {
 
     }
+
+    @FXML
+    void saveCredentialsButtonEntered(MouseEvent event) {
+        showHelpMessage(SAVE_CREDENTIALS_HELP_MESSAGE);
+    }
+
+    @FXML
+    void saveCredentialsButtonExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -172,5 +201,9 @@ public class MainController implements Initializable {
 
     private void switchToAuthScene() {
         stageManager.switchScene(FxmlView.AUTH);
+    }
+
+    private void switchToMainScene() {
+        stageManager.switchScene(FxmlView.MAIN);
     }
 }

@@ -24,6 +24,16 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/auth.fxml";
         }
+    }, NEWCREDENTIALS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("new.creds.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/newpass.fxml";
+        }
     };
 
     public abstract String getTitle();

@@ -11,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -27,6 +26,7 @@ import static com.passnail.gui.control.tools.PlatformUtils.run;
  * Project: passnail-client
  */
 @Component
+@Lazy(value = true)
 public class AuthController implements Initializable {
 
     @Autowired
@@ -36,15 +36,6 @@ public class AuthController implements Initializable {
     @Lazy(value = true)
     private StageManager stageManager;
 
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private AnchorPane root;
 
     @FXML
     private TextField loginLoginField;

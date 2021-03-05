@@ -44,9 +44,6 @@ public class LoginValidationService implements LoginValidationServiceIf {
         if (aLogin == null || aLogin.length() == 0) {
             throw new AuthenticationException("Login not specified!");
         }
-        if (localUserService.localLoginExists(aLogin)) {
-            throw new AuthenticationException("Specified login is not available!");
-        }
         if (!localUserService.localLoginExists(aLogin)) {
             throw new AuthenticationException("User '" + aLogin + "' does not exist!");
         }

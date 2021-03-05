@@ -4,6 +4,7 @@ package com.passnail.gui;
  * Created by: Pszemko at wtorek, 02.03.2021 21:51
  * Project: passnail-client
  */
+//TODO Javadoc
 public class GuiConstants {
 
     public static final String EMPTY_HELP_MESSAGE = "";
@@ -19,6 +20,12 @@ public class GuiConstants {
     public static final String SHOW_LIBRARY_BUTTON_HELP_MESSAGE = "Library. Opens a library of saved passwords.";
 
     public static final String QUICK_PASSWORD_BUTTON_HELP_MESSAGE = "Quick password. Generates a new password and copies it to the clipboard.";
+
+    public static final String BACK_BUTTON_HELP_MESSAGE = "Back to main view.";
+
+    public static final String GENERATE_NEW_PASSWORD_HELP_MESSAGE = "Generate a new password.";
+
+    public static final String SAVE_CREDENTIALS_HELP_MESSAGE = "Save credentials to database.";
 
     private GuiConstants() {
     }

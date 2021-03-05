@@ -9,20 +9,19 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#onMouseMoved" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.passnail.gui.control.MainController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#onMouseMoved" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.passnail.gui.control.MainController">
    <children>
-      <SplitPane dividerPositions="0.12" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="27.0" minWidth="600.0" orientation="VERTICAL" prefHeight="27.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.12" layoutY="373.0" orientation="VERTICAL" pickOnBounds="false" prefHeight="27.0" prefWidth="600.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="598.0">
                <children>
-                  <Label fx:id="mainPaneHelpLabel" alignment="CENTER" layoutX="-3.0" layoutY="1.0" prefHeight="17.0" prefWidth="600.0" textAlignment="CENTER" />
+                  <Label fx:id="mainPaneHelpLabel" alignment="CENTER" layoutX="-3.0" layoutY="1.0" prefHeight="17.0" prefWidth="598.0" textAlignment="CENTER" />
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.7582781456953642" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="376.0" minWidth="600.0" prefHeight="376.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.7583" pickOnBounds="false" prefHeight="376.0" prefWidth="600.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
@@ -73,7 +72,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="140.0">
                <children>
                   <Label fx:id="userBarLogin" alignment="CENTER" layoutX="11.0" layoutY="35.0" prefHeight="19.0" prefWidth="125.0" text="&lt;username&gt;" textAlignment="CENTER">
                      <font>
@@ -81,7 +80,10 @@
                      </font>
                   </Label>
                   <Label alignment="CENTER" layoutX="7.0" layoutY="70.0" text="OnlineID:" textAlignment="CENTER" />
-                  <Label fx:id="userBarOnlineIdLabel" alignment="CENTER" layoutX="58.0" layoutY="70.0" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" />
+                  <Label fx:id="userBarOnlineIdLabel" alignment="CENTER" layoutX="58.0" layoutY="70.0" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <Line endX="100.0" layoutX="42.0" layoutY="147.0" startX="-48.0" />
                   <Label layoutX="7.0" layoutY="106.0" text="Passwords:" />
                   <Label fx:id="userBarPasswordsLabel" alignment="CENTER" layoutX="65.0" layoutY="106.0" prefHeight="17.0" prefWidth="78.0" textAlignment="CENTER" />

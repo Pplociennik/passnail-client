@@ -48,7 +48,7 @@ public class SecurityConstants {
     /**
      * A default value for default local user authentication database's url.
      */
-    public static final String DB_DEFAULT_AUTH_URL = "jdbc:h2:file:./data/UNAuthenDB.mv";
+    public static final String DB_DEFAULT_AUTH_URL = "jdbc:h2:file:./data/UNAuthenDB";
 
     /**
      * A default value for default local user authentication database's username.
