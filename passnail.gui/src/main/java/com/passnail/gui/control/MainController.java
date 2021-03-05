@@ -1,8 +1,11 @@
 package com.passnail.gui.control;
 
+import com.passnail.generator.GeneratorManagerServiceIf;
+import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
 import com.passnail.gui.config.FxmlView;
 import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
+import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
 import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,8 +36,13 @@ public class MainController implements Initializable {
     private AuthenticationServiceIf authenticationService;
 
     @Autowired
+    private GeneratorManagerServiceIf generatorManagerService;
+
+    @Autowired
     @Lazy(value = true)
     private StageManager stageManager;
+
+    String password;
 
 
     @FXML
@@ -99,8 +108,11 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void quickPasswordOnMouseClicked(MouseEvent event) {
+    void quickPasswordOnMouseClicked(MouseEvent event) throws IOException, AWTException {
+        PasswordGeneratorManagerIf manager = generatorManagerService.createDefaultPasswordGeneratorManagerWithDefaultPropertiesLoaded();
+        password = manager.generateNewPassword();
 
+        new SystemClipboardManager().copyTextToTheClipboard(password);
     }
 
     @FXML
