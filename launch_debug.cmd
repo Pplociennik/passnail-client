@@ -10,4 +10,4 @@ set AUTH_DB_LOGIN=%USERNAME%
 set AUTH_DB_PASSWORD=%COMPUTERNAME%
 
 cd passnail.core/target
-java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8001,suspend=y -jar -jar passnail.core-0.0.1-SNAPSHOT.jar %PROJECT_ENV_PATH%\passnail.core %PROJECT_DB_PATH% %AUTH_DB_LOGIN% %AUTH_DB_PASSWORD% 
+java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=8001,suspend=y -jar -jar passnail.core-0.0.1-SNAPSHOT.jar %PROJECT_ENV_PATH%\passnail.generator %PROJECT_DB_PATH% %AUTH_DB_LOGIN% %AUTH_DB_PASSWORD% 

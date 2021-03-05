@@ -1,13 +1,11 @@
 package com.passnail.gui;
 
+import com.passnail.generator.GeneratorModuleConfig;
 import com.passnail.gui.config.SpringFXMLLoader;
 import com.passnail.gui.control.tools.StageManager;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.*;
 
 import java.util.ResourceBundle;
 
@@ -17,6 +15,7 @@ import java.util.ResourceBundle;
  */
 @Configuration
 @ComponentScan
+@Import({GeneratorModuleConfig.class})
 public class GuiModuleConfig {
 
     @Autowired

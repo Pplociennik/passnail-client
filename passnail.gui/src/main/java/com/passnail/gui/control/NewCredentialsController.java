@@ -1,5 +1,7 @@
 package com.passnail.gui.control;
 
+import com.passnail.generator.GeneratorManagerServiceIf;
+import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
 import com.passnail.gui.config.FxmlView;
 import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
@@ -8,6 +10,8 @@ import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -32,8 +36,13 @@ public class NewCredentialsController implements Initializable {
     private AuthenticationServiceIf authenticationService;
 
     @Autowired
+    private GeneratorManagerServiceIf generatorManagerService;
+
+    @Autowired
     @Lazy(value = true)
     private StageManager stageManager;
+
+    String password;
 
 
     @FXML
@@ -47,6 +56,21 @@ public class NewCredentialsController implements Initializable {
 
     @FXML
     private Label userBarPasswordsLabel;
+
+    @FXML
+    private TextField urlField;
+
+    @FXML
+    private TextField shortNameField;
+
+    @FXML
+    private TextField passwordField;
+
+    @FXML
+    private TextField loginField;
+
+    @FXML
+    private TextArea descriptionArea;
 
 
     @FXML
@@ -146,8 +170,13 @@ public class NewCredentialsController implements Initializable {
 
 
     @FXML
-    void generatePasswordButtonClicked(MouseEvent event) {
+    void generatePasswordButtonClicked(MouseEvent event) throws IOException {
+        PasswordGeneratorManagerIf manager = generatorManagerService.createDefaultPasswordGeneratorManagerWithDefaultPropertiesLoaded();
+        password = manager.generateNewPassword();
 
+        PlatformUtils.run(() -> {
+            passwordField.setText(password);
+        });
     }
 
     @FXML
