@@ -31,11 +31,6 @@
 
         <dependency>
             <groupId>com.passnail</groupId>
-            <artifactId>passnail.generator</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.passnail</groupId>
             <artifactId>passnail.connect.service</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
@@ -105,7 +100,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.passnail.core.main.ClientStarter</mainClass>
+                            <mainClass>com.passnail.generator.main.ClientStarter</mainClass>
                         </configuration>
                     </execution>
                 </executions>

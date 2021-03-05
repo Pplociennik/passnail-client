@@ -18,6 +18,11 @@
             <artifactId>passay</artifactId>
             <version>${version.passay}</version>
         </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
