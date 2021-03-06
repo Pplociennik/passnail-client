@@ -73,7 +73,7 @@
                         <Image url="@test_New_Pass.png" />
                      </image>
                   </ImageView>
-                  <Button alignment="CENTER" layoutX="44.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editButtonOnMouseClicked" onMouseEntered="#editButtonOnMouseEntered" onMouseExited="#editButtonOnMouseExited" prefHeight="25.0" prefWidth="59.0" text="Edit" textAlignment="CENTER" />
+                  <Button alignment="CENTER" disable="true" layoutX="44.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editButtonOnMouseClicked" onMouseEntered="#editButtonOnMouseEntered" onMouseExited="#editButtonOnMouseExited" prefHeight="25.0" prefWidth="59.0" text="Edit" textAlignment="CENTER" />
                   <Button alignment="CENTER" layoutX="275.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="25.0" minWidth="59.0" mnemonicParsing="false" onMouseClicked="#removeButtonOnMouseClicked" onMouseEntered="#removeButtonOnMouseEntered" onMouseExited="#removeButtonOnMouseExited" prefHeight="25.0" prefWidth="59.0" text="Remove" textAlignment="CENTER" />
                   <TextArea fx:id="descriptionArea" editable="false" layoutX="185.0" layoutY="44.0" onMouseEntered="#descriptionAreaOnMouseEntered" onMouseExited="#descriptionAreaOnMouseExited" prefHeight="98.0" prefWidth="149.0" wrapText="true" />
                   <TextField fx:id="shortNameField" editable="false" layoutX="185.0" layoutY="163.0" onMouseEntered="#shortNameFieldOnMouseEntered" onMouseExited="#shortNameFieldOnMouseExited" />

@@ -33,7 +33,7 @@ public class GuiConstants {
 
     public static final String REMOVE_BUTTON_HELP_MESSAGE = "Remove credentials from the database.";
 
-    public static final String EDIT_BUTTON_HELP_MESSAGE = "Edit credentials in the database.";
+    public static final String EDIT_BUTTON_HELP_MESSAGE = /*"Edit credentials in the database."*/ "NOT_AVAILABLE";
 
     public static final String ADD_BUTTON_HELP_MESSAGE = "Add new credentials to the database.";
 

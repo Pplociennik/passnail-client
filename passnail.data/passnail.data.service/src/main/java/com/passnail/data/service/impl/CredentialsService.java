@@ -41,7 +41,7 @@ public class CredentialsService implements CredentialsServiceIf {
     public void sendNewCredentialsToLocalDatabase(CredentialsDto aCredentialsDto, String aUserLogin, String aPass) {
 
         UserEntity user = userRepository.findByLogin(aUserLogin);
-        var newCredentials = mapCredentialsDtoToCredentialsEntity(aCredentialsDto, aUserLogin, user, aPass);
+        var newCredentials = mapCredentialsDtoToCredentialsEntity(aCredentialsDto, user, aPass);
         user.getSavedCredentials().add(newCredentials);
 
         userRepository.save(user);
@@ -50,7 +50,7 @@ public class CredentialsService implements CredentialsServiceIf {
     }
 
 
-    private CredentialsEntity mapCredentialsDtoToCredentialsEntity(CredentialsDto aCredentialsDto, String aUserLogin, UserEntity aUser, String aPass) {
+    private CredentialsEntity mapCredentialsDtoToCredentialsEntity(CredentialsDto aCredentialsDto, UserEntity aUser, String aPass) {
 
         var encryptionKey = prepareKey(aPass);
         var encryptionSalt = prepareSalt(aPass);
@@ -70,7 +70,7 @@ public class CredentialsService implements CredentialsServiceIf {
                 .creationDate(creationDate)
                 .description(encryptedDescription)
                 .lastModificationDate(creationDate)
-                .login(encrypt(aUserLogin, encryptionKey, encryptionSalt))
+                .login(encrypt(aCredentialsDto.getLogin(), encryptionKey, encryptionSalt))
                 .password(encryptedPassword)
                 .url(encryptedUrl)
                 .build();
