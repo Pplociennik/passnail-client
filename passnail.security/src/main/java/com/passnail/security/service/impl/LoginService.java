@@ -7,6 +7,7 @@ import com.passnail.security.SecurityConstants;
 import com.passnail.security.service.JWTServiceIf;
 import com.passnail.security.service.LoginServiceIf;
 import com.passnail.security.service.LoginValidationServiceIf;
+import com.passnail.security.session.SavedCredentialsSessionDataService;
 import com.passnail.security.session.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class LoginService implements LoginServiceIf {
 
     @Autowired
     private UserServiceIf userService;
+
+    @Autowired
+    private SavedCredentialsSessionDataService sessionDataService;
 
 
     @Override
@@ -61,13 +65,8 @@ public class LoginService implements LoginServiceIf {
         sessionData.setToken(jwtService.createToken(aDto));
         sessionData.setOnlineToken(getOnlineToken(aDto));
         sessionData.setAuthorizedUsername(getLogin(aDto));
-        sessionData.setAuthorizedOnlineId(aDto.getOnlineID());
-        sessionData.setAuthorizedPassNumber(
-                String.valueOf(
-                        userService.findByLogin(
-                                getLogin(aDto)
-                        )
-                                .getSavedCredentials().size()));
+
+        sessionDataService.refreshAuthorizedUserSavedCredentialsData();
     }
 
     private String getOnlineToken(LoginDto aDto) {

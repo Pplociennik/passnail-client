@@ -22,8 +22,8 @@ public enum SessionData {
 
     SessionData() {
         this.authorizedUsername = SecurityConstants.UNAUTHORIZED_USERNAME_SESSION_DATA;
-        this.authorizedOnlineId = authorizedOnlineId = UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA;
-        this.authorizedPassNumber = authorizedPassNumber = String.valueOf(0);
+        this.authorizedOnlineId = UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA;
+        this.authorizedPassNumber = String.valueOf(0);
         this.authorizedUserSavedCredentials = Collections.emptyList();
 
         this.token = UNAUTHORIZED_TOKEN_SESSION_DATA;
@@ -82,4 +82,5 @@ public enum SessionData {
     public void setAuthorizedUserSavedCredentials(List<CredentialsDto> authorizedUserSavedCredentials) {
         this.authorizedUserSavedCredentials = authorizedUserSavedCredentials;
     }
+
 }

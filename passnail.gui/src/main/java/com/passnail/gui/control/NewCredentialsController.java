@@ -10,6 +10,7 @@ import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
 import com.passnail.security.service.AuthorizationServiceIf;
+import com.passnail.security.session.SavedCredentialsSessionDataService;
 import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,6 +51,9 @@ public class NewCredentialsController implements Initializable {
 
     @Autowired
     private AuthorizationServiceIf authorizationService;
+
+    @Autowired
+    private SavedCredentialsSessionDataService sessionDataService;
 
     @Autowired
     @Lazy(value = true)
@@ -228,7 +232,9 @@ public class NewCredentialsController implements Initializable {
 
         authorizationService.getAuthorizedUserCredentials();
 
-        switchToMainScene();
+        sessionDataService.refreshAuthorizedUserSavedCredentialsData();
+
+        switchToLibraryScene();
     }
 
     private String validateShortname() {

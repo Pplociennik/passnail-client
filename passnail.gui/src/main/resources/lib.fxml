@@ -85,6 +85,15 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button layoutX="323.0" layoutY="296.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#openButtonOnClicked" onMouseEntered="#openButtonOnEntered" onMouseExited="#openButtonOnExited" prefHeight="36.0" prefWidth="36.0">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@open_Button.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="140.0">

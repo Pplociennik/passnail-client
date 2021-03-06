@@ -37,6 +37,8 @@ public class GuiConstants {
 
     public static final String ADD_BUTTON_HELP_MESSAGE = "Add new credentials to the database.";
 
+    public static final String OPEN_BUTTON_HELP_MESSAGE = "Open a selected credentials.";
+
     private GuiConstants() {
     }
 }

@@ -1,17 +1,16 @@
 package com.passnail.gui.control;
 
-import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.service.CredentialsServiceIf;
 import com.passnail.data.service.UserServiceIf;
-import com.passnail.data.service.impl.UserService;
 import com.passnail.data.transfer.model.dto.CredentialsDto;
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
-import com.passnail.gui.GuiConstants;
 import com.passnail.gui.config.FxmlView;
+import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
+import com.passnail.security.session.SavedCredentialsSessionDataService;
 import com.passnail.security.session.SessionData;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,6 +50,9 @@ public class LibraryController implements Initializable {
 
     @Autowired
     private UserServiceIf userService;
+
+    @Autowired
+    private SavedCredentialsSessionDataService sessionDataService;
 
     @Autowired
     @Lazy(value = true)
@@ -190,7 +192,7 @@ public class LibraryController implements Initializable {
 
     @FXML
     void addButtonOnMouseEntered(MouseEvent event) {
-        showHelpMessage(GuiConstants.ADD_BUTTON_HELP_MESSAGE);
+        showHelpMessage(ADD_BUTTON_HELP_MESSAGE);
     }
 
     @FXML
@@ -206,7 +208,7 @@ public class LibraryController implements Initializable {
 
     @FXML
     void editButtonOnMouseEntered(MouseEvent event) {
-        showHelpMessage(GuiConstants.EDIT_BUTTON_HELP_MESSAGE);
+        showHelpMessage(EDIT_BUTTON_HELP_MESSAGE);
     }
 
     @FXML
@@ -222,7 +224,7 @@ public class LibraryController implements Initializable {
 
     @FXML
     void removeButtonOnMouseEntered(MouseEvent event) {
-        showHelpMessage(GuiConstants.REMOVE_BUTTON_HELP_MESSAGE);
+        showHelpMessage(REMOVE_BUTTON_HELP_MESSAGE);
     }
 
     @FXML
@@ -262,6 +264,9 @@ public class LibraryController implements Initializable {
 
         run(() -> {
 
+            sessionDataService.refreshAuthorizedUserSavedCredentialsData();
+            refreshGui();
+
             SessionData sessionData = SessionData.INSTANCE;
             ObservableList list = credentialsList.getItems();
 
@@ -285,6 +290,21 @@ public class LibraryController implements Initializable {
         showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 
+    @FXML
+    void openButtonOnClicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void openButtonOnEntered(MouseEvent event) {
+        showHelpMessage(OPEN_BUTTON_HELP_MESSAGE);
+    }
+
+    @FXML
+    void openButtonOnExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
     private void switchToMainScene() {
         stageManager.switchScene(MAIN);
     }
@@ -295,11 +315,16 @@ public class LibraryController implements Initializable {
 
         credentialsService.removeCredentialsFromTheDatabase(credentials, sessionData.getAuthorizedUsername(), sessionData.getPassword());
 
-        UserEntity user = userService.findByLogin(sessionData.getAuthorizedUsername());
-
-        sessionData.getAuthorizedUserSavedCredentials().clear();
-        sessionData.getAuthorizedUserSavedCredentials().addAll(credentialsService.decryptEntities(user.getSavedCredentials(), sessionData.getPassword()));
+        sessionDataService.refreshAuthorizedUserSavedCredentialsData();
+        refreshGui();
 
         refreshCredentialsList();
+    }
+
+    private void refreshGui() {
+        run(() -> {
+            SessionData sessionData = SessionData.INSTANCE;
+            userBarPasswordsLabel.setText(sessionData.getAuthorizedPassNumber());
+        });
     }
 }
