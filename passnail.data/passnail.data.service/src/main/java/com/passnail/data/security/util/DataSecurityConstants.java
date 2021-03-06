@@ -6,7 +6,7 @@ package com.passnail.data.security.util;
  */
 public class DataSecurityConstants {
 
-    public static final int CRYPTO_KEY_GRANULATION_NUMBER = 19;
+    public static final int CRYPTO_KEY_GRANULATION_NUMBER = 7;
 
     public static final int CRYPTO_SALT_MULTIPLIER = 4;
 

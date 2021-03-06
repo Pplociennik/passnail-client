@@ -4,7 +4,6 @@ import com.passnail.data.access.model.dao.CredentialsRepository;
 import com.passnail.data.access.model.dao.UserRepository;
 import com.passnail.data.model.entity.CredentialsEntity;
 import com.passnail.data.model.entity.UserEntity;
-import com.passnail.data.security.crypto.CredentialsEncoderAES256;
 import com.passnail.data.security.crypto.CryptoUtility;
 import com.passnail.data.service.CredentialsServiceIf;
 import com.passnail.data.transfer.model.dto.CredentialsDto;
@@ -40,34 +39,37 @@ public class CredentialsService implements CredentialsServiceIf {
 
     public void sendNewCredentialsToLocalDatabase(CredentialsDto aCredentialsDto, String aUserLogin) {
 
+        UserEntity user = userRepository.findByLogin(aUserLogin);
+        var newCredentials = mapCredentialsDtoToCredentialsEntity(aCredentialsDto, aUserLogin, user);
+        user.getSavedCredentials().add(newCredentials);
 
-        credentialsRepository.save(mapCredentialsDtoToCredentialsEntity(aCredentialsDto, aUserLogin));
+        userRepository.save(user);
     }
 
 
-    private CredentialsEntity mapCredentialsDtoToCredentialsEntity(CredentialsDto aCredentialsDto, String aUserLogin) {
-
-        UserEntity credentialsOwner = userRepository.findByLogin(aUserLogin);
-        var creationDate = new Date();
-        var shortName = aCredentialsDto.getCredentialsShortName();
-        var description = aCredentialsDto.getDescription();
-        var url = aCredentialsDto.getUrl();
+    private CredentialsEntity mapCredentialsDtoToCredentialsEntity(CredentialsDto aCredentialsDto, String aUserLogin, UserEntity aUser) {
 
         var encryptionKey = CryptoUtility.prepareKey(aCredentialsDto.getPassword());
         var encryptionSalt = CryptoUtility.prepareSalt(aCredentialsDto.getPassword());
+
+        var creationDate = new Date();
+        var encryptedShortName = encrypt(aCredentialsDto.getCredentialsShortName(), encryptionKey, encryptionSalt);
+        var encryptedDescription = encrypt(aCredentialsDto.getDescription(), encryptionKey, encryptionSalt);
+        var encryptedUrl = encrypt(aCredentialsDto.getUrl(), encryptionKey, encryptionSalt);
+
 
         var encryptedPassword = encrypt(aCredentialsDto.getPassword(), encryptionKey, encryptionSalt);
 
 
         return CredentialsEntity.builder()
-                .credentialsOwner(credentialsOwner)
-                .credentialsShortName(shortName)
+                .credentialsOwner(aUser)
+                .credentialsShortName(encryptedShortName)
                 .creationDate(creationDate)
-                .description(description)
+                .description(encryptedDescription)
                 .lastModificationDate(creationDate)
-                .login(aUserLogin)
+                .login(encrypt(aUserLogin, encryptionKey, encryptionSalt))
                 .password(encryptedPassword)
-                .url(url)
+                .url(encryptedUrl)
                 .build();
     }
 

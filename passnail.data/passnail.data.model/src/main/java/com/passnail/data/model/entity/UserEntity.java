@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,32 +27,29 @@ public class UserEntity {
      * Unique entity's identifier of the {@link UUID} type. It is being auto generated while persisting an object to the database.
      */
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "ID", insertable = false, updatable = false, nullable = false, unique = true)
-    private UUID ID;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USR_ID")
+    private Long userID;
 
 
     /**
      * A {@link String} being the user's login to the application.
      */
-    @Column(name = "USR_LOGIN", nullable = false, unique = true)
+    @Column(name = "USR_LOGIN")
     private String login;
 
 
     /**
      * A encrypted {@link String} being the user's password to the application.
      */
-    @Column(name = "USR_PASS", nullable = true)
+    @Column(name = "USR_PASS")
     private String password;
 
 
     /**
      * A {@link String} being the user's email address;
      */
-    @Column(name = "USR_EMAIL", nullable = true, unique = false)
+    @Column(name = "USR_EMAIL")
     private String emailAddress;
 
 
@@ -65,20 +63,20 @@ public class UserEntity {
     /**
      * A flag to distinguish if user is local or not.
      */
-    @Column(name = "USR_LOCAL", nullable = false, updatable = false)
+    @Column(name = "USR_LOCAL")
     private Boolean local;
 
 
     /**
      * An identifier for online data synchronization.
      */
-    @Column(name = "USR_ONLINE_ID", unique = true)
+    @Column(name = "USR_ONLINE_ID")
     private String onlineID;
 
 
     /**
      * A {@link Set} of {@link CredentialsEntity} typed objects being a list of credentials created by user.
      */
-    @OneToMany(mappedBy = "credentialsOwner", fetch = FetchType.EAGER)
-    private Set<CredentialsEntity> savedCredentials;
+    @OneToMany(mappedBy = "credentialsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<CredentialsEntity> savedCredentials;
 }

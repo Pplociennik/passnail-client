@@ -1,7 +1,6 @@
 package com.passnail.data.model.entity;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,17 +24,14 @@ public class CredentialsEntity {
      * Unique entity's identifier of the {@link UUID} type. It is being auto generated while persisting an object to the database.
      */
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "ID", insertable = false, updatable = false, nullable = false, unique = true)
-    private UUID ID;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CREDS_ID")
+    private Long credsID;
 
     /**
      * A {@link String} being a password saved to the database.
      */
-    @Column(name = "PASS_VALUE", nullable = false)
+    @Column(name = "PASS_VALUE")
     private String password;
 
 
@@ -71,21 +67,21 @@ public class CredentialsEntity {
     /**
      * A {@link Date} being the exact date when the credentials were created.
      */
-    @Column(name = "CRED_CRT", updatable = false, nullable = false)
+    @Column(name = "CRED_CRT")
     private Date creationDate;
 
 
     /**
      * A {@link Date} being the exact date when the credentials were modified last time.
      */
-    @Column(name = "CRED_LAST_MOD", nullable = false)
+    @Column(name = "CRED_LAST_MOD")
     private Date lastModificationDate;
 
 
     /**
      * An {@link UUID} typed identifier of the user being the credentials' owner.
      */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID", insertable = false, updatable = false, nullable = false, unique = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "CREDENTIALS_OWNER", referencedColumnName = "USR_ID")
     private UserEntity credentialsOwner;
 }
