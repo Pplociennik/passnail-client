@@ -20,7 +20,7 @@ public interface CredentialsServiceIf {
      * @param aCredentialsDto A dto containing information about the credentials being created.
      * @param aUserLogin      A string being a login of the user.
      */
-    void sendNewCredentialsToLocalDatabase(CredentialsDto aCredentialsDto, String aUserLogin);
+    void sendNewCredentialsToLocalDatabase(CredentialsDto aCredentialsDto, String aUserLogin, String aPass);
 
-    List<CredentialsDto> decryptEntities(Collection<CredentialsEntity> aEntities, String aKey);
+    List<CredentialsDto> decryptEntities(Collection<CredentialsEntity> aEntities, String aPass);
 }

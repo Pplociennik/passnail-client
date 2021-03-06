@@ -27,36 +27,39 @@ public class UserEntity {
      * Unique entity's identifier of the {@link UUID} type. It is being auto generated while persisting an object to the database.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USR_ID")
-    private Long userID;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "USR_ID", insertable = false, updatable = false, nullable = false, unique = true)
+    private UUID userID;
 
 
     /**
      * A {@link String} being the user's login to the application.
      */
-    @Column(name = "USR_LOGIN")
+    @Column(name = "USR_LOGIN", unique = true, nullable = false)
     private String login;
 
 
     /**
      * A encrypted {@link String} being the user's password to the application.
      */
-    @Column(name = "USR_PASS")
+    @Column(name = "USR_PASS", nullable = false)
     private String password;
 
 
     /**
      * A {@link String} being the user's email address;
      */
-    @Column(name = "USR_EMAIL")
+    @Column(name = "USR_EMAIL", unique = true, nullable = false)
     private String emailAddress;
 
 
     /**
      * A {@link Date} being a date when an account was created.
      */
-    @Column(name = "USR_CRT")
+    @Column(name = "USR_CRT", nullable = false)
     private Date creationDate;
 
 
@@ -70,7 +73,7 @@ public class UserEntity {
     /**
      * An identifier for online data synchronization.
      */
-    @Column(name = "USR_ONLINE_ID")
+    @Column(name = "USR_ONLINE_ID", unique = true)
     private String onlineID;
 
 

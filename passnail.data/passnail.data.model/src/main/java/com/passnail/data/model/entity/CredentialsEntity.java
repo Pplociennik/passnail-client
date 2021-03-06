@@ -1,6 +1,7 @@
 package com.passnail.data.model.entity;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,9 +25,12 @@ public class CredentialsEntity {
      * Unique entity's identifier of the {@link UUID} type. It is being auto generated while persisting an object to the database.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CREDS_ID")
-    private Long credsID;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "CREDS_ID", insertable = false, updatable = false, nullable = false, unique = true)
+    private UUID credsID;
 
     /**
      * A {@link String} being a password saved to the database.
@@ -67,14 +71,14 @@ public class CredentialsEntity {
     /**
      * A {@link Date} being the exact date when the credentials were created.
      */
-    @Column(name = "CRED_CRT")
+    @Column(name = "CRED_CRT", nullable = false, updatable = false)
     private Date creationDate;
 
 
     /**
      * A {@link Date} being the exact date when the credentials were modified last time.
      */
-    @Column(name = "CRED_LAST_MOD")
+    @Column(name = "CRED_LAST_MOD", nullable = false)
     private Date lastModificationDate;
 
 

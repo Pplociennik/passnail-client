@@ -222,7 +222,7 @@ public class NewCredentialsController implements Initializable {
                 .url(urlField.getText())
                 .build();
 
-        credentialsService.sendNewCredentialsToLocalDatabase(newCredentials, sessionData.getAuthorizedUsername());
+        credentialsService.sendNewCredentialsToLocalDatabase(newCredentials, sessionData.getAuthorizedUsername(), sessionData.getPassword());
 
         authorizationService.getAuthorizedUserCredentials();
     }

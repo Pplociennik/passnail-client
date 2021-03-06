@@ -37,20 +37,20 @@ public class CredentialsService implements CredentialsServiceIf {
     private UserRepository userRepository;
 
 
-    public void sendNewCredentialsToLocalDatabase(CredentialsDto aCredentialsDto, String aUserLogin) {
+    public void sendNewCredentialsToLocalDatabase(CredentialsDto aCredentialsDto, String aUserLogin, String aPass) {
 
         UserEntity user = userRepository.findByLogin(aUserLogin);
-        var newCredentials = mapCredentialsDtoToCredentialsEntity(aCredentialsDto, aUserLogin, user);
+        var newCredentials = mapCredentialsDtoToCredentialsEntity(aCredentialsDto, aUserLogin, user, aPass);
         user.getSavedCredentials().add(newCredentials);
 
         userRepository.save(user);
     }
 
 
-    private CredentialsEntity mapCredentialsDtoToCredentialsEntity(CredentialsDto aCredentialsDto, String aUserLogin, UserEntity aUser) {
+    private CredentialsEntity mapCredentialsDtoToCredentialsEntity(CredentialsDto aCredentialsDto, String aUserLogin, UserEntity aUser, String aPass) {
 
-        var encryptionKey = CryptoUtility.prepareKey(aCredentialsDto.getPassword());
-        var encryptionSalt = CryptoUtility.prepareSalt(aCredentialsDto.getPassword());
+        var encryptionKey = prepareKey(aPass);
+        var encryptionSalt = prepareSalt(aPass);
 
         var creationDate = new Date();
         var encryptedShortName = encrypt(aCredentialsDto.getCredentialsShortName(), encryptionKey, encryptionSalt);
@@ -75,6 +75,7 @@ public class CredentialsService implements CredentialsServiceIf {
 
 
     public List<CredentialsDto> decryptEntities(Collection<CredentialsEntity> aEntities, String aPass) {
+
         List<CredentialsDto> resultList = new LinkedList<>();
 
         for (CredentialsEntity entity : aEntities) {
@@ -84,10 +85,10 @@ public class CredentialsService implements CredentialsServiceIf {
         return resultList;
     }
 
-    private CredentialsDto decryptEntity(CredentialsEntity entity, String aKey) {
+    private CredentialsDto decryptEntity(CredentialsEntity entity, String aPass) {
 
-        var key = prepareKey(aKey);
-        var salt = prepareSalt(aKey);
+        var key = prepareKey(aPass);
+        var salt = prepareSalt(aPass);
 
         return CredentialsDto.builder()
                 .password(decrypt(entity.getPassword(), key, salt))
