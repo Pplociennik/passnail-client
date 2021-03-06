@@ -28,7 +28,7 @@ public class SavedCredentialsSessionDataService {
         UserEntity user = userService.findByLogin(sessionData.getAuthorizedUsername());
 
         sessionData.getAuthorizedUserSavedCredentials().clear();
-        sessionData.getAuthorizedUserSavedCredentials().addAll(credentialsService.decryptEntities(user.getSavedCredentials(), sessionData.getPassword()));
+        sessionData.setAuthorizedUserSavedCredentials(credentialsService.decryptEntities(user.getSavedCredentials(), sessionData.getPassword()));
 
         sessionData.setAuthorizedPassNumber(String.valueOf(sessionData.getAuthorizedUserSavedCredentials().size()));
 

@@ -65,6 +65,7 @@ public class LoginService implements LoginServiceIf {
         sessionData.setToken(jwtService.createToken(aDto));
         sessionData.setOnlineToken(getOnlineToken(aDto));
         sessionData.setAuthorizedUsername(getLogin(aDto));
+        sessionData.setPassword(aDto.getPassword());
 
         sessionDataService.refreshAuthorizedUserSavedCredentialsData();
     }

@@ -297,11 +297,11 @@ public class LibraryController implements Initializable {
         OpenedCredentialsData data = OpenedCredentialsData.INSTANCE;
         CredentialsDto credentials = (CredentialsDto) credentialsList.getSelectionModel().getSelectedItem();
 
-        data.description = credentials.getDescription();
-        data.login = credentials.getLogin();
-        data.password = credentials.getPassword();
-        data.shortName = credentials.getCredentialsShortName();
-        data.url = credentials.getUrl();
+        data.setDescription(credentials.getDescription());
+        data.setLogin(credentials.getLogin());
+        data.setPassword(credentials.getPassword());
+        data.setShortName(credentials.getCredentialsShortName());
+        data.setUrl(credentials.getUrl());
 
         switchToOpenedCredentialsScene();
     }

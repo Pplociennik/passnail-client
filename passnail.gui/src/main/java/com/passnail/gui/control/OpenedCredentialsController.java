@@ -307,11 +307,11 @@ public class OpenedCredentialsController implements Initializable {
         run(() -> {
             OpenedCredentialsData data = OpenedCredentialsData.INSTANCE;
 
-            descriptionArea.setText(data.description);
-            shortNameField.setText(data.shortName);
-            loginField.setText(data.login);
-            passwordField.setText(data.password);
-            urlField.setText(data.url);
+            descriptionArea.setText(data.getDescription());
+            shortNameField.setText(data.getShortName());
+            loginField.setText(data.getLogin());
+            passwordField.setText(data.getPassword());
+            urlField.setText(data.getUrl());
         });
     }
 

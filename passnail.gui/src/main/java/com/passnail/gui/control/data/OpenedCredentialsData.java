@@ -13,15 +13,16 @@ public enum OpenedCredentialsData {
     OpenedCredentialsData() {
     }
 
-    public String description;
+    private String description;
 
-    public String shortName;
+    private String shortName;
 
-    public String login;
+    private String login;
 
-    public String password;
+    private String password;
 
-    public String url;
+    private String url;
+
 
     public String getDescription() {
         return description;
