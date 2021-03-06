@@ -27,6 +27,16 @@ public class GuiConstants {
 
     public static final String SAVE_CREDENTIALS_HELP_MESSAGE = "Save credentials to database.";
 
+    public static final String CREDENTIALS_LIST_HELP_MESSAGE = "List of your saved credentials.";
+
+    public static final String REFRESH_BUTTON_HELP_MESSAGE = "Refresh a list.";
+
+    public static final String REMOVE_BUTTON_HELP_MESSAGE = "Remove credentials from the database.";
+
+    public static final String EDIT_BUTTON_HELP_MESSAGE = "Edit credentials in the database.";
+
+    public static final String ADD_BUTTON_HELP_MESSAGE = "Add new credentials to the database.";
+
     private GuiConstants() {
     }
 }

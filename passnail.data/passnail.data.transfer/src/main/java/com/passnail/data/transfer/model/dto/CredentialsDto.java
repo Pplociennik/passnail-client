@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * A Data Transfer Object for transferring the {@link com.passnail.data.model.entity.CredentialsEntity} database objects.
@@ -30,4 +29,8 @@ public class CredentialsDto implements Serializable {
     private Date creationDate;
 
     private Date lastModificationDate;
+
+    public String toString() {
+        return credentialsShortName + "   <->   " + url;
+    }
 }

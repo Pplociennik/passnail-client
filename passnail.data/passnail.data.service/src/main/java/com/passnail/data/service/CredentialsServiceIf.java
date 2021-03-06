@@ -23,4 +23,6 @@ public interface CredentialsServiceIf {
     void sendNewCredentialsToLocalDatabase(CredentialsDto aCredentialsDto, String aUserLogin, String aPass);
 
     List<CredentialsDto> decryptEntities(Collection<CredentialsEntity> aEntities, String aPass);
+
+    void removeCredentialsFromTheDatabase(CredentialsDto credentials, String aAuthorizedUserLogin, String aAuthorizedPass);
 }

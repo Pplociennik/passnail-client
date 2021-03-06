@@ -1,15 +1,23 @@
 package com.passnail.gui.control;
 
+import com.passnail.data.model.entity.UserEntity;
+import com.passnail.data.service.CredentialsServiceIf;
+import com.passnail.data.service.UserServiceIf;
+import com.passnail.data.service.impl.UserService;
+import com.passnail.data.transfer.model.dto.CredentialsDto;
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
-import com.passnail.gui.control.tools.PlatformUtils;
+import com.passnail.gui.GuiConstants;
+import com.passnail.gui.config.FxmlView;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
 import com.passnail.security.session.SessionData;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -21,22 +29,28 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static com.passnail.gui.GuiConstants.*;
-import static com.passnail.gui.config.FxmlView.*;
+import static com.passnail.gui.config.FxmlView.MAIN;
+import static com.passnail.gui.control.tools.PlatformUtils.run;
 
 /**
- * Created by: Pszemko at środa, 03.03.2021 20:14
+ * Created by: Pszemko at sobota, 06.03.2021 19:16
  * Project: passnail-client
  */
 @Component
 @Lazy(value = true)
-public class MainController implements Initializable {
-
+public class LibraryController implements Initializable {
 
     @Autowired
     private AuthenticationServiceIf authenticationService;
 
     @Autowired
     private GeneratorManagerServiceIf generatorManagerService;
+
+    @Autowired
+    private CredentialsServiceIf credentialsService;
+
+    @Autowired
+    private UserServiceIf userService;
 
     @Autowired
     @Lazy(value = true)
@@ -56,6 +70,9 @@ public class MainController implements Initializable {
 
     @FXML
     private Label userBarPasswordsLabel;
+
+    @FXML
+    private ListView<?> credentialsList;
 
     @FXML
     void generatorSettingsButtonOnMouseClicked(MouseEvent event) throws IOException {
@@ -94,7 +111,7 @@ public class MainController implements Initializable {
     }
 
     private void switchToNewCredentialsScene() {
-        stageManager.switchScene(NEWCREDENTIALS);
+        stageManager.switchScene(FxmlView.NEWCREDENTIALS);
     }
 
     @FXML
@@ -141,34 +158,89 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void showLibraryButtonOnMouseClicked(MouseEvent event) {
-        switchToLibraryScene();
+    void credentialsListMouseEntered(MouseEvent event) {
+        showHelpMessage(CREDENTIALS_LIST_HELP_MESSAGE);
     }
 
     @FXML
-    void showLibraryButtonOnMouseEntered(MouseEvent event) {
-        showHelpMessage(SHOW_LIBRARY_BUTTON_HELP_MESSAGE);
-    }
-
-    @FXML
-    void showLibraryButtonOnMouseExited(MouseEvent event) {
+    void credentialsListMouseExited(MouseEvent event) {
         showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 
     @FXML
-    void onMouseMoved(MouseEvent event) {
-
+    void refreshButtonMouseClicked(MouseEvent event) {
+        refreshCredentialsList();
     }
+
+    @FXML
+    void refreshButtonMouseEntered(MouseEvent event) {
+        showHelpMessage(REFRESH_BUTTON_HELP_MESSAGE);
+    }
+
+    @FXML
+    void refreshButtonMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+
+    @FXML
+    void addButtonOnMouseClicked(MouseEvent event) {
+        switchToNewCredentialsScene();
+    }
+
+    @FXML
+    void addButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GuiConstants.ADD_BUTTON_HELP_MESSAGE);
+    }
+
+    @FXML
+    void addButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+
+    @FXML
+    void editButtonOnMouseClicked(MouseEvent event) {
+//        editCredentialsInTheDatabase();
+    }
+
+    @FXML
+    void editButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GuiConstants.EDIT_BUTTON_HELP_MESSAGE);
+    }
+
+    @FXML
+    void editButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+
+    @FXML
+    void removeButtonOnMouseClicked(MouseEvent event) {
+        removeCredentialsFromDatabase();
+    }
+
+    @FXML
+    void removeButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GuiConstants.REMOVE_BUTTON_HELP_MESSAGE);
+    }
+
+    @FXML
+    void removeButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         prepareUserInfo();
+        refreshCredentialsList();
     }
 
     private void prepareUserInfo() {
         SessionData sessionData = SessionData.INSTANCE;
 
-        PlatformUtils.run(() -> {
+        run(() -> {
             userBarLogin.setText(sessionData.getAuthorizedUsername());
             userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
             userBarPasswordsLabel.setText(sessionData.getAuthorizedPassNumber());
@@ -177,16 +249,57 @@ public class MainController implements Initializable {
     }
 
     private void showHelpMessage(String aMessage) {
-        PlatformUtils.run(() -> {
+        run(() -> {
             mainPaneHelpLabel.setText(aMessage);
         });
     }
 
     private void switchToAuthScene() {
-        stageManager.switchScene(AUTH);
+        stageManager.switchScene(FxmlView.AUTH);
     }
 
-    private void switchToLibraryScene() {
-        stageManager.switchScene(LIBRARY);
+    private void refreshCredentialsList() {
+
+        run(() -> {
+
+            SessionData sessionData = SessionData.INSTANCE;
+            ObservableList list = credentialsList.getItems();
+
+            if (!list.isEmpty()) {
+                list.clear();
+            }
+
+            list.addAll(sessionData.getAuthorizedUserSavedCredentials());
+        });
+    }
+
+    public void backButtonOnMouseClicked(MouseEvent event) {
+        switchToMainScene();
+    }
+
+    public void backButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(BACK_BUTTON_HELP_MESSAGE);
+    }
+
+    public void backButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+    private void switchToMainScene() {
+        stageManager.switchScene(MAIN);
+    }
+
+    private void removeCredentialsFromDatabase() {
+        SessionData sessionData = SessionData.INSTANCE;
+        CredentialsDto credentials = (CredentialsDto) credentialsList.getSelectionModel().getSelectedItem();
+
+        credentialsService.removeCredentialsFromTheDatabase(credentials, sessionData.getAuthorizedUsername(), sessionData.getPassword());
+
+        UserEntity user = userService.findByLogin(sessionData.getAuthorizedUsername());
+
+        sessionData.getAuthorizedUserSavedCredentials().clear();
+        sessionData.getAuthorizedUserSavedCredentials().addAll(credentialsService.decryptEntities(user.getSavedCredentials(), sessionData.getPassword()));
+
+        refreshCredentialsList();
     }
 }

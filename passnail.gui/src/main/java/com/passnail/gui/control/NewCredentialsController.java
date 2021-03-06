@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import static com.passnail.gui.GuiConstants.*;
+import static com.passnail.gui.config.FxmlView.LIBRARY;
 
 /**
  * Created by: Pszemko at piątek, 05.03.2021 17:37
@@ -118,7 +119,7 @@ public class NewCredentialsController implements Initializable {
 
     @FXML
     void showLibraryButtonClicked(MouseEvent event) {
-
+        switchToLibraryScene();
     }
 
     @FXML
@@ -211,9 +212,10 @@ public class NewCredentialsController implements Initializable {
 
         var creationDate = new Date();
         var description = validateDescription();
+        var shortName = validateShortname();
 
         CredentialsDto newCredentials = CredentialsDto.builder()
-                .credentialsShortName(shortNameField.getText())
+                .credentialsShortName(shortName)
                 .creationDate(creationDate)
                 .description(description)
                 .lastModificationDate(creationDate)
@@ -225,6 +227,16 @@ public class NewCredentialsController implements Initializable {
         credentialsService.sendNewCredentialsToLocalDatabase(newCredentials, sessionData.getAuthorizedUsername(), sessionData.getPassword());
 
         authorizationService.getAuthorizedUserCredentials();
+
+        switchToMainScene();
+    }
+
+    private String validateShortname() {
+        if (shortNameField.getText() == null || shortNameField.getText().length() == 0) {
+            throw new IllegalStateException("Short Name is mandatory!");
+        } else {
+            return shortNameField.getText();
+        }
     }
 
     private String validateDescription() {
@@ -276,4 +288,8 @@ public class NewCredentialsController implements Initializable {
         stageManager.switchScene(FxmlView.MAIN);
     }
 
+
+    private void switchToLibraryScene() {
+        stageManager.switchScene(LIBRARY);
+    }
 }

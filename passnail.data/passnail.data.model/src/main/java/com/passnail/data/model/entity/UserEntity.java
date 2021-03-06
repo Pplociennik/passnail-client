@@ -80,6 +80,6 @@ public class UserEntity {
     /**
      * A {@link Set} of {@link CredentialsEntity} typed objects being a list of credentials created by user.
      */
-    @OneToMany(mappedBy = "credentialsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "credentialsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CredentialsEntity> savedCredentials;
 }

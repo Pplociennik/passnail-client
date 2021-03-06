@@ -4,9 +4,9 @@ import com.passnail.data.access.model.dao.CredentialsRepository;
 import com.passnail.data.access.model.dao.UserRepository;
 import com.passnail.data.model.entity.CredentialsEntity;
 import com.passnail.data.model.entity.UserEntity;
-import com.passnail.data.security.crypto.CryptoUtility;
 import com.passnail.data.service.CredentialsServiceIf;
 import com.passnail.data.transfer.model.dto.CredentialsDto;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +28,7 @@ import static com.passnail.data.security.crypto.CryptoUtility.prepareSalt;
  */
 //TODO Javadoc
 @Service
+@Log4j2
 public class CredentialsService implements CredentialsServiceIf {
 
     @Autowired
@@ -44,6 +45,8 @@ public class CredentialsService implements CredentialsServiceIf {
         user.getSavedCredentials().add(newCredentials);
 
         userRepository.save(user);
+
+        log.info("Credentials saved!");
     }
 
 
@@ -83,6 +86,34 @@ public class CredentialsService implements CredentialsServiceIf {
         }
 
         return resultList;
+    }
+
+    @Override
+    public void removeCredentialsFromTheDatabase(CredentialsDto credentials, String aAuthorizedUserLogin, String aAuthorizedPass) {
+
+        UserEntity authorizedUser = userRepository.findByLogin(aAuthorizedUserLogin);
+
+        var encryptionKey = prepareKey(aAuthorizedPass);
+        var encryptionSalt = prepareSalt(aAuthorizedPass);
+
+        String encryptedShortName = encrypt(credentials.getCredentialsShortName(), encryptionKey, encryptionSalt);
+
+        CredentialsEntity toRemove = authorizedUser.getSavedCredentials()
+                .stream()
+                .filter(
+                        c ->
+                                c.getCredentialsShortName().equals(encryptedShortName))
+                .findFirst().orElseThrow(
+                        () -> new IllegalArgumentException("Credentials with a short name: " + credentials.getCredentialsShortName() + " has not been found."));
+
+        List<CredentialsEntity> copy = new LinkedList<>();
+        copy.addAll(authorizedUser.getSavedCredentials());
+        copy.remove(toRemove);
+
+        authorizedUser.getSavedCredentials().clear();
+        authorizedUser.setSavedCredentials(copy);
+
+        userRepository.save(authorizedUser);
     }
 
     private CredentialsDto decryptEntity(CredentialsEntity entity, String aPass) {
