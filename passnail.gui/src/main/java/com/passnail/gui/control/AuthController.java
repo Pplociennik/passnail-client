@@ -66,23 +66,30 @@ public class AuthController implements Initializable {
     @FXML
     void loginUser(MouseEvent event) throws IOException {
 
+        boolean authorized = true;
+
         try {
             authenticationService.authenticateUser(createLoginDto());
         } catch (AuthenticationException e) {
+            authorized = false;
             run(() -> {
                 loginErrorLabel.setText(e.getMessage());
             });
         }
-
-        switchScene();
+        if (authorized) {
+            switchScene();
+        }
     }
 
     @FXML
     void registerUser(MouseEvent event) throws IOException {
 
+        boolean authorized = true;
+
         try {
             authenticationService.registerNewUserProfile(createRegistrationDto());
         } catch (AuthenticationException e) {
+            authorized = false;
             run(() -> {
                 registrationErrorLabel.setText(e.getMessage());
             });
@@ -93,7 +100,9 @@ public class AuthController implements Initializable {
             });
         }
 
-        switchScene();
+        if (authorized) {
+            switchScene();
+        }
     }
 
     private RegistrationDto createRegistrationDto() {
@@ -105,7 +114,7 @@ public class AuthController implements Initializable {
                 .build();
     }
 
-    private void switchScene() throws IOException {
+    private void switchScene() {
         stageManager.switchScene(FxmlView.MAIN);
     }
 
