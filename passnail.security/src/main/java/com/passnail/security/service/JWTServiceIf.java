@@ -16,7 +16,7 @@ public interface JWTServiceIf {
      * @param aToken A token.
      * @param aKey   A key for token's decryption.
      */
-    void isValid(String aToken, String aKey);
+    void validateToken(String aToken, String aKey);
 
     /**
      * Creates a token for the logging user.

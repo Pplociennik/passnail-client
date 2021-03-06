@@ -8,6 +8,8 @@ import com.passnail.security.session.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+
 import static com.passnail.security.SecurityConstants.*;
 
 /**
@@ -56,6 +58,7 @@ public class AuthenticationService implements AuthenticationServiceIf {
         sessionData.setAuthorizedOnlineId(UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA);
         sessionData.setAuthorizedUsername(UNAUTHORIZED_USERNAME_SESSION_DATA);
         sessionData.setAuthorizedPassNumber(String.valueOf(0));
+        sessionData.setAuthorizedUserSavedCredentials(Collections.emptySet());
 
         if (aTestDb) {
             switcher.switchToTestDatabase();

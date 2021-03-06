@@ -17,8 +17,6 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class CredentialsDto implements Serializable {
 
-    private UUID ID;
-
     private String password;
 
     private String credentialsShortName;

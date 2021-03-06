@@ -1,5 +1,7 @@
 package com.passnail.gui.control;
 
+import com.passnail.data.service.CredentialsServiceIf;
+import com.passnail.data.transfer.model.dto.CredentialsDto;
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
 import com.passnail.gui.config.FxmlView;
@@ -7,6 +9,7 @@ import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
+import com.passnail.security.service.AuthorizationServiceIf;
 import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +24,7 @@ import org.springframework.stereotype.Component;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import static com.passnail.gui.GuiConstants.*;
@@ -39,6 +43,12 @@ public class NewCredentialsController implements Initializable {
 
     @Autowired
     private GeneratorManagerServiceIf generatorManagerService;
+
+    @Autowired
+    private CredentialsServiceIf credentialsService;
+
+    @Autowired
+    private AuthorizationServiceIf authorizationService;
 
     @Autowired
     @Lazy(value = true)
@@ -197,7 +207,32 @@ public class NewCredentialsController implements Initializable {
 
     @FXML
     void saveCredentialsButtonClicked(MouseEvent event) {
+        SessionData sessionData = SessionData.INSTANCE;
 
+        var creationDate = new Date();
+        var description = validateDescription();
+
+        CredentialsDto newCredentials = CredentialsDto.builder()
+                .credentialsShortName(shortNameField.getText())
+                .creationDate(creationDate)
+                .description(description)
+                .lastModificationDate(creationDate)
+                .login(loginField.getText())
+                .password(passwordField.getText())
+                .url(urlField.getText())
+                .build();
+
+        credentialsService.sendNewCredentialsToLocalDatabase(newCredentials, sessionData.getAuthorizedUsername());
+
+        authorizationService.getAuthorizedUserCredentials();
+    }
+
+    private String validateDescription() {
+        if (descriptionArea.getText().length() > 100) {
+            throw new IllegalStateException("Description cannot be longer than 100 characters!");
+        } else {
+            return descriptionArea.getText();
+        }
     }
 
     @FXML

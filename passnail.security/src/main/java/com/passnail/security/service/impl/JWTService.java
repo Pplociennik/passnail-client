@@ -46,7 +46,7 @@ public class JWTService implements JWTServiceIf {
 
 
     @Override
-    public void isValid(@NonNull final String aToken, @NonNull final String aKey) {
+    public void validateToken(@NonNull final String aToken, @NonNull final String aKey) {
         Claims claims = Jwts.parser()
                 .setSigningKey(aKey.getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(aToken)
@@ -82,7 +82,7 @@ public class JWTService implements JWTServiceIf {
                 .withExpiresAt(new Date(System.currentTimeMillis() + SESSION_EXPIRATION_TIME_MILIS))
                 .sign(HMAC512(aDto.getPassword().getBytes()));
 
-        jwtService.isValid(token, aDto.getPassword());
+        jwtService.validateToken(token, aDto.getPassword());
 
         return token;
     }
@@ -103,7 +103,7 @@ public class JWTService implements JWTServiceIf {
                 .withExpiresAt(new Date(System.currentTimeMillis() + SESSION_EXPIRATION_TIME_MILIS))
                 .sign(HMAC512(aDto.getPassword().getBytes()));
 
-        jwtService.isValid(token, aDto.getPassword());
+        jwtService.validateToken(token, aDto.getPassword());
 
         return token;
     }

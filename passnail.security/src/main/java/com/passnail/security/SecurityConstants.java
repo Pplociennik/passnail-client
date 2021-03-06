@@ -85,7 +85,7 @@ public class SecurityConstants {
      * A default value for test local user authentication database's ddl strategy.
      */
     public static final String DB_TEST_DDL = "create";
-
+//TODO Javadocs
     public static final String UNAUTHORIZED_USERNAME_SESSION_DATA = "404_USERNAME";
 
     private SecurityConstants() {

@@ -2,7 +2,9 @@ package com.passnail.data.service;
 
 import com.passnail.data.model.entity.CredentialsEntity;
 import com.passnail.data.transfer.model.dto.CredentialsDto;
-import com.passnail.data.transfer.model.dto.UserDto;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A service containing functions for managing credentials stored in the local database.
@@ -16,7 +18,9 @@ public interface CredentialsServiceIf {
      * Creates a new {@link CredentialsEntity} and saves it in the database.
      *
      * @param aCredentialsDto A dto containing information about the credentials being created.
-     * @param aUserDto        A dto containing information about the user being the credentials' creator.
+     * @param aUserLogin      A string being a login of the user.
      */
-    void sendNewCredentialsToLocalDatabase(CredentialsDto aCredentialsDto, UserDto aUserDto);
+    void sendNewCredentialsToLocalDatabase(CredentialsDto aCredentialsDto, String aUserLogin);
+
+    List<CredentialsDto> decryptEntities(Collection<CredentialsEntity> aEntities, String aKey);
 }

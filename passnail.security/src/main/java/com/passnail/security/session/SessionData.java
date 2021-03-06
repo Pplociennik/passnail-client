@@ -1,7 +1,11 @@
 package com.passnail.security.session;
 
+import com.passnail.data.transfer.model.dto.CredentialsDto;
 import com.passnail.security.SecurityConstants;
 import lombok.Getter;
+
+import java.util.Collections;
+import java.util.List;
 
 import static com.passnail.security.SecurityConstants.*;
 
@@ -20,6 +24,7 @@ public enum SessionData {
         this.authorizedUsername = SecurityConstants.UNAUTHORIZED_USERNAME_SESSION_DATA;
         this.authorizedOnlineId = authorizedOnlineId = UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA;
         this.authorizedPassNumber = authorizedPassNumber = String.valueOf(0);
+        this.authorizedUserSavedCredentials = Collections.emptyList();
 
         this.token = UNAUTHORIZED_TOKEN_SESSION_DATA;
         this.onlineToken = UNAUTHORIZED_ONLINE_TOKEN_SESSION_DATA;
@@ -47,6 +52,8 @@ public enum SessionData {
 
     private String authorizedPassNumber;
 
+    private List<CredentialsDto> authorizedUserSavedCredentials;
+
 
     public void setToken(String token) {
         this.token = token;
@@ -70,5 +77,9 @@ public enum SessionData {
 
     public void setAuthorizedPassNumber(String authorizedPassNumber) {
         this.authorizedPassNumber = authorizedPassNumber;
+    }
+
+    public void setAuthorizedUserSavedCredentials(List<CredentialsDto> authorizedUserSavedCredentials) {
+        this.authorizedUserSavedCredentials = authorizedUserSavedCredentials;
     }
 }

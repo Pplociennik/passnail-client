@@ -29,6 +29,11 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 

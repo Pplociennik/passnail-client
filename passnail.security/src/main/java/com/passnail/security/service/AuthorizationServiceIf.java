@@ -14,4 +14,6 @@ public interface AuthorizationServiceIf {
      * @return True if the user is currently logged in and the session has not expired.
      */
     Boolean isUserAuthorized();
+
+    void getAuthorizedUserCredentials();
 }
