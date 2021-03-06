@@ -39,6 +39,24 @@ public class GuiConstants {
 
     public static final String OPEN_BUTTON_HELP_MESSAGE = "Open a selected credentials.";
 
+    public static final String BACK_TO_LIBRARY_BUTTON_HELP_MESSAGE = "Back to library.";
+
+    public static final String PASSWORD_COPIED_NOTIFICATION_MESSAGE = "Password copied to the Clipboard!";
+
+    public static final String LOGIN_COPIED_NOTIFICATION_MESSAGE = "Login copied to the Clipboard!";
+
+    public static final String URL_COPIED_NOTIFICATION_MESSAGE = "URL copied to the Clipboard!";
+
+    public static final String SHOW_CREDS_URL_HELP_MESSAGE = "URL. Click on the field to copy a value to the Clipboard.";
+
+    public static final String SHOW_CREDS_LOGIN_HELP_MESSAGE = "Login. Click on the field to copy a value to the Clipboard.";
+
+    public static final String SHOW_CREDS_PASSWORD_HELP_MESSAGE = "Login. Click on the field to copy a value to the Clipboard.";
+
+    public static final String SHOW_CREDS_SHORT_NAME_HELP_MESSAGE = "Short Name.";
+
+    public static final String SHOW_CREDS_DESCRIPTION_HELP_MESSAGE = "Description.";
+
     private GuiConstants() {
     }
 }

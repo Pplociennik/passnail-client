@@ -142,7 +142,7 @@ public class NewCredentialsController implements Initializable {
         PasswordGeneratorManagerIf manager = generatorManagerService.createDefaultPasswordGeneratorManagerWithDefaultPropertiesLoaded();
         password = manager.generateNewPassword();
 
-        new SystemClipboardManager().copyTextToTheClipboard(password);
+        new SystemClipboardManager().copyTextToTheClipboard(password, PASSWORD_COPIED_NOTIFICATION_MESSAGE);
     }
 
     @FXML

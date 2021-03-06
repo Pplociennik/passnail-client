@@ -12,11 +12,11 @@ import java.io.IOException;
  */
 public class SystemClipboardManager {
 
-    public void copyTextToTheClipboard(String aText) throws IOException, AWTException {
+    public void copyTextToTheClipboard(String aText, String aMessage) throws IOException, AWTException {
         ClipboardContent content = new ClipboardContent();
         content.putString(aText);
         Clipboard.getSystemClipboard().setContent(content);
 
-        new NotificationSender().sendWindowsNotification("PASSNAIL", "Password copied to the Clipboard!");
+        new NotificationSender().sendWindowsNotification("PASSNAIL", aMessage);
     }
 }

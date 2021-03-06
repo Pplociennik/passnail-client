@@ -44,6 +44,16 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/lib.fxml";
         }
+    }, OPENEDCREDENTIALS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("creds.opened.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/openedPass.fxml";
+        }
     };
 
     public abstract String getTitle();

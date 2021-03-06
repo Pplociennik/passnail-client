@@ -25,7 +25,7 @@ public class SecurityConstants {
     /**
      * A logged in user's session expiration time in milis.
      */
-    public static final Integer SESSION_EXPIRATION_TIME_MILIS = 300000;
+    public static final Integer SESSION_EXPIRATION_TIME_MILIS = 600000;
 
 
     /**
