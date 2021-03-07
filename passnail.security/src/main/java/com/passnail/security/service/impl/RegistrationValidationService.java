@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
 
-import static com.passnail.security.SecurityConstants.VALID_EMAIL_ADDRESS_REGEX;
-import static com.passnail.security.SecurityConstants.VALID_PASSWORD_REGEX;
+import static com.passnail.security.SecurityConstants.*;
 
 /**
  * {@inheritDoc}
@@ -59,11 +58,16 @@ public class RegistrationValidationService implements RegistrationValidationServ
     }
 
     private void validateLogin(String aLogin) {
+        Matcher matcher = VALID_LOGIN_PATTERN.matcher(aLogin);
+
         if (aLogin == null || aLogin.length() == 0) {
             throw new AuthenticationException("Login not specified!");
         }
         if (localUserService.localLoginExists(aLogin)) {
             throw new AuthenticationException("Specified login is not available!");
+        }
+        if (!matcher.find()) {
+            throw new AuthenticationException("Login can only contain [A-Z], [0-9], \"_\" and has to be at least of the length of 3 characters.");
         }
     }
 }

@@ -105,7 +105,7 @@
                                     <Image url="@testIMG.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="55.0" layoutY="64.0" prefHeight="41.0" prefWidth="134.0" text="A login being a username of your profile." wrapText="true" />
+                              <Label layoutX="55.0" layoutY="55.0" prefHeight="58.0" prefWidth="134.0" text="A login being a username of your profile. Min. length: 3" wrapText="true" />
                               <Label layoutX="53.0" layoutY="111.0" prefHeight="32.0" prefWidth="138.0" text="An email address." wrapText="true" />
                               <Label layoutX="53.0" layoutY="155.0" prefHeight="53.0" prefWidth="138.0" text="Min. length 8, at least 1: digit, special character, lower/upper case letter." wrapText="true" />
                               <Label layoutX="53.0" layoutY="218.0" prefHeight="35.0" prefWidth="138.0" text="Must be the same as password." wrapText="true" />

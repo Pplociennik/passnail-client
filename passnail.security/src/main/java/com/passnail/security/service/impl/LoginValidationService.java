@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.regex.Matcher;
 
 import static com.passnail.security.SecurityConstants.VALID_EMAIL_ADDRESS_REGEX;
+import static com.passnail.security.SecurityConstants.VALID_LOGIN_PATTERN;
 
 /**
  * {@inheritDoc}

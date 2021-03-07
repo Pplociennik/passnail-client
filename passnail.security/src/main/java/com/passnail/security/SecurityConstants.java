@@ -22,6 +22,10 @@ public class SecurityConstants {
     public static final Pattern VALID_PASSWORD_REGEX =
             Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
 
+
+    public static final Pattern VALID_LOGIN_PATTERN =
+            Pattern.compile("[a-zA-Z0-9\\\\._\\\\-]{3,}");
+
     /**
      * A logged in user's session expiration time in milis.
      */
@@ -85,7 +89,7 @@ public class SecurityConstants {
      * A default value for test local user authentication database's ddl strategy.
      */
     public static final String DB_TEST_DDL = "create";
-//TODO Javadocs
+    //TODO Javadocs
     public static final String UNAUTHORIZED_USERNAME_SESSION_DATA = "404_USERNAME";
 
     private SecurityConstants() {

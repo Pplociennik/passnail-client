@@ -4,13 +4,20 @@ import com.passnail.common.throwable.security.AuthenticationException;
 import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
 import com.passnail.gui.config.FxmlView;
+import com.passnail.gui.control.tools.PlatformUtils;
+import com.passnail.gui.control.tools.SplashScreenInfo;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.security.service.AuthenticationServiceIf;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -36,6 +43,9 @@ public class AuthController implements Initializable {
     @Lazy(value = true)
     private StageManager stageManager;
 
+
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private TextField loginLoginField;
@@ -121,6 +131,11 @@ public class AuthController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        PlatformUtils.run(() -> {
+            if (!SplashScreenInfo.INSTANCE.isFinished()) {
+                loadSplashScreen();
+            }
+        });
     }
 
     private LoginDto createLoginDto() {
@@ -129,6 +144,47 @@ public class AuthController implements Initializable {
                 .password(loginPasswordField.getText())
                 /*.onlineID(loginOnlineIdField.getText())*/
                 .build();
+    }
+
+    private void loadSplashScreen() {
+        try {
+
+            SplashScreenInfo.INSTANCE.setFinished(true);
+            StackPane pane = FXMLLoader.load(getClass().getResource(("/splash.fxml")));
+            root.getChildren().setAll(pane);
+
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(5), pane);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.setCycleCount(1);
+
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(4), pane);
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(0);
+            fadeOut.setCycleCount(1);
+
+            fadeIn.play();
+
+            fadeIn.setOnFinished((e) -> {
+                //Do the loading tasks
+                int i = 0;
+                while (authenticationService == null) {
+                    i++;
+                }
+                //...
+                //After the background tasks are done, load the fadeout
+                fadeOut.play();
+            });
+
+            fadeOut.setOnFinished((e) -> {
+                //                    AnchorPane parentContent = FXMLLoader.load(getClass().getResource(("/auth.fxml")));
+//                    root.getChildren().setAll(parentContent);
+                stageManager.switchScene(FxmlView.AUTH);
+            });
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }
