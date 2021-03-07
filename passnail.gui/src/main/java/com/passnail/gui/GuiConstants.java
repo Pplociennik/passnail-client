@@ -73,6 +73,16 @@ public class GuiConstants {
 
     public static final String EDITABLE_CREDENTIALS_SAVE_BUTTON_HELP_MESSAGE = "Save changes.";
 
+    public static final String EDIT_CREDS_LOGIN_FIELD_HELP_MESSAGE = "Edit login.";
+
+    public static final String EDIT_CREDS_PASSWORD_FIELD_HELP_MESSAGE = "Edit password.";
+
+    public static final String EDIT_CREDS_URL_FIELD_MESSAGE_TEXT = "Edit url.";
+
+    public static final String EDIT_CREDS_SHORT_NAME_FIELD_HELP_MESSAGE = "Edit short name.";
+
+    public static final String EDIT_CREDS_DESCRIPTION_AREA_HELP_MESSAGE = "Edit description.";
+
     private GuiConstants() {
     }
 }

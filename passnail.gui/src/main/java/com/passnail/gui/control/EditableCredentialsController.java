@@ -201,7 +201,7 @@ public class EditableCredentialsController implements Initializable {
 
     @FXML
     void descriptionAreaOnMouseEntered(MouseEvent event) {
-        showHelpMessage(SHOW_CREDS_DESCRIPTION_HELP_MESSAGE);
+        showHelpMessage(EDIT_CREDS_DESCRIPTION_AREA_HELP_MESSAGE);
     }
 
     @FXML
@@ -211,7 +211,7 @@ public class EditableCredentialsController implements Initializable {
 
     @FXML
     void loginFieldOnMouseEntered(MouseEvent event) {
-        showHelpMessage(SHOW_CREDS_LOGIN_HELP_MESSAGE);
+        showHelpMessage(EDIT_CREDS_LOGIN_FIELD_HELP_MESSAGE);
     }
 
     @FXML
@@ -221,7 +221,7 @@ public class EditableCredentialsController implements Initializable {
 
     @FXML
     void passwordFieldOnMouseEntered(MouseEvent event) {
-        showHelpMessage(SHOW_CREDS_PASSWORD_HELP_MESSAGE);
+        showHelpMessage(EDIT_CREDS_PASSWORD_FIELD_HELP_MESSAGE);
     }
 
     @FXML
@@ -249,7 +249,7 @@ public class EditableCredentialsController implements Initializable {
 
     @FXML
     void shortNameFieldOnMouseEntered(MouseEvent event) {
-        showHelpMessage(SHOW_CREDS_SHORT_NAME_HELP_MESSAGE);
+        showHelpMessage(EDIT_CREDS_SHORT_NAME_FIELD_HELP_MESSAGE);
     }
 
     @FXML
@@ -259,7 +259,7 @@ public class EditableCredentialsController implements Initializable {
 
     @FXML
     void urlFieldOnMouseEntered(MouseEvent event) {
-        showHelpMessage(SHOW_CREDS_URL_HELP_MESSAGE);
+        showHelpMessage(EDIT_CREDS_URL_FIELD_MESSAGE_TEXT);
     }
 
     @FXML
