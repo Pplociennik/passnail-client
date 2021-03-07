@@ -2,6 +2,7 @@ package com.passnail.gui.control;
 
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
+import com.passnail.generator.service.prop.PropertyHandlerIf;
 import com.passnail.gui.config.FxmlView;
 import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
@@ -11,6 +12,7 @@ import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -56,6 +58,24 @@ public class GeneratorSettingsController implements Initializable {
 
     @FXML
     private Label userBarPasswordsLabel;
+
+    @FXML
+    private TextField lengthField;
+
+    @FXML
+    private TextField uppserCaseField;
+
+    @FXML
+    private TextField lowerCaseField;
+
+    @FXML
+    private TextField specialCharactersField;
+
+    @FXML
+    private TextField digitsField;
+
+    @FXML
+    private Label errorLabel;
 
 
     @FXML
@@ -144,7 +164,32 @@ public class GeneratorSettingsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        prepareUserInfo();
+        try {
+            prepareUserInfo();
+            prepareProperties();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void prepareProperties() throws IOException {
+
+        PlatformUtils.run(() -> {
+
+            PasswordGeneratorManagerIf manager = null;
+            try {
+                manager = generatorManagerService.createDefaultPasswordGeneratorManagerWithDefaultPropertiesLoaded();
+                PropertyHandlerIf handler = manager.getHandler();
+
+                lengthField.setText(String.valueOf(handler.getPasswordLength()));
+                uppserCaseField.setText(String.valueOf(handler.getUpperCaseNumber()));
+                lowerCaseField.setText(String.valueOf(handler.getLowerCaseNumber()));
+                specialCharactersField.setText(String.valueOf(handler.getSpecialCharactersNumber()));
+                digitsField.setText(String.valueOf(handler.getDigitsNumber()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void prepareUserInfo() {
@@ -155,6 +200,7 @@ public class GeneratorSettingsController implements Initializable {
             userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
             userBarPasswordsLabel.setText(sessionData.getAuthorizedPassNumber());
         });
+
 
     }
 
@@ -173,7 +219,8 @@ public class GeneratorSettingsController implements Initializable {
     }
 
 
-    public void resetButtonOnMouseClicked(MouseEvent event) {
+    public void resetButtonOnMouseClicked(MouseEvent event) throws IOException {
+        resetToDefaults();
     }
 
     public void resetButtonOnMouseEntered(MouseEvent event) {
@@ -230,6 +277,18 @@ public class GeneratorSettingsController implements Initializable {
 
 
     public void saveButtonOnMouseClicked(MouseEvent event) {
+        try {
+            saveProperties();
+        } catch (Exception e) {
+            showErrorMessage(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void showErrorMessage(String aMessage) {
+        PlatformUtils.run(() -> {
+            errorLabel.setText(aMessage);
+        });
     }
 
     public void saveButtonOnMouseEntered(MouseEvent event) {
@@ -254,5 +313,38 @@ public class GeneratorSettingsController implements Initializable {
 
     private void switchToMainScene() {
         stageManager.switchScene(FxmlView.MAIN);
+    }
+
+
+    private void saveProperties() throws IOException {
+        PasswordGeneratorManagerIf manager = generatorManagerService.createDefaultPasswordGeneratorManagerWithDefaultPropertiesLoaded();
+        PropertyHandlerIf handler = manager.getHandler();
+
+        var length = Integer.valueOf(lengthField.getText());
+        var upperCase = Integer.valueOf(uppserCaseField.getText());
+        var lowerCase = Integer.valueOf(lowerCaseField.getText());
+        var digits = Integer.valueOf(digitsField.getText());
+        var specialChars = Integer.valueOf(specialCharactersField.getText());
+
+        handler.setAll(length,
+                lowerCase,
+                upperCase,
+                digits,
+                specialChars);
+
+        handler.saveProperties();
+        handler.loadProperties();
+
+        prepareProperties();
+    }
+
+    private void resetToDefaults() throws IOException {
+        PasswordGeneratorManagerIf manager = generatorManagerService.createDefaultPasswordGeneratorManagerWithDefaultPropertiesLoaded();
+        PropertyHandlerIf handler = manager.getHandler();
+
+        handler.resetToDefaults();
+        handler.loadProperties();
+
+        prepareProperties();
     }
 }
