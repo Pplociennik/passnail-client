@@ -23,7 +23,7 @@ public class CredentialsEncoderAES256 {
             IvParameterSpec ivspec = new IvParameterSpec(iv);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            KeySpec spec = new PBEKeySpec(aKey.toCharArray(), aSalt.getBytes(), 65536, 256);
+            KeySpec spec = new PBEKeySpec(aKey.toCharArray(), aSalt.getBytes(), 10000, 256);
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
 
@@ -43,7 +43,7 @@ public class CredentialsEncoderAES256 {
             IvParameterSpec ivspec = new IvParameterSpec(iv);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            KeySpec spec = new PBEKeySpec(aKey.toCharArray(), aSalt.getBytes(), 65536, 256);
+            KeySpec spec = new PBEKeySpec(aKey.toCharArray(), aSalt.getBytes(), 10000, 256);
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
 
