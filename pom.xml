@@ -14,7 +14,7 @@
 
     <groupId>com.passnail</groupId>
     <artifactId>passnail.client</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.7.0_TEST_OMM_PRE_ALPHA-SNAPSHOT</version>
     <name>passnail.parent</name>
 
     <description>Official client application of the PasSnail password manager.</description>

@@ -210,11 +210,6 @@ public class EditableCredentialsController implements Initializable {
     }
 
     @FXML
-    void loginFieldOnMouseClicked(MouseEvent event) throws IOException, AWTException {
-        new SystemClipboardManager().copyTextToTheClipboard(loginField.getText(), LOGIN_COPIED_NOTIFICATION_MESSAGE);
-    }
-
-    @FXML
     void loginFieldOnMouseEntered(MouseEvent event) {
         showHelpMessage(SHOW_CREDS_LOGIN_HELP_MESSAGE);
     }
@@ -222,12 +217,6 @@ public class EditableCredentialsController implements Initializable {
     @FXML
     void loginFieldOnMouseExited(MouseEvent event) {
         showHelpMessage(EMPTY_HELP_MESSAGE);
-    }
-
-
-    @FXML
-    void passwordFieldOnMouseClicked(MouseEvent event) throws IOException, AWTException {
-        new SystemClipboardManager().copyTextToTheClipboard(passwordField.getText(), PASSWORD_COPIED_NOTIFICATION_MESSAGE);
     }
 
     @FXML
@@ -266,11 +255,6 @@ public class EditableCredentialsController implements Initializable {
     @FXML
     void shortNameFieldOnMouseExited(MouseEvent event) {
         showHelpMessage(EMPTY_HELP_MESSAGE);
-    }
-
-    @FXML
-    void urlFieldOnMouseClicked(MouseEvent event) throws IOException, AWTException {
-        new SystemClipboardManager().copyTextToTheClipboard(urlField.getText(), URL_COPIED_NOTIFICATION_MESSAGE);
     }
 
     @FXML

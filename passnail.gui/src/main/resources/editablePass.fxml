@@ -77,9 +77,9 @@
                   <Button alignment="CENTER" layoutX="275.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="25.0" minWidth="59.0" mnemonicParsing="false" onMouseClicked="#removeButtonOnMouseClicked" onMouseEntered="#removeButtonOnMouseEntered" onMouseExited="#removeButtonOnMouseExited" prefHeight="25.0" prefWidth="59.0" text="Remove" textAlignment="CENTER" />
                   <TextArea fx:id="descriptionArea" layoutX="185.0" layoutY="44.0" onMouseEntered="#descriptionAreaOnMouseEntered" onMouseExited="#descriptionAreaOnMouseExited" prefHeight="98.0" prefWidth="149.0" wrapText="true" />
                   <TextField fx:id="shortNameField" layoutX="185.0" layoutY="163.0" onMouseEntered="#shortNameFieldOnMouseEntered" onMouseExited="#shortNameFieldOnMouseExited" />
-                  <TextField fx:id="loginField" layoutX="185.0" layoutY="203.0" onMouseClicked="#loginFieldOnMouseClicked" onMouseEntered="#loginFieldOnMouseEntered" onMouseExited="#loginFieldOnMouseExited" />
-                  <TextField fx:id="passwordField" layoutX="185.0" layoutY="241.0" onMouseClicked="#passwordFieldOnMouseClicked" onMouseEntered="#passwordFieldOnMouseEntered" onMouseExited="#passwordFieldOnMouseExited" />
-                  <TextField fx:id="urlField" alignment="CENTER" layoutX="9.0" layoutY="286.0" onMouseClicked="#urlFieldOnMouseClicked" onMouseEntered="#urlFieldOnMouseEntered" onMouseExited="#urlFieldOnMouseExited" prefHeight="25.0" prefWidth="353.0" />
+                  <TextField fx:id="loginField" layoutX="185.0" layoutY="203.0" onMouseEntered="#loginFieldOnMouseEntered" onMouseExited="#loginFieldOnMouseExited" />
+                  <TextField fx:id="passwordField" layoutX="185.0" layoutY="241.0" onMouseEntered="#passwordFieldOnMouseEntered" onMouseExited="#passwordFieldOnMouseExited" />
+                  <TextField fx:id="urlField" alignment="CENTER" layoutX="9.0" layoutY="286.0" onMouseEntered="#urlFieldOnMouseEntered" onMouseExited="#urlFieldOnMouseExited" prefHeight="25.0" prefWidth="353.0" />
                   <Label layoutX="60.0" layoutY="167.0" text="Short Name" />
                   <Label layoutX="59.0" layoutY="207.0" text="Login" />
                   <Label layoutX="59.0" layoutY="245.0" text="Password" />
@@ -126,7 +126,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="userBarSettingsButton" layoutX="39.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#settingsButtonOnMouseClicked" onMouseEntered="#settingsButtonOnMouseEntered" onMouseExited="#settingsButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                  <Button fx:id="userBarSettingsButton" disable="true" layoutX="39.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#settingsButtonOnMouseClicked" onMouseEntered="#settingsButtonOnMouseEntered" onMouseExited="#settingsButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>

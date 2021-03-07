@@ -5,6 +5,9 @@ import com.passnail.generator.main.config.AppConfig;
 import com.passnail.data.transfer.model.dto.RegistrationDto;
 import com.passnail.security.config.datasource.DataSourceSettingsSwitcher;
 import com.passnail.security.service.AuthenticationServiceIf;
+import com.passnail.security.service.LoginValidationServiceIf;
+import com.passnail.security.service.RegistrationValidationServiceIf;
+import com.passnail.security.service.impl.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @SpringBootTest(classes = {AppConfig.class})
 public class ValidationTest {
+
+    @Autowired
+    private RegistrationValidationServiceIf registrationValidationService;
+
+    @Autowired
+    private LoginValidationServiceIf loginValidationService;
 
     @Autowired
     private AuthenticationServiceIf authenticationService;
@@ -43,7 +52,7 @@ public class ValidationTest {
     public void testEmailValidation() {
 
         Random rand = new Random();
-        Long currentTime = rand.nextLong();
+        Long currentTime = 1L;
         RegistrationDto dto = new RegistrationDto();
         dto.setEmail(currentTime + "@passtest.com");
         dto.setLogin("test_user_" + currentTime);
@@ -51,8 +60,8 @@ public class ValidationTest {
         dto.setPasswordRepeat("eXpassword!2");
 
         authenticationService.registerNewUserProfile(dto);
-        authenticationService.logout(true);
 
+        authenticationService.logout(true);
         Long currentTime2 = System.currentTimeMillis();
         RegistrationDto dto2 = new RegistrationDto();
         dto2.setEmail(currentTime + "@passtest.com");
@@ -98,74 +107,65 @@ public class ValidationTest {
         dto.setPasswordRepeat("incorrect_second_pass");
 
         assertThrows(AuthenticationException.class, () -> {
-            authenticationService.registerNewUserProfile(dto);
+            registrationValidationService.validateRegistrationData(dto);
         });
 
-        authenticationService.logout(true);
         RegistrationDto dto2 = new RegistrationDto();
-        dto.setLogin("TEST_LOGIN_V" + 2);
-        dto.setEmail("testemail2@passtest.com");
-        dto.setPassword(tooShortPass);
-        dto.setPasswordRepeat(tooShortPass);
+        dto2.setLogin("TEST_LOGIN_V" + 2);
+        dto2.setEmail("testemail2@passtest.com");
+        dto2.setPassword(tooShortPass);
+        dto2.setPasswordRepeat(tooShortPass);
 
         assertThrows(AuthenticationException.class, () -> {
-            authenticationService.registerNewUserProfile(dto2);
+            registrationValidationService.validateRegistrationData(dto2);
         });
 
-        authenticationService.logout(true);
         RegistrationDto dto3 = new RegistrationDto();
-        dto.setLogin("TEST_LOGIN_V" + 3);
-        dto.setEmail("testemail3@passtest.com");
-        dto.setPassword(passWithoutSpecialChar);
-        dto.setPasswordRepeat(passWithoutSpecialChar);
+        dto3.setLogin("TEST_LOGIN_V" + 3);
+        dto3.setEmail("testemail3@passtest.com");
+        dto3.setPassword(passWithoutSpecialChar);
+        dto3.setPasswordRepeat(passWithoutSpecialChar);
 
         assertThrows(AuthenticationException.class, () -> {
-            authenticationService.registerNewUserProfile(dto3);
+            registrationValidationService.validateRegistrationData(dto3);
         });
 
-        authenticationService.logout(true);
         RegistrationDto dto4 = new RegistrationDto();
-        dto.setLogin("TEST_LOGIN_V" + 4);
-        dto.setEmail("testemail4@passtest.com");
-        dto.setPassword(passWithoutDigit);
-        dto.setPasswordRepeat(passWithoutDigit);
+        dto4.setLogin("TEST_LOGIN_V" + 4);
+        dto4.setEmail("testemail4@passtest.com");
+        dto4.setPassword(passWithoutDigit);
+        dto4.setPasswordRepeat(passWithoutDigit);
 
         assertThrows(AuthenticationException.class, () -> {
-            authenticationService.registerNewUserProfile(dto4);
+            registrationValidationService.validateRegistrationData(dto4);
         });
 
-        authenticationService.logout(true);
         RegistrationDto dto5 = new RegistrationDto();
-        dto.setLogin("TEST_LOGIN_V" + 5);
-        dto.setEmail("testemail5@passtest.com");
-        dto.setPassword(passWithoutUpperCase);
-        dto.setPasswordRepeat(passWithoutUpperCase);
+        dto5.setLogin("TEST_LOGIN_V" + 5);
+        dto5.setEmail("testemail5@passtest.com");
+        dto5.setPassword(passWithoutUpperCase);
+        dto5.setPasswordRepeat(passWithoutUpperCase);
 
         assertThrows(AuthenticationException.class, () -> {
-            authenticationService.registerNewUserProfile(dto5);
+            registrationValidationService.validateRegistrationData(dto5);
         });
 
-        authenticationService.logout(true);
         RegistrationDto dto6 = new RegistrationDto();
-        dto.setLogin("TEST_LOGIN_V" + 6);
-        dto.setEmail("testemail6@passtest.com");
-        dto.setPassword(passWithoutLowerCase);
-        dto.setPasswordRepeat(passWithoutLowerCase);
+        dto6.setLogin("TEST_LOGIN_V" + 6);
+        dto6.setEmail("testemail6@passtest.com");
+        dto6.setPassword(passWithoutLowerCase);
+        dto6.setPasswordRepeat(passWithoutLowerCase);
 
         assertThrows(AuthenticationException.class, () -> {
-            authenticationService.registerNewUserProfile(dto6);
+            registrationValidationService.validateRegistrationData(dto6);
         });
 
-        authenticationService.logout(true);
         RegistrationDto dto7 = new RegistrationDto();
-        dto.setLogin("TEST_LOGIN_V" + 7 + "__CORRECT");
-        dto.setEmail("testemail7@passtest.com");
-        dto.setPassword(correctPass);
-        dto.setPasswordRepeat(correctPass);
+        dto7.setLogin("TEST_LOGIN_V" + 7 + "__CORRECT");
+        dto7.setEmail("testemail7@passtest.com");
+        dto7.setPassword(correctPass);
+        dto7.setPasswordRepeat(correctPass);
 
-        assertThrows(AuthenticationException.class, () -> {
-            authenticationService.registerNewUserProfile(dto7);
-        });
     }
 
     /**

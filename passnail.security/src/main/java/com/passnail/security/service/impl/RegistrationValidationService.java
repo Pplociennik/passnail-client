@@ -69,5 +69,8 @@ public class RegistrationValidationService implements RegistrationValidationServ
         if (!matcher.find()) {
             throw new AuthenticationException("Login can only contain [A-Z], [0-9], \"_\" and has to be at least of the length of 3 characters.");
         }
+        if (aLogin.length() > 10) {
+            throw new AuthenticationException("Login is too long! Max login length: 10");
+        }
     }
 }
