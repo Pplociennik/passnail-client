@@ -6,6 +6,7 @@ import com.passnail.data.transfer.model.dto.CredentialsDto;
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
 import com.passnail.gui.config.FxmlView;
+import com.passnail.gui.control.data.EditableCredentialsData;
 import com.passnail.gui.control.data.OpenedCredentialsData;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
@@ -203,7 +204,24 @@ public class LibraryController implements Initializable {
 
     @FXML
     void editButtonOnMouseClicked(MouseEvent event) {
-//        editCredentialsInTheDatabase();
+        EditableCredentialsData dataOriginal = EditableCredentialsData.ORIGINAL;
+        CredentialsDto credentials = (CredentialsDto) credentialsList.getSelectionModel().getSelectedItem();
+
+        dataOriginal.setDescription(credentials.getDescription());
+        dataOriginal.setLogin(credentials.getLogin());
+        dataOriginal.setPassword(credentials.getPassword());
+        dataOriginal.setShortName(credentials.getCredentialsShortName());
+        dataOriginal.setUrl(credentials.getUrl());
+
+        EditableCredentialsData dataEditable = EditableCredentialsData.EDITABLE;
+
+        dataEditable.setDescription(credentials.getDescription());
+        dataEditable.setLogin(credentials.getLogin());
+        dataEditable.setPassword(credentials.getPassword());
+        dataEditable.setShortName(credentials.getCredentialsShortName());
+        dataEditable.setUrl(credentials.getUrl());
+
+        switchToEditCredentialsScene();
     }
 
     @FXML
@@ -344,5 +362,9 @@ public class LibraryController implements Initializable {
 
     private void switchToGeneratorSettingsScene() {
         stageManager.switchScene(GENERATORSETTINGS);
+    }
+
+    private void switchToEditCredentialsScene() {
+        stageManager.switchScene(EDITABLECREDENTIALS);
     }
 }

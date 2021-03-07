@@ -116,6 +116,34 @@ public class CredentialsService implements CredentialsServiceIf {
         userRepository.save(authorizedUser);
     }
 
+    @Override
+    public void updateCredentials(CredentialsDto aOriginal, CredentialsDto aUpdated, String aAuthorizedUserLogin, String aAuthorizedPass) {
+
+        UserEntity authorizedUser = userRepository.findByLogin(aAuthorizedUserLogin);
+
+        var encryptionKey = prepareKey(aAuthorizedPass);
+        var encryptionSalt = prepareSalt(aAuthorizedPass);
+
+        String encryptedShortName = encrypt(aOriginal.getCredentialsShortName(), encryptionKey, encryptionSalt);
+
+        CredentialsEntity toSave = authorizedUser.getSavedCredentials()
+                .stream()
+                .filter(
+                        c ->
+                                c.getCredentialsShortName().equals(encryptedShortName))
+                .findFirst().orElseThrow(
+                        () -> new IllegalArgumentException("Credentials with a short name: " + aOriginal.getCredentialsShortName() + " has not been found."));
+
+        toSave.setCredentialsShortName(encrypt(aUpdated.getCredentialsShortName(), encryptionKey, encryptionSalt));
+        toSave.setDescription(encrypt(aUpdated.getDescription(), encryptionKey, encryptionSalt));
+        toSave.setLastModificationDate(new Date());
+        toSave.setLogin(encrypt(aUpdated.getLogin(), encryptionKey, encryptionSalt));
+        toSave.setPassword(encrypt(aUpdated.getPassword(), encryptionKey, encryptionSalt));
+        toSave.setUrl(encrypt(aUpdated.getUrl(), encryptionKey, encryptionSalt));
+
+        userRepository.save(authorizedUser);
+    }
+
     private CredentialsDto decryptEntity(CredentialsEntity entity, String aPass) {
 
         var key = prepareKey(aPass);

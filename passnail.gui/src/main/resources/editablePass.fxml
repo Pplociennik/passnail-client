@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.passnail.gui.control.OpenedCredentialsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.passnail.gui.control.EditableCredentialsController">
    <children>
       <SplitPane dividerPositions="0.12" layoutY="373.0" orientation="VERTICAL" pickOnBounds="false" prefHeight="27.0" prefWidth="600.0">
         <items>
@@ -73,13 +73,13 @@
                         <Image url="@test_New_Pass.png" />
                      </image>
                   </ImageView>
-                  <Button alignment="CENTER" layoutX="44.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editButtonOnMouseClicked" onMouseEntered="#editButtonOnMouseEntered" onMouseExited="#editButtonOnMouseExited" prefHeight="25.0" prefWidth="59.0" text="Edit" textAlignment="CENTER" />
+                  <Button alignment="CENTER" layoutX="44.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#saveButtonOnMouseClicked" onMouseEntered="#saveButtonOnMouseEntered" onMouseExited="#saveButtonOnMouseExited" prefHeight="25.0" prefWidth="59.0" text="Save" textAlignment="CENTER" />
                   <Button alignment="CENTER" layoutX="275.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="25.0" minWidth="59.0" mnemonicParsing="false" onMouseClicked="#removeButtonOnMouseClicked" onMouseEntered="#removeButtonOnMouseEntered" onMouseExited="#removeButtonOnMouseExited" prefHeight="25.0" prefWidth="59.0" text="Remove" textAlignment="CENTER" />
-                  <TextArea fx:id="descriptionArea" editable="false" layoutX="185.0" layoutY="44.0" onMouseEntered="#descriptionAreaOnMouseEntered" onMouseExited="#descriptionAreaOnMouseExited" prefHeight="98.0" prefWidth="149.0" wrapText="true" />
-                  <TextField fx:id="shortNameField" editable="false" layoutX="185.0" layoutY="163.0" onMouseEntered="#shortNameFieldOnMouseEntered" onMouseExited="#shortNameFieldOnMouseExited" />
-                  <TextField fx:id="loginField" editable="false" layoutX="185.0" layoutY="203.0" onMouseClicked="#loginFieldOnMouseClicked" onMouseEntered="#loginFieldOnMouseEntered" onMouseExited="#loginFieldOnMouseExited" />
-                  <TextField fx:id="passwordField" editable="false" layoutX="185.0" layoutY="241.0" onMouseClicked="#passwordFieldOnMouseClicked" onMouseEntered="#passwordFieldOnMouseEntered" onMouseExited="#passwordFieldOnMouseExited" />
-                  <TextField fx:id="urlField" alignment="CENTER" editable="false" layoutX="9.0" layoutY="286.0" onMouseClicked="#urlFieldOnMouseClicked" onMouseEntered="#urlFieldOnMouseEntered" onMouseExited="#urlFieldOnMouseExited" prefHeight="25.0" prefWidth="353.0" />
+                  <TextArea fx:id="descriptionArea" layoutX="185.0" layoutY="44.0" onMouseEntered="#descriptionAreaOnMouseEntered" onMouseExited="#descriptionAreaOnMouseExited" prefHeight="98.0" prefWidth="149.0" wrapText="true" />
+                  <TextField fx:id="shortNameField" layoutX="185.0" layoutY="163.0" onMouseEntered="#shortNameFieldOnMouseEntered" onMouseExited="#shortNameFieldOnMouseExited" />
+                  <TextField fx:id="loginField" layoutX="185.0" layoutY="203.0" onMouseClicked="#loginFieldOnMouseClicked" onMouseEntered="#loginFieldOnMouseEntered" onMouseExited="#loginFieldOnMouseExited" />
+                  <TextField fx:id="passwordField" layoutX="185.0" layoutY="241.0" onMouseClicked="#passwordFieldOnMouseClicked" onMouseEntered="#passwordFieldOnMouseEntered" onMouseExited="#passwordFieldOnMouseExited" />
+                  <TextField fx:id="urlField" alignment="CENTER" layoutX="9.0" layoutY="286.0" onMouseClicked="#urlFieldOnMouseClicked" onMouseEntered="#urlFieldOnMouseEntered" onMouseExited="#urlFieldOnMouseExited" prefHeight="25.0" prefWidth="353.0" />
                   <Label layoutX="60.0" layoutY="167.0" text="Short Name" />
                   <Label layoutX="59.0" layoutY="207.0" text="Login" />
                   <Label layoutX="59.0" layoutY="245.0" text="Password" />
@@ -91,6 +91,15 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
+                  <Button layoutX="334.0" layoutY="241.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#generatePasswordButtonOnMouseClicked" onMouseEntered="#generatePasswordButtonOnMouseEntered" onMouseExited="#generatePasswordButtonOnMouseExited" prefHeight="25.0" prefWidth="25.0">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@genPasswd.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </AnchorPane>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="140.0">

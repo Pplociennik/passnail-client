@@ -5,7 +5,7 @@ import com.passnail.data.transfer.model.dto.CredentialsDto;
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
 import com.passnail.gui.control.data.EditableCredentialsData;
-import com.passnail.gui.control.data.OpenedCredentialsData;
+import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import static com.passnail.gui.GuiConstants.*;
@@ -31,11 +32,12 @@ import static com.passnail.gui.config.FxmlView.*;
 import static com.passnail.gui.control.tools.PlatformUtils.run;
 
 /**
- * Created by: Pszemko at sobota, 06.03.2021 22:58
+ * Created by: Pszemko at niedziela, 07.03.2021 03:25
  * Project: passnail-client
  */
 @Component
-public class OpenedCredentialsController implements Initializable {
+@Lazy(value = true)
+public class EditableCredentialsController implements Initializable {
 
     @Autowired
     private AuthenticationServiceIf authenticationService;
@@ -208,38 +210,6 @@ public class OpenedCredentialsController implements Initializable {
     }
 
     @FXML
-    void editButtonOnMouseClicked(MouseEvent event) {
-        EditableCredentialsData dataOriginal = EditableCredentialsData.ORIGINAL;
-        OpenedCredentialsData openedCredentialsData = OpenedCredentialsData.INSTANCE;
-
-        dataOriginal.setDescription(openedCredentialsData.getDescription());
-        dataOriginal.setLogin(openedCredentialsData.getLogin());
-        dataOriginal.setPassword(openedCredentialsData.getPassword());
-        dataOriginal.setShortName(openedCredentialsData.getShortName());
-        dataOriginal.setUrl(openedCredentialsData.getUrl());
-
-        EditableCredentialsData dataEditable = EditableCredentialsData.EDITABLE;
-
-        dataEditable.setDescription(openedCredentialsData.getDescription());
-        dataEditable.setLogin(openedCredentialsData.getLogin());
-        dataEditable.setPassword(openedCredentialsData.getPassword());
-        dataEditable.setShortName(openedCredentialsData.getShortName());
-        dataEditable.setUrl(openedCredentialsData.getUrl());
-
-        switchToEditCredentialsScene();
-    }
-
-    @FXML
-    void editButtonOnMouseEntered(MouseEvent event) {
-        showHelpMessage(EDIT_BUTTON_HELP_MESSAGE);
-    }
-
-    @FXML
-    void editButtonOnMouseExited(MouseEvent event) {
-        showHelpMessage(EMPTY_HELP_MESSAGE);
-    }
-
-    @FXML
     void loginFieldOnMouseClicked(MouseEvent event) throws IOException, AWTException {
         new SystemClipboardManager().copyTextToTheClipboard(loginField.getText(), LOGIN_COPIED_NOTIFICATION_MESSAGE);
     }
@@ -323,13 +293,13 @@ public class OpenedCredentialsController implements Initializable {
     private void prepareCredentialsInfo() {
 
         run(() -> {
-            OpenedCredentialsData data = OpenedCredentialsData.INSTANCE;
+            EditableCredentialsData dataEditable = EditableCredentialsData.EDITABLE;
 
-            descriptionArea.setText(data.getDescription());
-            shortNameField.setText(data.getShortName());
-            loginField.setText(data.getLogin());
-            passwordField.setText(data.getPassword());
-            urlField.setText(data.getUrl());
+            descriptionArea.setText(dataEditable.getDescription());
+            shortNameField.setText(dataEditable.getShortName());
+            loginField.setText(dataEditable.getLogin());
+            passwordField.setText(dataEditable.getPassword());
+            urlField.setText(dataEditable.getUrl());
         });
     }
 
@@ -385,7 +355,54 @@ public class OpenedCredentialsController implements Initializable {
         stageManager.switchScene(GENERATORSETTINGS);
     }
 
-    private void switchToEditCredentialsScene() {
-        stageManager.switchScene(EDITABLECREDENTIALS);
+    public void saveButtonOnMouseClicked(MouseEvent event) {
+        SessionData sessionData = SessionData.INSTANCE;
+        EditableCredentialsData dataOriginal = EditableCredentialsData.ORIGINAL;
+
+        CredentialsDto original = CredentialsDto.builder()
+                .url(dataOriginal.getUrl())
+                .credentialsShortName(dataOriginal.getShortName())
+                .description(dataOriginal.getDescription())
+                .login(dataOriginal.getLogin())
+                .password(dataOriginal.getPassword())
+                .build();
+
+        CredentialsDto toUpdate = CredentialsDto.builder()
+                .url(urlField.getText())
+                .login(loginField.getText())
+                .password(passwordField.getText())
+                .credentialsShortName(shortNameField.getText())
+                .description(descriptionArea.getText())
+                .lastModificationDate(new Date())
+                .build();
+
+        credentialsService.updateCredentials(original, toUpdate, sessionData.getAuthorizedUsername(), sessionData.getPassword());
+
+        switchToLibraryScene();
+    }
+
+    public void saveButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(EDITABLE_CREDENTIALS_SAVE_BUTTON_HELP_MESSAGE);
+    }
+
+    public void saveButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+    public void generatePasswordButtonOnMouseClicked(MouseEvent event) throws IOException {
+        PasswordGeneratorManagerIf manager = generatorManagerService.createDefaultPasswordGeneratorManagerWithDefaultPropertiesLoaded();
+        password = manager.generateNewPassword();
+
+        PlatformUtils.run(() -> {
+            passwordField.setText(password);
+        });
+    }
+
+    public void generatePasswordButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GENERATE_NEW_PASSWORD_HELP_MESSAGE);
+    }
+
+    public void generatePasswordButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 }

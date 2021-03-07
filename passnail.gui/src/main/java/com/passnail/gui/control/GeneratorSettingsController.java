@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ import java.util.ResourceBundle;
 
 import static com.passnail.gui.GuiConstants.*;
 import static com.passnail.gui.config.FxmlView.*;
+import static com.passnail.gui.control.tools.PlatformUtils.*;
 
 /**
  * Created by: Pszemko at niedziela, 07.03.2021 01:23
@@ -174,7 +176,7 @@ public class GeneratorSettingsController implements Initializable {
 
     private void prepareProperties() throws IOException {
 
-        PlatformUtils.run(() -> {
+        run(() -> {
 
             PasswordGeneratorManagerIf manager = null;
             try {
@@ -195,7 +197,7 @@ public class GeneratorSettingsController implements Initializable {
     private void prepareUserInfo() {
         SessionData sessionData = SessionData.INSTANCE;
 
-        PlatformUtils.run(() -> {
+        run(() -> {
             userBarLogin.setText(sessionData.getAuthorizedUsername());
             userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
             userBarPasswordsLabel.setText(sessionData.getAuthorizedPassNumber());
@@ -205,7 +207,7 @@ public class GeneratorSettingsController implements Initializable {
     }
 
     private void showHelpMessage(String aMessage) {
-        PlatformUtils.run(() -> {
+        run(() -> {
             mainPaneHelpLabel.setText(aMessage);
         });
     }
@@ -277,16 +279,33 @@ public class GeneratorSettingsController implements Initializable {
 
 
     public void saveButtonOnMouseClicked(MouseEvent event) {
+
+        boolean success = true;
+
         try {
             saveProperties();
         } catch (Exception e) {
+            success = false;
             showErrorMessage(e.getMessage());
             e.printStackTrace();
         }
+
+        if (success) {
+            showSuccessMessage();
+        }
+    }
+
+    private void showSuccessMessage() {
+
+        run(() -> {
+            errorLabel.setTextFill(Color.web("#34a300"));
+            errorLabel.setText("Properties saved successfully!");
+        });
     }
 
     private void showErrorMessage(String aMessage) {
-        PlatformUtils.run(() -> {
+        run(() -> {
+            errorLabel.setTextFill(Color.web("#a30000"));
             errorLabel.setText(aMessage);
         });
     }

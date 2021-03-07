@@ -12,7 +12,7 @@ public class IncorrectPropertiesException extends IllegalArgumentException {
     }
 
     public IncorrectPropertiesException() {
-        super("Incorrect properties!");
+        super("Inconsistent properties!");
     }
 
 }

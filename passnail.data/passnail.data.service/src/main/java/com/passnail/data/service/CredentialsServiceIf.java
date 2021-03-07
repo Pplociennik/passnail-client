@@ -25,4 +25,6 @@ public interface CredentialsServiceIf {
     List<CredentialsDto> decryptEntities(Collection<CredentialsEntity> aEntities, String aPass);
 
     void removeCredentialsFromTheDatabase(CredentialsDto credentials, String aAuthorizedUserLogin, String aAuthorizedPass);
+
+    void updateCredentials(CredentialsDto aOriginal, CredentialsDto aUpdated, String aAuthorizedUserLogin, String aAuthorizedPass);
 }

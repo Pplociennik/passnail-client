@@ -64,6 +64,16 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/generatorSettings.fxml";
         }
+    }, EDITABLECREDENTIALS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("creds.editable.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/editablePass.fxml";
+        }
     };
 
     public abstract String getTitle();
