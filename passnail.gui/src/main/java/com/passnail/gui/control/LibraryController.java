@@ -28,8 +28,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static com.passnail.gui.GuiConstants.*;
-import static com.passnail.gui.config.FxmlView.MAIN;
-import static com.passnail.gui.config.FxmlView.OPENEDCREDENTIALS;
+import static com.passnail.gui.config.FxmlView.*;
 import static com.passnail.gui.control.tools.PlatformUtils.run;
 
 /**
@@ -78,8 +77,8 @@ public class LibraryController implements Initializable {
     private ListView<?> credentialsList;
 
     @FXML
-    void generatorSettingsButtonOnMouseClicked(MouseEvent event) throws IOException {
-
+    void generatorSettingsButtonOnMouseClicked(MouseEvent event) {
+        switchToGeneratorSettingsScene();
     }
 
     @FXML
@@ -341,5 +340,9 @@ public class LibraryController implements Initializable {
 
     private void switchToOpenedCredentialsScene() {
         stageManager.switchScene(OPENEDCREDENTIALS);
+    }
+
+    private void switchToGeneratorSettingsScene() {
+        stageManager.switchScene(GENERATORSETTINGS);
     }
 }

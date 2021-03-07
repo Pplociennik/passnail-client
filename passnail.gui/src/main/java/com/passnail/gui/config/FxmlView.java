@@ -54,6 +54,16 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/openedPass.fxml";
         }
+    }, GENERATORSETTINGS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("generator.settings.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/generatorSettings.fxml";
+        }
     };
 
     public abstract String getTitle();

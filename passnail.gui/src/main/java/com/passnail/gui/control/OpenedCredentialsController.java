@@ -86,7 +86,7 @@ public class OpenedCredentialsController implements Initializable {
 
     @FXML
     void generatorSettingsButtonOnMouseClicked(MouseEvent event) throws IOException {
-
+        switchToGeneratorSettingsScene();
     }
 
     @FXML
@@ -361,5 +361,9 @@ public class OpenedCredentialsController implements Initializable {
             SessionData sessionData = SessionData.INSTANCE;
             userBarPasswordsLabel.setText(sessionData.getAuthorizedPassNumber());
         });
+    }
+
+    private void switchToGeneratorSettingsScene() {
+        stageManager.switchScene(GENERATORSETTINGS);
     }
 }

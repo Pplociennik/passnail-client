@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import static com.passnail.gui.GuiConstants.*;
+import static com.passnail.gui.config.FxmlView.GENERATORSETTINGS;
 import static com.passnail.gui.config.FxmlView.LIBRARY;
 
 /**
@@ -106,8 +107,8 @@ public class NewCredentialsController implements Initializable {
     }
 
     @FXML
-    void generatorSettingsButtonClicked(MouseEvent event) throws IOException {
-
+    void generatorSettingsButtonClicked(MouseEvent event) {
+        switchToGeneratorSettingsScene();
     }
 
     @FXML
@@ -297,5 +298,9 @@ public class NewCredentialsController implements Initializable {
 
     private void switchToLibraryScene() {
         stageManager.switchScene(LIBRARY);
+    }
+
+    private void switchToGeneratorSettingsScene() {
+        stageManager.switchScene(GENERATORSETTINGS);
     }
 }

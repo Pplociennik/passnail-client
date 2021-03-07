@@ -2,6 +2,7 @@ package com.passnail.gui.control;
 
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
+import com.passnail.gui.config.FxmlView;
 import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
@@ -24,13 +25,12 @@ import static com.passnail.gui.GuiConstants.*;
 import static com.passnail.gui.config.FxmlView.*;
 
 /**
- * Created by: Pszemko at środa, 03.03.2021 20:14
+ * Created by: Pszemko at niedziela, 07.03.2021 01:23
  * Project: passnail-client
  */
 @Component
 @Lazy(value = true)
-public class MainController implements Initializable {
-
+public class GeneratorSettingsController implements Initializable {
 
     @Autowired
     private AuthenticationServiceIf authenticationService;
@@ -57,21 +57,6 @@ public class MainController implements Initializable {
     @FXML
     private Label userBarPasswordsLabel;
 
-    @FXML
-    void generatorSettingsButtonOnMouseClicked(MouseEvent event) {
-        switchToGeneratorSettingsScene();
-
-    }
-
-    @FXML
-    void generatorSettingsOnMouseEntered(MouseEvent event) {
-        showHelpMessage(GENERATOR_SETTINGS_BUTTON_HELP_MESSAGE);
-    }
-
-    @FXML
-    void generatorSettingsOnMouseExited(MouseEvent event) {
-        showHelpMessage(EMPTY_HELP_MESSAGE);
-    }
 
     @FXML
     void logoutButtonOnMouseEntered(MouseEvent event) {
@@ -156,10 +141,6 @@ public class MainController implements Initializable {
         showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 
-    @FXML
-    void onMouseMoved(MouseEvent event) {
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -191,7 +172,87 @@ public class MainController implements Initializable {
         stageManager.switchScene(LIBRARY);
     }
 
-    private void switchToGeneratorSettingsScene() {
-        stageManager.switchScene(GENERATORSETTINGS);
+
+    public void resetButtonOnMouseClicked(MouseEvent event) {
+    }
+
+    public void resetButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GENERATOR_SETTINGS_RESET_BUTTON_HELP_MESSAGE);
+    }
+
+    public void resetButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+
+    public void lengthFieldOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GENERATOR_SETTINGS_LENGTH_FIELD_HELP_MESSAGE);
+    }
+
+    public void lengthFieldOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+
+    public void upperCaseFieldOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+    public void upperCaseFieldOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GENERATOR_SETTINGS_UPPER_CASE_FIELD_HELP_MESSAGE);
+    }
+
+    public void lowerCaseFieldOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GENERATOR_SETTINGS_LOWER_CASE_FIELD_HELP_MESSAGE);
+    }
+
+    public void lowerCaseFieldOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+
+    public void specialCharactersFieldOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GENERATOR_SETTINGS_SPECIAL_CHARACTERS_FIELD_HELP_MESSAGE);
+    }
+
+    public void specialCharactersFieldOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+
+    public void digitsFieldOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GENERATOR_SETTINGS_DIGITS_FIELD_HELP_MESSAGE);
+    }
+
+    public void digitsFieldOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+
+    public void saveButtonOnMouseClicked(MouseEvent event) {
+    }
+
+    public void saveButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(GENERATOR_SETTINGS_SAVE_BUTTON_HELP_MESSAGE);
+    }
+
+    public void saveButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+    public void backButtonOnMouseClicked(MouseEvent event) {
+        switchToMainScene();
+    }
+
+    public void backButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(BACK_BUTTON_HELP_MESSAGE);
+    }
+
+    public void backButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+    private void switchToMainScene() {
+        stageManager.switchScene(FxmlView.MAIN);
     }
 }
