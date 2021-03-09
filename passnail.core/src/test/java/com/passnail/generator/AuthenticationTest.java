@@ -51,7 +51,7 @@ public class AuthenticationTest {
 
         RegistrationDto dto = new RegistrationDto();
         Random random = new Random();
-        Integer nr = random.nextInt();
+        Integer nr = random.nextInt(9999) + 0;
         dto.setEmail(nr + "@passtest.com");
         dto.setLogin("test_user_" + nr);
         dto.setPassword("eXpassword!2");
@@ -71,7 +71,7 @@ public class AuthenticationTest {
     public void testRegistrationWithLogoutAfterwards() {
         SessionData sessionData = SessionData.INSTANCE;
 
-        Integer nr = new Random().nextInt();
+        Integer nr = new Random().nextInt(9999) + 0;
         RegistrationDto dto = new RegistrationDto();
         dto.setEmail(nr + "@passtest.com");
         dto.setLogin("test_user_" + nr);
@@ -94,7 +94,7 @@ public class AuthenticationTest {
     public void testRegistrationWithLogoutAndLoginAfterwards() throws InterruptedException {
         SessionData sessionData = SessionData.INSTANCE;
 
-        Integer nr = new Random().nextInt();
+        Integer nr = new Random().nextInt(9999) + 0;
         RegistrationDto dto = new RegistrationDto();
         dto.setEmail(nr + "@passtest.com");
         dto.setLogin("test_" + nr);
