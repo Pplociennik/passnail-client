@@ -177,7 +177,7 @@ public class ValidationTest {
         String exampleLogin = "LOGIN_VALIDATION_TEST_LOGIN";
 
         RegistrationDto dto = new RegistrationDto();
-        dto.setLogin("LOGIN_VALIDATION_TEST_LOGIN");
+        dto.setLogin("LOGIN_VALID_TEST");
         dto.setPassword("ExamplePass12!");
         dto.setPasswordRepeat("ExamplePass12!");
         dto.setEmail("exampleEmail@passtest.com");

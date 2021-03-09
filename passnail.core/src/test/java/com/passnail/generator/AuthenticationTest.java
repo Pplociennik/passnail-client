@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.util.Random;
 
 import static com.passnail.security.SecurityConstants.UNAUTHORIZED_TOKEN_SESSION_DATA;
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,16 +49,17 @@ public class AuthenticationTest {
     public void testRegistrationWithLoginAfterwards() {
         SessionData sessionData = SessionData.INSTANCE;
 
-        Long currentTime = System.currentTimeMillis();
         RegistrationDto dto = new RegistrationDto();
-        dto.setEmail(currentTime + "@passtest.com");
-        dto.setLogin("test_user_" + currentTime);
+        Random random = new Random();
+        Integer nr = random.nextInt();
+        dto.setEmail(nr + "@passtest.com");
+        dto.setLogin("test_user_" + nr);
         dto.setPassword("eXpassword!2");
         dto.setPasswordRepeat("eXpassword!2");
 
         authenticationService.registerNewUserProfile(dto);
 
-        assertNotNull(userService.findByLogin("test_user_" + currentTime));
+        assertNotNull(userService.findByLogin("test_user_" + nr));
         assertNotEquals(sessionData.getToken(), UNAUTHORIZED_TOKEN_SESSION_DATA);
         assertEquals(sessionData.getPassword(), dto.getPassword());
     }
@@ -69,10 +71,10 @@ public class AuthenticationTest {
     public void testRegistrationWithLogoutAfterwards() {
         SessionData sessionData = SessionData.INSTANCE;
 
-        Long currentTime = System.currentTimeMillis();
+        Integer nr = new Random().nextInt();
         RegistrationDto dto = new RegistrationDto();
-        dto.setEmail(currentTime + "@passtest.com");
-        dto.setLogin("test_user_" + currentTime);
+        dto.setEmail(nr + "@passtest.com");
+        dto.setLogin("test_user_" + nr);
         dto.setPassword("eXpassword!2");
         dto.setPasswordRepeat("eXpassword!2");
 
@@ -92,10 +94,10 @@ public class AuthenticationTest {
     public void testRegistrationWithLogoutAndLoginAfterwards() throws InterruptedException {
         SessionData sessionData = SessionData.INSTANCE;
 
-        Long currentTime = System.currentTimeMillis();
+        Integer nr = new Random().nextInt();
         RegistrationDto dto = new RegistrationDto();
-        dto.setEmail(currentTime + "@passtest.com");
-        dto.setLogin("test_user_" + currentTime);
+        dto.setEmail(nr + "@passtest.com");
+        dto.setLogin("test_" + nr);
         dto.setPassword("eXpassword!2");
         dto.setPasswordRepeat("eXpassword!2");
 
@@ -106,7 +108,7 @@ public class AuthenticationTest {
         assertEquals(sessionData.getToken(), UNAUTHORIZED_TOKEN_SESSION_DATA);
 
         LoginDto loginDto = LoginDto.builder()
-                .loginOrEmail(currentTime + "@passtest.com")
+                .loginOrEmail(nr + "@passtest.com")
                 .password("eXpassword!2")
                 .build();
 
