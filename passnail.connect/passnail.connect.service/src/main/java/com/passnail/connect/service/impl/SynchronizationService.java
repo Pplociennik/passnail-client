@@ -1,7 +1,25 @@
 package com.passnail.connect.service.impl;
 
+import com.passnail.common.throwable.security.AuthorizationException;
+import com.passnail.connect.service.RequestSenderServiceIf;
 import com.passnail.connect.service.SynchronizationServiceIf;
+import com.passnail.data.model.entity.CredentialsEntity;
+import com.passnail.data.model.entity.UserEntity;
+import com.passnail.data.service.UserServiceIf;
+import com.passnail.data.transfer.model.dto.CredentialsDto;
+import com.passnail.data.transfer.model.dto.SynchronizationResultDto;
+import com.passnail.security.service.JWTServiceIf;
+import com.passnail.security.session.SessionData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+
+import static com.passnail.connect.util.ConnectionConstants.*;
+import static com.passnail.data.transfer.model.map.DtoToEntityMapper.mapManyCredentialsDtoToEntities;
+import static com.passnail.data.transfer.model.map.EntityToDtoDataMapper.mapSingleUser;
+import static com.passnail.security.SecurityConstants.UNAUTHORIZED_USERNAME_SESSION_DATA;
 
 /**
  * {@inheritDoc}
@@ -11,4 +29,98 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SynchronizationService implements SynchronizationServiceIf {
+
+    @Autowired
+    private UserServiceIf userService;
+
+    @Autowired
+    private RequestSenderServiceIf sender;
+
+
+    @Override
+    public void synchronize() {
+        SessionData sessionData = SessionData.INSTANCE;
+
+        UserEntity userBeingSynchronizing = userService.findByLogin(sessionData.getAuthorizedUsername());
+
+        if (userBeingSynchronizing == null) {
+            throw new AuthorizationException("No user logged in!");
+        }
+
+        SynchronizationResultDto aResponseDto =
+                sender.sendSynchronizationRequest(getUrlForHeroku(SYNCHRONIZE_DATA_URI), mapSingleUser(userBeingSynchronizing)).block();
+
+        manageResponseData(aResponseDto, userBeingSynchronizing);
+
+    }
+
+    private void manageResponseData(SynchronizationResultDto aResponseDto, UserEntity aUserBeingSynchronizing) {
+        setUniqueIdentifiersForExistingCredentials(aResponseDto.getCreatedOnServer(), aUserBeingSynchronizing);
+        createNewInThisClient(aResponseDto.getToCreateOnClient(), aUserBeingSynchronizing);
+        updateExistingOnClient(aResponseDto.getToUpdateOnClient(), aUserBeingSynchronizing);
+        deleteOnThisClient(aResponseDto.getToDeleteOnClient(), aUserBeingSynchronizing);
+    }
+
+    private void setUniqueIdentifiersForExistingCredentials(List<CredentialsDto> createdOnServer, UserEntity aUserBeingSynchronizing) {
+        for (CredentialsDto fromServer : createdOnServer) {
+            for (CredentialsEntity fromClient : aUserBeingSynchronizing.getSavedCredentials()) {
+                if (fromClient.equals(fromClient)) {
+                    fromClient.setUniqueIdentifier(fromServer.getUniqueIdentifier());
+                }
+            }
+        }
+        userService.encryptCredentialsAndSaveUserInDatabase(aUserBeingSynchronizing);
+    }
+
+    private void createNewInThisClient(List<CredentialsDto> toCreateOnClient, UserEntity aUserBeingSynchronizing) {
+        aUserBeingSynchronizing.getSavedCredentials().addAll(mapManyCredentialsDtoToEntities(toCreateOnClient));
+        userService.encryptCredentialsAndSaveUserInDatabase(aUserBeingSynchronizing);
+    }
+
+    private void updateExistingOnClient(List<CredentialsDto> toUpdateOnClient, UserEntity aUserBeingSynchronizing) {
+        for (CredentialsEntity fromServer : mapManyCredentialsDtoToEntities(toUpdateOnClient)) {
+            for (CredentialsEntity fromClient : aUserBeingSynchronizing.getSavedCredentials()) {
+                if (fromClient.getUniqueIdentifier().equals(fromServer.getUniqueIdentifier())) {
+                    fromClient.setCredentialsShortName(fromServer.getCredentialsShortName());
+                    fromClient.setDescription(fromServer.getDescription());
+                    fromClient.setLastModificationDate(new Date());
+                    fromClient.setLogin(fromServer.getLogin());
+                    fromClient.setPassword(fromServer.getPassword());
+                    fromClient.setUrl(fromServer.getUrl());
+                    fromClient.setCreationDate(fromServer.getCreationDate());
+                }
+            }
+        }
+        userService.encryptCredentialsAndSaveUserInDatabase(aUserBeingSynchronizing);
+    }
+
+    private void deleteOnThisClient(List<CredentialsDto> toDeleteOnClient, UserEntity aUserBeingSynchronizing) {
+        aUserBeingSynchronizing.getSavedCredentials().removeAll(mapManyCredentialsDtoToEntities(toDeleteOnClient));
+        userService.encryptCredentialsAndSaveUserInDatabase(aUserBeingSynchronizing);
+    }
+
+    @Override
+    public void enableOnlineSynchronizationForUserLoggedIn() {
+        SessionData sessionData = SessionData.INSTANCE;
+        if (sessionData.getAuthorizedUsername().equals(UNAUTHORIZED_USERNAME_SESSION_DATA)) {
+            throw new AuthorizationException("No user authorized!");
+        }
+
+        UserEntity offlineUser = userService.findByLogin(sessionData.getAuthorizedUsername());
+
+        String newUniqueOnlineId = sender.sendOnlineIdGenerationRequest(getUrlForHeroku(GENERATE_ONLINE_ID_URI), mapSingleUser(offlineUser)).toString();
+
+        offlineUser.setOnlineID(newUniqueOnlineId);
+        offlineUser.setLocal(false);
+
+        userService.encryptCredentialsAndSaveUserInDatabase(offlineUser);
+
+        sessionData.setAuthorizedOnlineId(newUniqueOnlineId);
+    }
+
+
+    private String getUrlForHeroku(String aUri) {
+        StringBuilder builder = new StringBuilder(SERVER_HEROKU_HOST);
+        return builder.append(aUri).toString();
+    }
 }

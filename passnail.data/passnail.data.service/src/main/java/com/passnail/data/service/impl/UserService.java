@@ -37,4 +37,10 @@ public class UserService implements UserServiceIf {
     public void registerNewLocalUser(UserEntity aEntity) {
         userRepository.save(aEntity);
     }
+
+    @Override
+    public void encryptCredentialsAndSaveUserInDatabase(UserEntity aEntity) {
+        //TODO encryption
+        userRepository.save(aEntity);
+    }
 }

@@ -51,7 +51,7 @@ public class GuiConstants {
 
     public static final String SHOW_CREDS_LOGIN_HELP_MESSAGE = "Login. Click on the field to copy a value to the Clipboard.";
 
-    public static final String SHOW_CREDS_PASSWORD_HELP_MESSAGE = "Login. Click on the field to copy a value to the Clipboard.";
+    public static final String SHOW_CREDS_PASSWORD_HELP_MESSAGE = "Password. Click on the field to copy a value to the Clipboard.";
 
     public static final String SHOW_CREDS_SHORT_NAME_HELP_MESSAGE = "Short Name.";
 

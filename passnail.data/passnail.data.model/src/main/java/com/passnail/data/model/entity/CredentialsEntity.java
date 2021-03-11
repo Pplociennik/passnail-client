@@ -1,10 +1,14 @@
 package com.passnail.data.model.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -15,7 +19,6 @@ import java.util.UUID;
 @Table(name = "COM_PSSNL_CRED")
 @Builder
 @Data
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class CredentialsEntity {
@@ -82,10 +85,33 @@ public class CredentialsEntity {
     private Date lastModificationDate;
 
 
+    @Column(name = "CRED_UNIQUE_ID", nullable = false)
+    private UUID uniqueIdentifier;
+
+
     /**
      * An {@link UUID} typed identifier of the user being the credentials' owner.
      */
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CREDENTIALS_OWNER", referencedColumnName = "USR_ID")
     private UserEntity credentialsOwner;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CredentialsEntity that = (CredentialsEntity) o;
+        return Objects.equals(password, that.password) &&
+                credentialsShortName.equals(that.credentialsShortName) &&
+                Objects.equals(login, that.login) &&
+                Objects.equals(url, that.url) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(creationDate, that.creationDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(password, credentialsShortName, login, url, description, creationDate);
+    }
 }

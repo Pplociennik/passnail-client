@@ -30,8 +30,6 @@ public class GuiApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-//        String[] args = getParameters().getRaw().toArray(new String[0]);
-//        applicationContext.publishEvent(new StageReadyEvent(stage));
         stageManager = applicationContext.getBean(StageManager.class, stage);
         displayInitialScene();
     }
@@ -39,14 +37,4 @@ public class GuiApplication extends Application {
     protected void displayInitialScene() {
         stageManager.switchScene(FxmlView.AUTH);
     }
-
-//    static class StageReadyEvent extends ApplicationEvent {
-//        public StageReadyEvent(Stage stage) {
-//            super(stage);
-//        }
-//
-//        public Stage getStage() {
-//            return ((Stage) getSource());
-//        }
-//    }
 }
