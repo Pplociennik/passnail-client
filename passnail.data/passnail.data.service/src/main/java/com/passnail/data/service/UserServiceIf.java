@@ -33,5 +33,5 @@ public interface UserServiceIf {
      */
     void registerNewLocalUser(UserEntity aEntity);
 
-    void encryptCredentialsAndSaveUserInDatabase(UserEntity aEntity);
+    void encryptCredentialsAndSaveUserInDatabase(UserEntity aEntity, String aAuthorizedPass);
 }
