@@ -34,5 +34,6 @@ public class SavedCredentialsSessionDataService {
 
         sessionData.setAuthorizedOnlineId(user.getOnlineID());
         sessionData.setAuthorizedUsername(user.getLogin());
+        sessionData.setAuthorizedUserLastSynchDate(user.getLastSynchronization());
     }
 }

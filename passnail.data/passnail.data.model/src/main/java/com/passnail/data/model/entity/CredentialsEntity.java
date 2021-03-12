@@ -85,7 +85,7 @@ public class CredentialsEntity {
     private Date lastModificationDate;
 
 
-    @Column(name = "CRED_UNIQUE_ID", nullable = false)
+    @Column(name = "CRED_UNIQUE_ID")
     private UUID uniqueIdentifier;
 
 

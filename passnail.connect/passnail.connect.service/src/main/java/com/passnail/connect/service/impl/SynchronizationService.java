@@ -76,9 +76,10 @@ public class SynchronizationService implements SynchronizationServiceIf {
 
 
         SynchronizationResultDto aResponseDto =
-                sender.sendSynchronizationRequest(getUrlForHeroku(SYNCHRONIZE_DATA_URI), mapSingleUser(copy)).block();
+                sender.sendSynchronizationRequest(getUrlForRpi(SYNCHRONIZE_DATA_URI), mapSingleUser(copy)).block();
 
         manageResponseData(aResponseDto, userBeingSynchronizing);
+        userBeingSynchronizing.setLastSynchronization(new Date());
 
     }
 
@@ -136,7 +137,7 @@ public class SynchronizationService implements SynchronizationServiceIf {
 
         UserEntity offlineUser = userService.findByLogin(sessionData.getAuthorizedUsername());
 
-        String newUniqueOnlineId = sender.sendOnlineIdGenerationRequest(getUrlForHeroku(GENERATE_ONLINE_ID_URI), mapSingleUser(offlineUser)).toString();
+        String newUniqueOnlineId = sender.sendOnlineIdGenerationRequest(getUrlForRpi(GENERATE_ONLINE_ID_URI), mapSingleUser(offlineUser)).block();
 
         offlineUser.setOnlineID(newUniqueOnlineId);
         offlineUser.setLocal(false);
@@ -147,8 +148,8 @@ public class SynchronizationService implements SynchronizationServiceIf {
     }
 
 
-    private String getUrlForHeroku(String aUri) {
-        StringBuilder builder = new StringBuilder(SERVER_HEROKU_HOST);
+    private String getUrlForRpi(String aUri) {
+        StringBuilder builder = new StringBuilder(SERVER_RPI_HOST);
         return builder.append(aUri).toString();
     }
 }

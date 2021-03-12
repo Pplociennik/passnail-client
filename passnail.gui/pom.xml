@@ -38,6 +38,12 @@
             <artifactId>passnail.data.service</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.connect.service</artifactId>
+            <version>0.7.0_TEST_OMM_PRE_ALPHA-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

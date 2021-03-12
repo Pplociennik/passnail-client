@@ -12,6 +12,7 @@ import com.passnail.security.session.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 
 import static java.util.Objects.requireNonNull;
@@ -65,7 +66,7 @@ public class LoginService implements LoginServiceIf {
         sessionData.setToken(jwtService.createToken(aDto));
         sessionData.setOnlineToken(getOnlineToken(aDto));
         sessionData.setAuthorizedUsername(getLogin(aDto));
-        sessionData.setPassword(aDto.getPassword());
+        sessionData.setAuthorizedUserLastSynchDate(getAuthorizedUserLastSynchDate(aDto));
 
         sessionDataService.refreshAuthorizedUserSavedCredentialsData();
     }
@@ -93,5 +94,9 @@ public class LoginService implements LoginServiceIf {
         return !aDto.getLoginOrEmail().contains("@") ?
                 aDto.getLoginOrEmail() :
                 userService.findByEmail(aDto.getLoginOrEmail()).getLogin();
+    }
+
+    private Date getAuthorizedUserLastSynchDate(LoginDto aDto) {
+        return userService.findByLogin(getLogin(aDto)).getLastSynchronization();
     }
 }

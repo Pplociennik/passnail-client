@@ -77,6 +77,10 @@ public class UserEntity {
     private String onlineID;
 
 
+    @Column(name = "USR_LAST_SYNCH")
+    private Date lastSynchronization;
+
+
     /**
      * A {@link Set} of {@link CredentialsEntity} typed objects being a list of credentials created by user.
      */

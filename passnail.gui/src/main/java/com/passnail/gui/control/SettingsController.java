@@ -3,7 +3,6 @@ package com.passnail.gui.control;
 import com.passnail.connect.service.SynchronizationServiceIf;
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
-import com.passnail.gui.config.FxmlView;
 import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
@@ -12,6 +11,7 @@ import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +29,11 @@ import static com.passnail.gui.GuiConstants.*;
 import static com.passnail.gui.config.FxmlView.*;
 
 /**
- * Created by: Pszemko at środa, 03.03.2021 20:14
+ * Created by: Pszemko at piątek, 12.03.2021 15:30
  * Project: passnail-client
  */
 @Component
-@Lazy(value = true)
-public class MainController implements Initializable {
+public class SettingsController implements Initializable {
 
 
     @Autowired
@@ -50,8 +49,14 @@ public class MainController implements Initializable {
     @Lazy(value = true)
     private StageManager stageManager;
 
+
     String password;
 
+    @FXML
+    public javafx.scene.control.Button backButton;
+
+    @FXML
+    public javafx.scene.control.Button synchronizeOnDemandButton;
 
     @FXML
     private Label mainPaneHelpLabel;
@@ -66,13 +71,17 @@ public class MainController implements Initializable {
     private Label userBarPasswordsLabel;
 
     @FXML
+    private Button generateOnlineIdButton;
+
+    @FXML
     private Label lastSynchDateLabel;
 
     @FXML
     private Label lastSynchDate;
 
     @FXML
-    private Button synchronizeOnDemandButton;
+    private CheckBox synchEnabledCheckBox;
+
 
     @FXML
     void generatorSettingsButtonOnMouseClicked(MouseEvent event) {
@@ -144,21 +153,6 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void settingsButtonOnMouseClicked(MouseEvent event) {
-        switchToSettingsScene();
-    }
-
-    @FXML
-    void settingsButtonOnMouseEntered(MouseEvent event) {
-        showHelpMessage(SETTINGS_BUTTON_HELP_MESSAGE);
-    }
-
-    @FXML
-    void settingsButtonOnMouseExited(MouseEvent event) {
-        showHelpMessage(EMPTY_HELP_MESSAGE);
-    }
-
-    @FXML
     void showLibraryButtonOnMouseClicked(MouseEvent event) {
         switchToLibraryScene();
     }
@@ -172,6 +166,7 @@ public class MainController implements Initializable {
     void showLibraryButtonOnMouseExited(MouseEvent event) {
         showHelpMessage(EMPTY_HELP_MESSAGE);
     }
+
 
     @FXML
     void onMouseMoved(MouseEvent event) {
@@ -200,6 +195,8 @@ public class MainController implements Initializable {
             if (sessionData.getAuthorizedOnlineId() != null) {
                 synchronizeOnDemandButton.setVisible(true);
                 lastSynchDateLabel.setVisible(true);
+                synchEnabledCheckBox.setDisable(false);
+                generateOnlineIdButton.setDisable(true);
             }
         });
 
@@ -223,8 +220,46 @@ public class MainController implements Initializable {
         stageManager.switchScene(GENERATORSETTINGS);
     }
 
-    private void switchToSettingsScene() {
-        stageManager.switchScene(FxmlView.SETTINGS);
+    public void generateOnlineIdButtonOnMouseClicked(MouseEvent event) {
+        SessionData sessionData = SessionData.INSTANCE;
+        synchronizationService.enableOnlineSynchronizationForUserLoggedIn();
+
+        PlatformUtils.run(() -> {
+            userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
+            synchronizeOnDemandButton.setVisible(true);
+            lastSynchDateLabel.setVisible(true);
+            synchEnabledCheckBox.setDisable(false);
+            generateOnlineIdButton.setDisable(true);
+        });
+    }
+
+    public void generateOnlineIdButtonOnMouseEntered(MouseEvent event) {
+    }
+
+    public void generateOnlineIdButtonOnMouseExited(MouseEvent event) {
+    }
+
+    public void backButtonOnMouseClicked(MouseEvent event) {
+        swithToMainScene();
+    }
+
+    public void backButtonOnMouseEntered(MouseEvent event) {
+    }
+
+    public void backButtonOnMouseExited(MouseEvent event) {
+    }
+
+    public void synchEnabledCheckBoxOnMouseClicked(MouseEvent event) {
+    }
+
+    public void synchEnabledCheckBoxOnMouseEntered(MouseEvent event) {
+    }
+
+    public void synchEnabledCheckBoxOnMouseExited(MouseEvent event) {
+    }
+
+    private void swithToMainScene() {
+        stageManager.switchScene(MAIN);
     }
 
     public void synchronizeOnDemandButtonOnMouseClicked(MouseEvent event) {

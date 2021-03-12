@@ -5,6 +5,7 @@ import com.passnail.data.transfer.model.dto.SynchronizationResultDto;
 import com.passnail.data.transfer.model.dto.UserDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -12,6 +13,7 @@ import reactor.core.publisher.Mono;
  * Created by: Pszemko at czwartek, 11.03.2021 19:42
  * Project: passnail-client
  */
+@Service
 public class RequestSenderService implements RequestSenderServiceIf {
 
 

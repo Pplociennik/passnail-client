@@ -1,5 +1,6 @@
 package com.passnail.gui.control;
 
+import com.passnail.connect.service.SynchronizationServiceIf;
 import com.passnail.data.service.CredentialsServiceIf;
 import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.CredentialsDto;
@@ -8,6 +9,7 @@ import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
 import com.passnail.gui.config.FxmlView;
 import com.passnail.gui.control.data.EditableCredentialsData;
 import com.passnail.gui.control.data.OpenedCredentialsData;
+import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
@@ -16,6 +18,7 @@ import com.passnail.security.session.SessionData;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +29,8 @@ import org.springframework.stereotype.Component;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import static com.passnail.gui.GuiConstants.*;
@@ -56,6 +61,9 @@ public class LibraryController implements Initializable {
     private SavedCredentialsSessionDataService sessionDataService;
 
     @Autowired
+    private SynchronizationServiceIf synchronizationService;
+
+    @Autowired
     @Lazy(value = true)
     private StageManager stageManager;
 
@@ -76,6 +84,16 @@ public class LibraryController implements Initializable {
 
     @FXML
     private ListView<?> credentialsList;
+
+    @FXML
+    private Label lastSynchDateLabel;
+
+    @FXML
+    private Label lastSynchDate;
+
+    @FXML
+    private Button synchronizeOnDemandButton;
+
 
     @FXML
     void generatorSettingsButtonOnMouseClicked(MouseEvent event) {
@@ -147,7 +165,7 @@ public class LibraryController implements Initializable {
 
     @FXML
     void settingsButtonOnMouseClicked(MouseEvent event) {
-
+        switchToSettingsScene();
     }
 
     @FXML
@@ -260,10 +278,21 @@ public class LibraryController implements Initializable {
     private void prepareUserInfo() {
         SessionData sessionData = SessionData.INSTANCE;
 
-        run(() -> {
+        PlatformUtils.run(() -> {
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
             userBarLogin.setText(sessionData.getAuthorizedUsername());
             userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
             userBarPasswordsLabel.setText(sessionData.getAuthorizedPassNumber());
+            lastSynchDate.setText(
+                    sessionData.getAuthorizedUserLastSynchDate() == null ?
+                            null :
+                            df.format(sessionData.getAuthorizedUserLastSynchDate()));
+
+            if (sessionData.getAuthorizedOnlineId() != null) {
+                synchronizeOnDemandButton.setVisible(true);
+                lastSynchDateLabel.setVisible(true);
+            }
         });
 
     }
@@ -366,5 +395,19 @@ public class LibraryController implements Initializable {
 
     private void switchToEditCredentialsScene() {
         stageManager.switchScene(EDITABLECREDENTIALS);
+    }
+
+    private void switchToSettingsScene() {
+        stageManager.switchScene(FxmlView.SETTINGS);
+    }
+
+    public void synchronizeOnDemandButtonOnMouseClicked(MouseEvent event) {
+        synchronizationService.synchronize();
+    }
+
+    public void synchronizeOnDemandButtonOnMouseEntered(MouseEvent event) {
+    }
+
+    public void synchronizeOnDemandButtonOnMouseExited(MouseEvent event) {
     }
 }
