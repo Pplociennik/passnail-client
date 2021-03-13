@@ -1,6 +1,7 @@
 package com.passnail.data.transfer.model.dto;
 
 
+import com.passnail.data.model.entity.UserEntity;
 import lombok.*;
 
 import java.io.Serializable;

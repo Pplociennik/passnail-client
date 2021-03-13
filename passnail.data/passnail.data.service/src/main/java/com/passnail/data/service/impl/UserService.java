@@ -44,17 +44,7 @@ public class UserService implements UserServiceIf {
     }
 
     @Override
-    public void encryptCredentialsAndSaveUserInDatabase(UserEntity aEntity, String aAuthorizedPass) {
-        var encryptionKey = prepareKey(aAuthorizedPass);
-        var encryptionSalt = prepareSalt(aAuthorizedPass);
-
-        for (CredentialsEntity c : aEntity.getSavedCredentials()) {
-            c.setUrl(encrypt(c.getUrl(), encryptionKey, encryptionSalt));
-            c.setPassword(encrypt(c.getPassword(), encryptionKey, encryptionSalt));
-            c.setLogin(encrypt(c.getLogin(), encryptionKey, encryptionSalt));
-            c.setDescription(encrypt(c.getDescription(), encryptionKey, encryptionSalt));
-            c.setCredentialsShortName(encrypt(c.getCredentialsShortName(), encryptionKey, encryptionSalt));
-        }
+    public void saveUserInDatabase(UserEntity aEntity) {
         userRepository.save(aEntity);
     }
 }

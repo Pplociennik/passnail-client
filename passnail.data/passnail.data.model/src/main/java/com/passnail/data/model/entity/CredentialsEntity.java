@@ -45,7 +45,7 @@ public class CredentialsEntity {
     /**
      * A {@link String} being a short name of the saved password. The name can be set by user for being a natural language user friendly identifier.
      */
-    @Column(name = "CRED_NAME", unique = true, nullable = false)
+    @Column(name = "CRED_NAME", nullable = false)
     private String credentialsShortName;
 
 

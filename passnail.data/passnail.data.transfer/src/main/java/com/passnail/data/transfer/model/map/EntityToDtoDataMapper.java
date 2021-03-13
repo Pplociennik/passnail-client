@@ -23,7 +23,7 @@ public class EntityToDtoDataMapper {
 
     public static CredentialsDto mapSingleCredentials(CredentialsEntity aEntity) {
         return CredentialsDto.builder()
-                .uniqueIdentifier(aEntity.getCredsID())
+                .uniqueIdentifier(aEntity.getUniqueIdentifier())
                 .password(aEntity.getPassword())
                 .login(aEntity.getLogin())
                 .lastModificationDate(aEntity.getLastModificationDate())

@@ -1,9 +1,11 @@
 package com.passnail.data.transfer.model.map;
 
 import com.passnail.data.model.entity.CredentialsEntity;
+import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.transfer.model.dto.CredentialsDto;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -14,13 +16,13 @@ import static java.util.stream.Collectors.toList;
  */
 public class DtoToEntityMapper {
 
-    public static List<CredentialsEntity> mapManyCredentialsDtoToEntities(Collection<CredentialsDto> aDtos) {
+    public static List<CredentialsEntity> mapManyCredentialsDtoToEntities(Collection<CredentialsDto> aDtos, UserEntity aOwner) {
         return aDtos.stream()
-                .map(aDto -> mapSingleCredentialsDtoToEntity(aDto))
+                .map(aDto -> mapSingleCredentialsDtoToEntity(aDto, aOwner))
                 .collect(toList());
     }
 
-    public static CredentialsEntity mapSingleCredentialsDtoToEntity(CredentialsDto aDto) {
+    public static CredentialsEntity mapSingleCredentialsDtoToEntity(CredentialsDto aDto, UserEntity aOwner) {
         return CredentialsEntity.builder()
                 .creationDate(aDto.getCreationDate())
                 .credentialsShortName(aDto.getCredentialsShortName())
@@ -29,6 +31,8 @@ public class DtoToEntityMapper {
                 .password(aDto.getPassword())
                 .uniqueIdentifier(aDto.getUniqueIdentifier())
                 .url(aDto.getUrl())
+                .lastModificationDate(new Date())
+                .credentialsOwner(aOwner)
                 .build();
     }
 }

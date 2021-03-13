@@ -423,7 +423,14 @@ public class OpenedCredentialsController implements Initializable {
     }
 
     public void synchronizeOnDemandButtonOnMouseClicked(MouseEvent event) {
-        synchronizationService.synchronize();
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        PlatformUtils.run(() -> {
+            synchronizationService.synchronize();
+            SessionData sessionData = SessionData.INSTANCE;
+
+            sessionDataService.refreshAuthorizedUserSavedCredentialsData();
+            lastSynchDate.setText(df.format(sessionData.getAuthorizedUserLastSynchDate()));
+        });
     }
 
     public void synchronizeOnDemandButtonOnMouseEntered(MouseEvent event) {

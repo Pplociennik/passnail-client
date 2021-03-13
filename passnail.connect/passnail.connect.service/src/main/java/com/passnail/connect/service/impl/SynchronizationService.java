@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.passnail.connect.util.ConnectionConstants.*;
-import static com.passnail.data.security.crypto.CredentialsEncoderAES256.decrypt;
 import static com.passnail.data.security.crypto.CryptoUtility.prepareKey;
 import static com.passnail.data.security.crypto.CryptoUtility.prepareSalt;
 import static com.passnail.data.transfer.model.map.DtoToEntityMapper.mapManyCredentialsDtoToEntities;
@@ -58,14 +57,14 @@ public class SynchronizationService implements SynchronizationServiceIf {
             decryptedUserCredentials.add(
                     CredentialsEntity.builder()
                             .creationDate(c.getCreationDate())
-                            .credentialsShortName(decrypt(c.getCredentialsShortName(), decryptionKey, decryptionSalt)
+                            .credentialsShortName(c.getCredentialsShortName()
                             )
                             .lastModificationDate(c.getLastModificationDate())
-                            .description(decrypt(c.getDescription(), decryptionKey, decryptionSalt))
-                            .login(decrypt(c.getLogin(), decryptionKey, decryptionSalt))
-                            .password(decrypt(c.getPassword(), decryptionKey, decryptionSalt))
+                            .description(c.getDescription())
+                            .login(c.getLogin())
+                            .password(c.getPassword())
                             .uniqueIdentifier(c.getUniqueIdentifier())
-                            .url(decrypt(c.getUrl(), decryptionKey, decryptionSalt))
+                            .url(c.getUrl())
                             .build());
         }
 
@@ -80,6 +79,7 @@ public class SynchronizationService implements SynchronizationServiceIf {
 
         manageResponseData(aResponseDto, userBeingSynchronizing);
         userBeingSynchronizing.setLastSynchronization(new Date());
+        userService.saveUserInDatabase(userBeingSynchronizing);
 
     }
 
@@ -98,16 +98,16 @@ public class SynchronizationService implements SynchronizationServiceIf {
                 }
             }
         }
-        userService.encryptCredentialsAndSaveUserInDatabase(aUserBeingSynchronizing, sessionData.getPassword());
+        userService.saveUserInDatabase(aUserBeingSynchronizing);
     }
 
     private void createNewInThisClient(List<CredentialsDto> toCreateOnClient, UserEntity aUserBeingSynchronizing) {
-        aUserBeingSynchronizing.getSavedCredentials().addAll(mapManyCredentialsDtoToEntities(toCreateOnClient));
-        userService.encryptCredentialsAndSaveUserInDatabase(aUserBeingSynchronizing, sessionData.getPassword());
+        aUserBeingSynchronizing.getSavedCredentials().addAll(mapManyCredentialsDtoToEntities(toCreateOnClient, aUserBeingSynchronizing));
+        userService.saveUserInDatabase(aUserBeingSynchronizing);
     }
 
     private void updateExistingOnClient(List<CredentialsDto> toUpdateOnClient, UserEntity aUserBeingSynchronizing) {
-        for (CredentialsEntity fromServer : mapManyCredentialsDtoToEntities(toUpdateOnClient)) {
+        for (CredentialsEntity fromServer : mapManyCredentialsDtoToEntities(toUpdateOnClient, aUserBeingSynchronizing)) {
             for (CredentialsEntity fromClient : aUserBeingSynchronizing.getSavedCredentials()) {
                 if (fromClient.getUniqueIdentifier().equals(fromServer.getUniqueIdentifier())) {
                     fromClient.setCredentialsShortName(fromServer.getCredentialsShortName());
@@ -120,12 +120,12 @@ public class SynchronizationService implements SynchronizationServiceIf {
                 }
             }
         }
-        userService.encryptCredentialsAndSaveUserInDatabase(aUserBeingSynchronizing, sessionData.getPassword());
+        userService.saveUserInDatabase(aUserBeingSynchronizing);
     }
 
     private void deleteOnThisClient(List<CredentialsDto> toDeleteOnClient, UserEntity aUserBeingSynchronizing) {
-        aUserBeingSynchronizing.getSavedCredentials().removeAll(mapManyCredentialsDtoToEntities(toDeleteOnClient));
-        userService.encryptCredentialsAndSaveUserInDatabase(aUserBeingSynchronizing, sessionData.getPassword());
+        aUserBeingSynchronizing.getSavedCredentials().removeAll(mapManyCredentialsDtoToEntities(toDeleteOnClient, aUserBeingSynchronizing));
+        userService.saveUserInDatabase(aUserBeingSynchronizing);
     }
 
     @Override
@@ -142,7 +142,7 @@ public class SynchronizationService implements SynchronizationServiceIf {
         offlineUser.setOnlineID(newUniqueOnlineId);
         offlineUser.setLocal(false);
 
-        userService.encryptCredentialsAndSaveUserInDatabase(offlineUser, sessionData.getPassword());
+        userService.saveUserInDatabase(offlineUser);
 
         sessionData.setAuthorizedOnlineId(newUniqueOnlineId);
     }

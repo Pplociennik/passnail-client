@@ -9,6 +9,7 @@ import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
+import com.passnail.security.session.SavedCredentialsSessionDataService;
 import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,6 +49,9 @@ public class GeneratorSettingsController implements Initializable {
 
     @Autowired
     private SynchronizationServiceIf synchronizationService;
+
+    @Autowired
+    private SavedCredentialsSessionDataService sessionDataService;
 
     @Autowired
     @Lazy(value = true)
@@ -398,7 +402,14 @@ public class GeneratorSettingsController implements Initializable {
     }
 
     public void synchronizeOnDemandButtonOnMouseClicked(MouseEvent event) {
-        synchronizationService.synchronize();
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        PlatformUtils.run(() -> {
+            synchronizationService.synchronize();
+            SessionData sessionData = SessionData.INSTANCE;
+
+            sessionDataService.refreshAuthorizedUserSavedCredentialsData();
+            lastSynchDate.setText(df.format(sessionData.getAuthorizedUserLastSynchDate()));
+        });
     }
 
     public void synchronizeOnDemandButtonOnMouseEntered(MouseEvent event) {
