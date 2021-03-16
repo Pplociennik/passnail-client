@@ -8,7 +8,6 @@ import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.CredentialsDto;
 import com.passnail.data.transfer.model.dto.SynchronizationResultDto;
-import com.passnail.security.session.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +16,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.passnail.connect.util.ConnectionConstants.*;
-import static com.passnail.data.security.crypto.CryptoUtility.prepareKey;
-import static com.passnail.data.security.crypto.CryptoUtility.prepareSalt;
 import static com.passnail.data.transfer.model.map.DtoToEntityMapper.mapManyCredentialsDtoToEntities;
 import static com.passnail.data.transfer.model.map.EntityToDtoDataMapper.mapSingleUser;
-import static com.passnail.security.SecurityConstants.UNAUTHORIZED_USERNAME_SESSION_DATA;
 
 /**
  * {@inheritDoc}
@@ -38,15 +34,11 @@ public class SynchronizationService implements SynchronizationServiceIf {
     @Autowired
     private RequestSenderServiceIf sender;
 
-    private SessionData sessionData = SessionData.INSTANCE;
-
 
     @Override
-    public void synchronize() {
-        UserEntity userBeingSynchronizing = userService.findByLogin(sessionData.getAuthorizedUsername());
+    public void synchronize(String aUserName) {
+        UserEntity userBeingSynchronizing = userService.findByLogin(aUserName);
 
-        var decryptionKey = prepareKey(sessionData.getPassword());
-        var decryptionSalt = prepareSalt(sessionData.getPassword());
         List<CredentialsEntity> decryptedUserCredentials = new LinkedList<>();
 
         if (userBeingSynchronizing == null) {
@@ -126,25 +118,6 @@ public class SynchronizationService implements SynchronizationServiceIf {
     private void deleteOnThisClient(List<CredentialsDto> toDeleteOnClient, UserEntity aUserBeingSynchronizing) {
         aUserBeingSynchronizing.getSavedCredentials().removeAll(mapManyCredentialsDtoToEntities(toDeleteOnClient, aUserBeingSynchronizing));
         userService.saveUserInDatabase(aUserBeingSynchronizing);
-    }
-
-    @Override
-    public void enableOnlineSynchronizationForUserLoggedIn() {
-        SessionData sessionData = SessionData.INSTANCE;
-        if (sessionData.getAuthorizedUsername().equals(UNAUTHORIZED_USERNAME_SESSION_DATA)) {
-            throw new AuthorizationException("No user authorized!");
-        }
-
-        UserEntity offlineUser = userService.findByLogin(sessionData.getAuthorizedUsername());
-
-        String newUniqueOnlineId = sender.sendOnlineIdGenerationRequest(getUrlForRpi(GENERATE_ONLINE_ID_URI), mapSingleUser(offlineUser)).block();
-
-        offlineUser.setOnlineID(newUniqueOnlineId);
-        offlineUser.setLocal(false);
-
-        userService.saveUserInDatabase(offlineUser);
-
-        sessionData.setAuthorizedOnlineId(newUniqueOnlineId);
     }
 
 

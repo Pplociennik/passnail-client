@@ -7,6 +7,7 @@ import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
+import com.passnail.security.service.UserSynchServiceIf;
 import com.passnail.security.session.SavedCredentialsSessionDataService;
 import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
@@ -48,6 +49,9 @@ public class SettingsController implements Initializable {
 
     @Autowired
     private SavedCredentialsSessionDataService sessionDataService;
+
+    @Autowired
+    private UserSynchServiceIf userSynchService;
 
     @Autowired
     @Lazy(value = true)
@@ -226,7 +230,7 @@ public class SettingsController implements Initializable {
 
     public void generateOnlineIdButtonOnMouseClicked(MouseEvent event) {
         SessionData sessionData = SessionData.INSTANCE;
-        synchronizationService.enableOnlineSynchronizationForUserLoggedIn();
+        userSynchService.enableOnlineSynchronizationForUserLoggedIn();
 
         PlatformUtils.run(() -> {
             userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
@@ -269,8 +273,8 @@ public class SettingsController implements Initializable {
     public void synchronizeOnDemandButtonOnMouseClicked(MouseEvent event) {
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         PlatformUtils.run(() -> {
-            synchronizationService.synchronize();
             SessionData sessionData = SessionData.INSTANCE;
+            synchronizationService.synchronize(sessionData.getAuthorizedUsername());
 
             sessionDataService.refreshAuthorizedUserSavedCredentialsData();
             lastSynchDate.setText(df.format(sessionData.getAuthorizedUserLastSynchDate()));

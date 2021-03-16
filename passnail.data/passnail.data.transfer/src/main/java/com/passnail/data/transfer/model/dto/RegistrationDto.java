@@ -24,4 +24,6 @@ public class RegistrationDto implements Serializable {
     private String password;
 
     private String passwordRepeat;
+
+    private String onlineId;
 }

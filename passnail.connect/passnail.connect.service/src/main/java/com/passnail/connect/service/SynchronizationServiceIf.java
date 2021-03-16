@@ -8,7 +8,5 @@ package com.passnail.connect.service;
  */
 public interface SynchronizationServiceIf {
 
-    void synchronize();
-
-    void enableOnlineSynchronizationForUserLoggedIn();
+    void synchronize(String aUserName);
 }

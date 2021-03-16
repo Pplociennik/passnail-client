@@ -1,6 +1,7 @@
 package com.passnail.connect.service.impl;
 
 import com.passnail.connect.service.RequestSenderServiceIf;
+import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.data.transfer.model.dto.SynchronizationResultDto;
 import com.passnail.data.transfer.model.dto.UserDto;
 import org.springframework.http.HttpHeaders;
@@ -35,6 +36,16 @@ public class RequestSenderService implements RequestSenderServiceIf {
                 .body(Mono.just(aUserDto), UserDto.class)
                 .retrieve()
                 .bodyToMono(SynchronizationResultDto.class);
+    }
+
+    @Override
+    public Mono<UserDto> sendOnlineAuthorizationRequest(String aUrl, LoginDto aDto) {
+        WebClient client = createWebClient(aUrl);
+
+        return client.post()
+                .body(Mono.just(aDto), LoginDto.class)
+                .retrieve()
+                .bodyToMono(UserDto.class);
     }
 
     private WebClient createWebClient(String aUrl) {

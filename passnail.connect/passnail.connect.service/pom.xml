@@ -33,14 +33,19 @@
         <dependency>
             <groupId>com.passnail</groupId>
             <artifactId>passnail.data.service</artifactId>
-            <version>0.7.0_TEST_OMM_PRE_ALPHA-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.passnail</groupId>-->
+<!--            <artifactId>passnail.security</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.passnail</groupId>
-            <artifactId>passnail.security</artifactId>
-            <version>0.7.0_TEST_OMM_PRE_ALPHA-SNAPSHOT</version>
-            <scope>compile</scope>
+            <artifactId>passnail.common</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

@@ -234,8 +234,8 @@ public class MainController implements Initializable {
     public void synchronizeOnDemandButtonOnMouseClicked(MouseEvent event) {
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         PlatformUtils.run(() -> {
-            synchronizationService.synchronize();
             SessionData sessionData = SessionData.INSTANCE;
+            synchronizationService.synchronize(sessionData.getAuthorizedUsername());
 
             sessionDataService.refreshAuthorizedUserSavedCredentialsData();
             lastSynchDate.setText(df.format(sessionData.getAuthorizedUserLastSynchDate()));

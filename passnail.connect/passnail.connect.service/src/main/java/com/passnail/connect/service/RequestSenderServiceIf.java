@@ -1,5 +1,6 @@
 package com.passnail.connect.service;
 
+import com.passnail.data.transfer.model.dto.LoginDto;
 import com.passnail.data.transfer.model.dto.SynchronizationResultDto;
 import com.passnail.data.transfer.model.dto.UserDto;
 import reactor.core.publisher.Mono;
@@ -13,4 +14,6 @@ public interface RequestSenderServiceIf {
     Mono<String> sendOnlineIdGenerationRequest(String aUrl, UserDto aUserDto);
 
     Mono<SynchronizationResultDto> sendSynchronizationRequest(String aUrl, UserDto aUserDto);
+
+    Mono<UserDto> sendOnlineAuthorizationRequest(String aUrl, LoginDto aDto);
 }
