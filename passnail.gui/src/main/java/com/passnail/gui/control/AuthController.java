@@ -90,6 +90,7 @@ public class AuthController implements Initializable {
             });
         }
         if (authorized) {
+            loginOnlineIdField.setText(null);
             switchScene();
         }
     }

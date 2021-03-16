@@ -10,11 +10,11 @@ public class ConnectionConstants {
     }
 
 
-    public static final String SERVER_RPI_HOST = "http://95.108.36.173:8081/api/synch";
+    public static final String SERVER_RPI_HOST = "http://95.108.36.173:8081";
 
     public static final String AUTHORIZE_WITH_ONLINE_ID = "/api/auth/user";
 
-    public static final String GENERATE_ONLINE_ID_URI = "/user/create";
+    public static final String GENERATE_ONLINE_ID_URI = "/api/synch/user/create";
 
-    public static final String SYNCHRONIZE_DATA_URI = "/user/synchronize";
+    public static final String SYNCHRONIZE_DATA_URI = "/api/synch/user/synchronize";
 }

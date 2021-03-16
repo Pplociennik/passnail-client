@@ -2,7 +2,6 @@ package com.passnail.security.service.impl;
 
 import com.passnail.common.throwable.security.AuthenticationException;
 import com.passnail.connect.service.RequestSenderServiceIf;
-import com.passnail.connect.util.ConnectionConstants;
 import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.service.UserServiceIf;
 import com.passnail.data.transfer.model.dto.LoginDto;
@@ -21,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.regex.Matcher;
 
+import static com.passnail.connect.util.ConnectionConstants.AUTHORIZE_WITH_ONLINE_ID;
+import static com.passnail.connect.util.ConnectionConstants.SERVER_RPI_HOST;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -95,10 +96,7 @@ public class LoginService implements LoginServiceIf {
     }
 
     private void authorizeOnlineWithSynchronization(LoginDto aDto) {
-        Matcher matcher = SecurityConstants.VALID_EMAIL_ADDRESS_REGEX.matcher(aDto.getLoginOrEmail());
-        if (!matcher.find()) {
-            throw new AuthenticationException("Please, use email address for online login.");
-        }
+        validateEmailGiven(aDto);
         UserEntity user = userService.findByEmail(aDto.getLoginOrEmail());
 
         if (user != null) {
@@ -110,22 +108,34 @@ public class LoginService implements LoginServiceIf {
 
     }
 
-    private void processOnlineAuthorization(LoginDto aDto) {
-        UserDto receivedUser = requestSenderService.sendOnlineAuthorizationRequest(ConnectionConstants.AUTHORIZE_WITH_ONLINE_ID, aDto)
-                .block();
-
-        registerUser(receivedUser);
+    private void validateEmailGiven(LoginDto aDto) {
+        Matcher matcher = SecurityConstants.VALID_EMAIL_ADDRESS_REGEX.matcher(aDto.getLoginOrEmail());
+        if (!matcher.find()) {
+            throw new AuthenticationException("Please, use email address for online login.");
+        }
     }
 
-    private void registerUser(UserDto aDto) {
-        String login = createLoginForUser(aDto);
+    private void processOnlineAuthorization(LoginDto aDto) {
+        UserDto receivedUser = requestSenderService.sendOnlineAuthorizationRequest(getUrlForRpi(AUTHORIZE_WITH_ONLINE_ID), aDto)
+                .block();
+
+        registerUser(receivedUser, aDto);
+    }
+
+    private String getUrlForRpi(String aUri) {
+        StringBuilder builder = new StringBuilder(SERVER_RPI_HOST);
+        return builder.append(aUri).toString();
+    }
+
+    private void registerUser(UserDto aUserDto, LoginDto aLoginDto) {
+        String login = createLoginForUser(aUserDto);
 
         RegistrationDto regDto = RegistrationDto.builder()
                 .login(login)
-                .email(aDto.getEmailAddress())
-                .password(aDto.getPassword())
-                .passwordRepeat(aDto.getPassword())
-                .onlineId(aDto.getOnlineId())
+                .email(aUserDto.getEmailAddress())
+                .password(aLoginDto.getPassword())
+                .passwordRepeat(aLoginDto.getPassword())
+                .onlineId(aUserDto.getOnlineId())
                 .build();
 
         registrationService.registerNewOfflineUserProfile(regDto);
@@ -150,7 +160,7 @@ public class LoginService implements LoginServiceIf {
     }
 
     private Boolean validateOnlineId(String onlineID) {
-        return onlineID != null;
+        return (onlineID != null && !onlineID.isEmpty());
     }
 
     private String getLogin(LoginDto aDto) {
