@@ -84,22 +84,32 @@ public class SynchronizationService implements SynchronizationServiceIf {
     }
 
     private void setUniqueIdentifiersForExistingCredentials(List<CredentialsDto> createdOnServer, UserEntity aUserBeingSynchronizing) {
-        for (CredentialsDto fromServer : createdOnServer) {
+        if (createdOnServer.isEmpty()) {
+            return;
+        }
+
+        for (CredentialsEntity fromServer : mapManyCredentialsDtoToEntities(createdOnServer, aUserBeingSynchronizing)) {
             for (CredentialsEntity fromClient : aUserBeingSynchronizing.getSavedCredentials()) {
                 if (fromClient.equals(fromServer)) {
                     fromClient.setUniqueIdentifier(fromServer.getUniqueIdentifier());
                 }
             }
         }
-        userService.saveUserInDatabase(aUserBeingSynchronizing);
     }
 
     private void createNewInThisClient(List<CredentialsDto> toCreateOnClient, UserEntity aUserBeingSynchronizing) {
+        if (toCreateOnClient.isEmpty()) {
+            return;
+        }
+
         aUserBeingSynchronizing.getSavedCredentials().addAll(mapManyCredentialsDtoToEntities(toCreateOnClient, aUserBeingSynchronizing));
-        userService.saveUserInDatabase(aUserBeingSynchronizing);
     }
 
     private void updateExistingOnClient(List<CredentialsDto> toUpdateOnClient, UserEntity aUserBeingSynchronizing) {
+        if (toUpdateOnClient.isEmpty()) {
+            return;
+        }
+
         for (CredentialsEntity fromServer : mapManyCredentialsDtoToEntities(toUpdateOnClient, aUserBeingSynchronizing)) {
             for (CredentialsEntity fromClient : aUserBeingSynchronizing.getSavedCredentials()) {
                 if (fromClient.getUniqueIdentifier().equals(fromServer.getUniqueIdentifier())) {
@@ -113,16 +123,18 @@ public class SynchronizationService implements SynchronizationServiceIf {
                 }
             }
         }
-        userService.saveUserInDatabase(aUserBeingSynchronizing);
     }
 
     private void deleteOnThisClient(List<CredentialsDto> toDeleteOnClient, UserEntity aUserBeingSynchronizing) {
+        if (toDeleteOnClient.isEmpty()) {
+            return;
+        }
+
         var usersCredentials = aUserBeingSynchronizing.getSavedCredentials();
         usersCredentials.removeAll(mapManyCredentialsDtoToEntities(toDeleteOnClient, aUserBeingSynchronizing));
 
         aUserBeingSynchronizing.getSavedCredentials().clear();
         aUserBeingSynchronizing.setSavedCredentials(usersCredentials);
-        userService.saveUserInDatabase(aUserBeingSynchronizing);
     }
 
 

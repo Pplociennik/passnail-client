@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -99,6 +101,7 @@ public class CredentialsEntity {
 
     @Override
     public boolean equals(Object o) {
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CredentialsEntity that = (CredentialsEntity) o;
@@ -107,7 +110,7 @@ public class CredentialsEntity {
                 Objects.equals(login, that.login) &&
                 Objects.equals(url, that.url) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(creationDate, that.creationDate);
+                Objects.equals(df.format(creationDate), df.format(that.creationDate));
     }
 
     @Override
