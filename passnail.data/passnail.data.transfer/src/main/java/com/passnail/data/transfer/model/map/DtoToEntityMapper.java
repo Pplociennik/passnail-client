@@ -31,7 +31,7 @@ public class DtoToEntityMapper {
                 .password(aDto.getPassword())
                 .uniqueIdentifier(aDto.getUniqueIdentifier())
                 .url(aDto.getUrl())
-                .lastModificationDate(new Date())
+                .lastModificationDate(aDto.getLastModificationDate())
                 .credentialsOwner(aOwner)
                 .build();
     }
