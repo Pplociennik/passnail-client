@@ -1,5 +1,6 @@
 package com.passnail.data.model.entity;
 
+import com.passnail.data.status.CredentialsStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -89,6 +90,10 @@ public class CredentialsEntity {
 
     @Column(name = "CRED_UNIQUE_ID")
     private UUID uniqueIdentifier;
+
+
+    @Column(name = "CRED_STATUS")
+    private CredentialsStatus status;
 
 
     /**

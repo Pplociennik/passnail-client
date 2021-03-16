@@ -19,6 +19,7 @@ import static com.passnail.data.security.crypto.CredentialsEncoderAES256.decrypt
 import static com.passnail.data.security.crypto.CredentialsEncoderAES256.encrypt;
 import static com.passnail.data.security.crypto.CryptoUtility.prepareKey;
 import static com.passnail.data.security.crypto.CryptoUtility.prepareSalt;
+import static com.passnail.data.status.CredentialsStatus.REMOVED;
 
 /**
  * {@inheritDoc}
@@ -73,6 +74,7 @@ public class CredentialsService implements CredentialsServiceIf {
                 .login(encrypt(aCredentialsDto.getLogin(), encryptionKey, encryptionSalt))
                 .password(encryptedPassword)
                 .url(encryptedUrl)
+                .status(aCredentialsDto.getStatus())
                 .build();
     }
 
@@ -106,12 +108,13 @@ public class CredentialsService implements CredentialsServiceIf {
                 .findFirst().orElseThrow(
                         () -> new IllegalArgumentException("Credentials with a short name: " + credentials.getCredentialsShortName() + " has not been found."));
 
-        List<CredentialsEntity> copy = new LinkedList<>();
-        copy.addAll(authorizedUser.getSavedCredentials());
-        copy.remove(toRemove);
-
-        authorizedUser.getSavedCredentials().clear();
-        authorizedUser.setSavedCredentials(copy);
+//        List<CredentialsEntity> copy = new LinkedList<>();
+//        copy.addAll(authorizedUser.getSavedCredentials());
+//        copy.remove(toRemove);
+//
+//        authorizedUser.getSavedCredentials().clear();
+//        authorizedUser.setSavedCredentials(copy);
+        toRemove.setStatus(REMOVED);
 
         userRepository.save(authorizedUser);
     }

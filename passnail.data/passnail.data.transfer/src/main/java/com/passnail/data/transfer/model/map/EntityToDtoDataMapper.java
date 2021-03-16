@@ -31,6 +31,7 @@ public class EntityToDtoDataMapper {
                 .credentialsShortName(aEntity.getCredentialsShortName())
                 .url(aEntity.getUrl())
                 .creationDate(aEntity.getCreationDate())
+                .status(aEntity.getStatus())
                 .build();
     }
 

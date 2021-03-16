@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static com.passnail.data.status.CredentialsStatus.MAINTAINED;
 import static com.passnail.gui.GuiConstants.*;
 import static com.passnail.gui.config.FxmlView.GENERATORSETTINGS;
 import static com.passnail.gui.config.FxmlView.LIBRARY;
@@ -243,6 +244,7 @@ public class NewCredentialsController implements Initializable {
                 .login(loginField.getText())
                 .password(passwordField.getText())
                 .url(urlField.getText())
+                .status(MAINTAINED)
                 .build();
 
         credentialsService.sendNewCredentialsToLocalDatabase(newCredentials, sessionData.getAuthorizedUsername(), sessionData.getPassword());

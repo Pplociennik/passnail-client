@@ -32,7 +32,9 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
+import static com.passnail.data.status.CredentialsStatus.MAINTAINED;
 import static com.passnail.gui.GuiConstants.*;
 import static com.passnail.gui.config.FxmlView.*;
 import static com.passnail.gui.control.tools.PlatformUtils.run;
@@ -321,7 +323,9 @@ public class LibraryController implements Initializable {
                 list.clear();
             }
 
-            list.addAll(sessionData.getAuthorizedUserSavedCredentials());
+            list.addAll(sessionData.getAuthorizedUserSavedCredentials().stream()
+                    .filter(item -> item.getStatus().equals(MAINTAINED))
+                    .collect(Collectors.toList()));
         });
     }
 

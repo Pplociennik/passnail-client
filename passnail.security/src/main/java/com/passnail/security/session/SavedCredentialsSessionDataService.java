@@ -6,6 +6,9 @@ import com.passnail.data.service.UserServiceIf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.passnail.data.status.CredentialsStatus.MAINTAINED;
+import static java.util.stream.Collectors.toList;
+
 /**
  * Created by: Pszemko at sobota, 06.03.2021 22:16
  * Project: passnail-client
@@ -30,7 +33,9 @@ public class SavedCredentialsSessionDataService {
         sessionData.getAuthorizedUserSavedCredentials().clear();
         sessionData.setAuthorizedUserSavedCredentials(credentialsService.decryptEntities(user.getSavedCredentials(), sessionData.getPassword()));
 
-        sessionData.setAuthorizedPassNumber(String.valueOf(sessionData.getAuthorizedUserSavedCredentials().size()));
+        sessionData.setAuthorizedPassNumber(String.valueOf(sessionData.getAuthorizedUserSavedCredentials().stream()
+                .filter(c -> c.getStatus().equals(MAINTAINED))
+                .collect(toList()).size()));
 
         sessionData.setAuthorizedOnlineId(user.getOnlineID());
         sessionData.setAuthorizedUsername(user.getLogin());

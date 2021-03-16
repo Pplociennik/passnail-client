@@ -58,6 +58,7 @@ public class SynchronizationService implements SynchronizationServiceIf {
                             .password(c.getPassword())
                             .uniqueIdentifier(c.getUniqueIdentifier())
                             .url(c.getUrl())
+                            .status(c.getStatus())
                             .build());
         }
 

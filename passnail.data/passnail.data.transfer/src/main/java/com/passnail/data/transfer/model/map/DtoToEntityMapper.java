@@ -5,9 +5,9 @@ import com.passnail.data.model.entity.UserEntity;
 import com.passnail.data.transfer.model.dto.CredentialsDto;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
+import static com.passnail.data.status.CredentialsStatus.MAINTAINED;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -33,6 +33,7 @@ public class DtoToEntityMapper {
                 .url(aDto.getUrl())
                 .lastModificationDate(aDto.getLastModificationDate())
                 .credentialsOwner(aOwner)
+                .status(aDto.getStatus())
                 .build();
     }
 }
