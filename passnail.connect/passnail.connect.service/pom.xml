@@ -5,7 +5,7 @@
     <parent>
         <artifactId>passnail.connect</artifactId>
         <groupId>com.passnail</groupId>
-        <version>0.7.0_TEST_OMM_PRE_ALPHA-SNAPSHOT</version>
+        <version>1.0.0-ALPHA</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

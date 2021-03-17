@@ -31,7 +31,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_New_Credes.png" />
+                                    <Image url="@add_new.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -40,7 +40,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Quick_Pass.png" />
+                                    <Image url="@quick_pass.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -49,7 +49,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Show_Lib.png" />
+                                    <Image url="@library.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -58,7 +58,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Gen_Setts.png" />
+                                    <Image url="@gen_settings.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -92,7 +92,7 @@
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Logout.png" />
+                              <Image url="@logout.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -101,7 +101,7 @@
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Settings.png" />
+                              <Image url="@settings.png" />
                            </image>
                         </ImageView>
                      </graphic>

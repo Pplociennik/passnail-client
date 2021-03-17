@@ -32,7 +32,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" onMouseClicked="#newCredentialsButtonOnMouseClicked" onMouseEntered="#newCredentialsButtonOnMouseEntered" onMouseExited="#newCredentialsButtonOnMouseExited" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_New_Credes.png" />
+                                    <Image url="@add_new.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -41,7 +41,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Quick_Pass.png" />
+                                    <Image url="@quick_pass.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -50,7 +50,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" onMouseClicked="#showLibraryButtonOnMouseClicked" onMouseEntered="#showLibraryButtonOnMouseEntered" onMouseExited="#showLibraryButtonOnMouseExited" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Show_Lib.png" />
+                                    <Image url="@library.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -67,9 +67,9 @@
                      </children>
                   </AnchorPane>
                   <Line endX="7.0" endY="307.0" layoutX="365.0" layoutY="67.0" startX="7.0" startY="-68.0" />
-                  <ImageView fitHeight="59.0" fitWidth="104.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@test_Gen_Setts.png" />
+                        <Image url="@settings_2.png" />
                      </image>
                   </ImageView>
                   <Button layoutX="136.0" layoutY="324.0" mnemonicParsing="false" onMouseClicked="#resetButtonOnMouseClicked" onMouseEntered="#resetButtonOnMouseEntered" onMouseExited="#resetButtonOnMouseExited" prefHeight="25.0" prefWidth="181.0" text="Reset to defaults" />
@@ -107,7 +107,7 @@
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Logout.png" />
+                              <Image url="@logout.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -116,7 +116,7 @@
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Settings.png" />
+                              <Image url="@settings.png" />
                            </image>
                         </ImageView>
                      </graphic>

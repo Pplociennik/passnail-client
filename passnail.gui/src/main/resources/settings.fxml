@@ -38,7 +38,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" onMouseClicked="#newCredentialsButtonOnMouseClicked" onMouseEntered="#newCredentialsButtonOnMouseEntered" onMouseExited="#newCredentialsButtonOnMouseExited" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_New_Pass.png" />
+                                    <Image url="@add_new.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -47,7 +47,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Quick_Pass.png" />
+                                    <Image url="@quick_pass.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -56,7 +56,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Show_Lib.png" />
+                                    <Image url="@library.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -65,7 +65,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Gen_Setts.png" />
+                                    <Image url="@gen_settings.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -75,17 +75,17 @@
                   <Line endX="7.0" endY="307.0" layoutX="365.0" layoutY="67.0" startX="7.0" startY="-68.0" />
                   <ImageView fitHeight="143.0" fitWidth="169.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@test_Settings.png" />
+                        <Image url="@settings_2.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="generateOnlineIdButton" layoutX="126.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#generateOnlineIdButtonOnMouseClicked" onMouseEntered="#generateOnlineIdButtonOnMouseEntered" onMouseExited="#generateOnlineIdButtonOnMouseExited" text="Generate Online ID" />
                   <Label layoutX="165.0" layoutY="14.0" prefHeight="75.0" prefWidth="201.0" text="PASSNAIL CREDENTIALS MANAGER&#10;&#10;Idea and implementation:&#10;Przemysław Płóciennik" wrapText="true" />
-                  <Hyperlink layoutX="165.0" layoutY="96.0" prefHeight="23.0" prefWidth="201.0" text="https://github.com/Pplociennik/passnail-client">
+                  <Hyperlink fx:id="clientGithubHyperLink" layoutX="165.0" layoutY="96.0" onMouseClicked="#handleClientGithubHyperLink" pickOnBounds="false" prefHeight="23.0" prefWidth="201.0" text="https://github.com/Pplociennik/passnail-client">
                      <font>
                         <Font size="9.0" />
                      </font>
                   </Hyperlink>
-                  <Hyperlink layoutX="165.0" layoutY="119.0" text="https://github.com/Pplociennik/passnail-server">
+                  <Hyperlink fx:id="serverGithubHyperLink" layoutX="165.0" layoutY="119.0" onMouseClicked="#handleServerGithubHyperLink" text="https://github.com/Pplociennik/passnail-server">
                      <font>
                         <Font size="9.0" />
                      </font>
@@ -111,7 +111,7 @@
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Logout.png" />
+                              <Image url="@logout.png" />
                            </image>
                         </ImageView>
                      </graphic>

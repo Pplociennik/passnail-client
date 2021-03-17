@@ -13,7 +13,7 @@ import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -88,7 +89,10 @@ public class SettingsController implements Initializable {
     private Label lastSynchDate;
 
     @FXML
-    private CheckBox synchEnabledCheckBox;
+    private Hyperlink clientGithubHyperLink;
+
+    @FXML
+    private Hyperlink serverGithubHyperLink;
 
 
     @FXML
@@ -197,7 +201,6 @@ public class SettingsController implements Initializable {
             if (sessionData.getAuthorizedOnlineId() != null) {
                 synchronizeOnDemandButton.setVisible(true);
                 lastSynchDateLabel.setVisible(true);
-                synchEnabledCheckBox.setDisable(false);
                 generateOnlineIdButton.setDisable(true);
             }
         });
@@ -230,7 +233,6 @@ public class SettingsController implements Initializable {
             userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
             synchronizeOnDemandButton.setVisible(true);
             lastSynchDateLabel.setVisible(true);
-            synchEnabledCheckBox.setDisable(false);
             generateOnlineIdButton.setDisable(true);
         });
     }
@@ -287,5 +289,13 @@ public class SettingsController implements Initializable {
 
     public void synchronizeOnDemandButtonOnMouseExited(MouseEvent event) {
         showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+    public void handleClientGithubHyperLink(MouseEvent event) throws IOException, URISyntaxException {
+        Desktop.getDesktop().browse(new URL(clientGithubHyperLink.getText()).toURI());
+    }
+
+    public void handleServerGithubHyperLink(MouseEvent event) throws IOException, URISyntaxException {
+        Desktop.getDesktop().browse(new URL(serverGithubHyperLink.getText()).toURI());
     }
 }

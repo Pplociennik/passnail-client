@@ -32,7 +32,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" onMouseClicked="#newCredentialsButtonOnMouseClicked" onMouseEntered="#newCredentialsButtonOnMouseEntered" onMouseExited="#newCredentialsButtonOnMouseExited" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_New_Pass.png" />
+                                    <Image url="@add_new.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -41,7 +41,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Quick_Pass.png" />
+                                    <Image url="@quick_pass.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -59,7 +59,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Gen_Setts.png" />
+                                    <Image url="@gen_settings.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -67,9 +67,9 @@
                      </children>
                   </AnchorPane>
                   <Line endX="7.0" endY="307.0" layoutX="365.0" layoutY="67.0" startX="7.0" startY="-68.0" />
-                  <ImageView fitHeight="59.0" fitWidth="104.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="72.0" fitWidth="71.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@test_New_Pass.png" />
+                        <Image url="@libImg.png" />
                      </image>
                   </ImageView>
                   <ListView fx:id="credentialsList" layoutX="14.0" layoutY="87.0" onMouseEntered="#credentialsListMouseEntered" onMouseExited="#credentialsListMouseExited" prefHeight="245.0" prefWidth="345.0" />
@@ -116,7 +116,7 @@
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Logout.png" />
+                              <Image url="@logout.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -125,7 +125,7 @@
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Settings.png" />
+                              <Image url="@settings.png" />
                            </image>
                         </ImageView>
                      </graphic>
