@@ -83,6 +83,12 @@ public class GuiConstants {
 
     public static final String EDIT_CREDS_DESCRIPTION_AREA_HELP_MESSAGE = "Edit description.";
 
+    public static final String GENERATE_ONLINE_ID_BUTTON_ENABLED_HELP_MESSAGE = "Generate an online ID for your profile and enable synchronization with server!";
+
+    public static final String GENERATE_NEW_PASSWORD_BUTTON_DISABLED_HELP_MESSAGE = "You have your online ID already generated! It is unique, you cannot generate it again!";
+
+    public static final String SYNCHRONIZE_ON_DEMAND_BUTTON_HELP_MESSAGE = "Synchronize on demand. Click to synchronize your saved credentials with server.";
+
     private GuiConstants() {
     }
 }

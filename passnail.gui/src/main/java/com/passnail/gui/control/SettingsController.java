@@ -175,12 +175,6 @@ public class SettingsController implements Initializable {
         showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 
-
-    @FXML
-    void onMouseMoved(MouseEvent event) {
-
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         prepareUserInfo();
@@ -242,9 +236,15 @@ public class SettingsController implements Initializable {
     }
 
     public void generateOnlineIdButtonOnMouseEntered(MouseEvent event) {
+        if (!generateOnlineIdButton.isDisabled()) {
+            showHelpMessage(GENERATE_ONLINE_ID_BUTTON_ENABLED_HELP_MESSAGE);
+        } else {
+            showHelpMessage(GENERATE_NEW_PASSWORD_BUTTON_DISABLED_HELP_MESSAGE);
+        }
     }
 
     public void generateOnlineIdButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 
     public void backButtonOnMouseClicked(MouseEvent event) {
@@ -282,8 +282,10 @@ public class SettingsController implements Initializable {
     }
 
     public void synchronizeOnDemandButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(SYNCHRONIZE_ON_DEMAND_BUTTON_HELP_MESSAGE);
     }
 
     public void synchronizeOnDemandButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 }
