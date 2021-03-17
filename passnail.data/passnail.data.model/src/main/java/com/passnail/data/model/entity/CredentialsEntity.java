@@ -1,10 +1,17 @@
 package com.passnail.data.model.entity;
 
-import lombok.*;
+import com.passnail.data.status.CredentialsStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -15,7 +22,6 @@ import java.util.UUID;
 @Table(name = "COM_PSSNL_CRED")
 @Builder
 @Data
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class CredentialsEntity {
@@ -42,7 +48,7 @@ public class CredentialsEntity {
     /**
      * A {@link String} being a short name of the saved password. The name can be set by user for being a natural language user friendly identifier.
      */
-    @Column(name = "CRED_NAME", unique = true, nullable = false)
+    @Column(name = "CRED_NAME", nullable = false)
     private String credentialsShortName;
 
 
@@ -82,10 +88,38 @@ public class CredentialsEntity {
     private Date lastModificationDate;
 
 
+    @Column(name = "CRED_UNIQUE_ID")
+    private UUID uniqueIdentifier;
+
+
+    @Column(name = "CRED_STATUS")
+    private CredentialsStatus status;
+
+
     /**
      * An {@link UUID} typed identifier of the user being the credentials' owner.
      */
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CREDENTIALS_OWNER", referencedColumnName = "USR_ID")
     private UserEntity credentialsOwner;
+
+
+    @Override
+    public boolean equals(Object o) {
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CredentialsEntity that = (CredentialsEntity) o;
+        return Objects.equals(password, that.password) &&
+                credentialsShortName.equals(that.credentialsShortName) &&
+                Objects.equals(login, that.login) &&
+                Objects.equals(url, that.url) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(df.format(creationDate), df.format(that.creationDate));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(password, credentialsShortName, login, url, description, creationDate);
+    }
 }

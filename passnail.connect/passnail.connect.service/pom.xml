@@ -5,7 +5,7 @@
     <parent>
         <artifactId>passnail.connect</artifactId>
         <groupId>com.passnail</groupId>
-        <version>0.7.0_TEST_OMM_PRE_ALPHA-SNAPSHOT</version>
+        <version>1.0.0-ALPHA</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -29,6 +29,28 @@
             <groupId>com.passnail</groupId>
             <artifactId>passnail.data.model</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.data.service</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.passnail</groupId>-->
+<!--            <artifactId>passnail.security</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>com.passnail</groupId>
+            <artifactId>passnail.common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
     </dependencies>
 

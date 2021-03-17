@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.passnail.gui.control.OpenedCredentialsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.passnail.gui.control.SettingsController">
    <children>
       <SplitPane dividerPositions="0.12" layoutY="373.0" orientation="VERTICAL" pickOnBounds="false" prefHeight="27.0" prefWidth="600.0">
         <items>
@@ -27,6 +27,11 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
+                  <TextArea editable="false" layoutX="13.0" layoutY="168.0" prefHeight="175.0" prefWidth="345.0" text="Passnail is a simple credentials manager letting you to store your passwords and generally login strings, encrypted in database.&#10;Main assumption during the project's planning process was a possibility to work completely offline with optional online synchronization.&#10;&#10;The assumption has been met. So, how does it work?&#10;-&gt; Each profile registered by user works on its own local database file which authentication data for is known only for the user.&#10;-&gt; User has a possibility to enable online synchronization by generating an online ID (using a button below).&#10;-&gt; The online ID may be used for logging into the same account on another device and downloading the data from database.&#10;&#10;And one important thing! The online ID has to be entered only during the first login on a new device, the application will download the user's data and create a local database for it!&#10;Each subsequent login may be done using generated login (the same as original unless it is already present in the offline auth database) or email adress.&#10;&#10;Best Regards and have a nice Passnailing!" wrapText="true">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </TextArea>
                   <AnchorPane layoutX="365.0" prefHeight="374.0" prefWidth="85.0">
                      <children>
                         <Button layoutX="17.0" layoutY="35.0" maxHeight="52.0" maxWidth="52.0" minHeight="52.0" minWidth="52.0" mnemonicParsing="false" onMouseClicked="#newCredentialsButtonOnMouseClicked" onMouseEntered="#newCredentialsButtonOnMouseEntered" onMouseExited="#newCredentialsButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
@@ -47,11 +52,11 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="17.0" layoutY="195.0" maxHeight="52.0" maxWidth="52.0" minHeight="52.0" minWidth="52.0" mnemonicParsing="false" onMouseClicked="#backButtonOnMouseClicked" onMouseEntered="#backButtonOnMouseEntered" onMouseExited="#backButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                        <Button layoutX="17.0" layoutY="195.0" maxHeight="52.0" maxWidth="52.0" minHeight="52.0" minWidth="52.0" mnemonicParsing="false" onMouseClicked="#showLibraryButtonOnMouseClicked" onMouseEntered="#showLibraryButtonOnMouseEntered" onMouseExited="#showLibraryButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@back.png" />
+                                    <Image url="@library.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -68,32 +73,26 @@
                      </children>
                   </AnchorPane>
                   <Line endX="7.0" endY="307.0" layoutX="365.0" layoutY="67.0" startX="7.0" startY="-68.0" />
-                  <ImageView fitHeight="116.0" fitWidth="94.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="143.0" fitWidth="169.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@opened_creds.png" />
+                        <Image url="@settings_2.png" />
                      </image>
                   </ImageView>
-                  <Button alignment="CENTER" layoutX="44.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#editButtonOnMouseClicked" onMouseEntered="#editButtonOnMouseEntered" onMouseExited="#editButtonOnMouseExited" prefHeight="25.0" prefWidth="59.0" text="Edit" textAlignment="CENTER" />
-                  <Button alignment="CENTER" layoutX="275.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="25.0" minWidth="59.0" mnemonicParsing="false" onMouseClicked="#removeButtonOnMouseClicked" onMouseEntered="#removeButtonOnMouseEntered" onMouseExited="#removeButtonOnMouseExited" prefHeight="25.0" prefWidth="59.0" text="Remove" textAlignment="CENTER" />
-                  <TextArea fx:id="descriptionArea" editable="false" layoutX="185.0" layoutY="44.0" onMouseEntered="#descriptionAreaOnMouseEntered" onMouseExited="#descriptionAreaOnMouseExited" prefHeight="98.0" prefWidth="149.0" wrapText="true" />
-                  <TextField fx:id="shortNameField" editable="false" layoutX="185.0" layoutY="163.0" onMouseEntered="#shortNameFieldOnMouseEntered" onMouseExited="#shortNameFieldOnMouseExited" />
-                  <TextField fx:id="loginField" editable="false" layoutX="185.0" layoutY="203.0" onMouseClicked="#loginFieldOnMouseClicked" onMouseEntered="#loginFieldOnMouseEntered" onMouseExited="#loginFieldOnMouseExited" />
-                  <TextField fx:id="passwordField" editable="false" layoutX="185.0" layoutY="241.0" onMouseClicked="#passwordFieldOnMouseClicked" onMouseEntered="#passwordFieldOnMouseEntered" onMouseExited="#passwordFieldOnMouseExited" />
-                  <TextField fx:id="urlField" alignment="CENTER" editable="false" layoutX="9.0" layoutY="286.0" onMouseClicked="#urlFieldOnMouseClicked" onMouseEntered="#urlFieldOnMouseEntered" onMouseExited="#urlFieldOnMouseExited" prefHeight="25.0" prefWidth="353.0" />
-                  <Label layoutX="60.0" layoutY="167.0" text="Short Name" />
-                  <Label layoutX="59.0" layoutY="207.0" text="Login" />
-                  <Label layoutX="59.0" layoutY="245.0" text="Password" />
-                  <Button layoutX="160.0" layoutY="323.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#backToLibButtonOnMouseClicked" onMouseEntered="#backToLibButtonOnMouseEntered" onMouseExited="#backToLibButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
-                     <graphic>
-                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@back_down.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
+                  <Button fx:id="generateOnlineIdButton" layoutX="126.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#generateOnlineIdButtonOnMouseClicked" onMouseEntered="#generateOnlineIdButtonOnMouseEntered" onMouseExited="#generateOnlineIdButtonOnMouseExited" text="Generate Online ID" />
+                  <Label layoutX="165.0" layoutY="14.0" prefHeight="75.0" prefWidth="201.0" text="PASSNAIL CREDENTIALS MANAGER&#10;&#10;Idea and implementation:&#10;Przemysław Płóciennik" wrapText="true" />
+                  <Hyperlink fx:id="clientGithubHyperLink" layoutX="165.0" layoutY="96.0" onMouseClicked="#handleClientGithubHyperLink" pickOnBounds="false" prefHeight="23.0" prefWidth="201.0" text="https://github.com/Pplociennik/passnail-client">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink fx:id="serverGithubHyperLink" layoutX="165.0" layoutY="119.0" onMouseClicked="#handleServerGithubHyperLink" text="https://github.com/Pplociennik/passnail-server">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Hyperlink>
                </children>
             </AnchorPane>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="140.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="140.0">
                <children>
                   <Label fx:id="userBarLogin" alignment="CENTER" layoutX="11.0" layoutY="35.0" prefHeight="19.0" prefWidth="125.0" text="&lt;username&gt;" textAlignment="CENTER">
                      <font>
@@ -104,12 +103,11 @@
                   <Label fx:id="userBarOnlineIdLabel" alignment="CENTER" layoutX="58.0" layoutY="70.0" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
+                     </font></Label>
                   <Line endX="100.0" layoutX="42.0" layoutY="147.0" startX="-48.0" />
                   <Label layoutX="7.0" layoutY="106.0" text="Passwords:" />
                   <Label fx:id="userBarPasswordsLabel" alignment="CENTER" layoutX="65.0" layoutY="106.0" prefHeight="17.0" prefWidth="78.0" textAlignment="CENTER" />
-                  <Button fx:id="userBarLogoutButton1" layoutX="39.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#logoutUser" onMouseEntered="#logoutButtonOnMouseEntered" onMouseExited="#logoutButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                  <Button fx:id="userBarLogoutButton" layoutX="39.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#logoutUser" onMouseEntered="#logoutButtonOnMouseEntered" onMouseExited="#logoutButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -118,11 +116,11 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="settingsButton" layoutX="39.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#settingsButtonOnMouseClicked" onMouseEntered="#settingsButtonOnMouseEntered" onMouseExited="#settingsButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                  <Button fx:id="backButton" layoutX="39.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#backButtonOnMouseClicked" onMouseEntered="#backButtonOnMouseEntered" onMouseExited="#backButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@settings.png" />
+                              <Image url="@back_up.png" />
                            </image>
                         </ImageView>
                      </graphic>

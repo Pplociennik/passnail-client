@@ -45,7 +45,9 @@ public class AuthenticationService implements AuthenticationServiceIf {
 
     @Override
     public void authenticateUser(LoginDto aDto) {
-        loginValidationService.validateLoginData(aDto);
+        if (aDto.getOnlineID() == null) {
+            loginValidationService.validateLoginData(aDto);
+        }
         loginService.authenticateAndLoginUser(aDto);
     }
 

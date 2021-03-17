@@ -1,5 +1,6 @@
 package com.passnail.gui;
 
+import com.passnail.connect.ConnectModuleConfig;
 import com.passnail.generator.GeneratorModuleConfig;
 import com.passnail.gui.config.SpringFXMLLoader;
 import com.passnail.gui.control.tools.StageManager;
@@ -15,7 +16,8 @@ import java.util.ResourceBundle;
  */
 @Configuration
 @ComponentScan
-@Import({GeneratorModuleConfig.class})
+@Import({GeneratorModuleConfig.class,
+        ConnectModuleConfig.class})
 public class GuiModuleConfig {
 
     @Autowired

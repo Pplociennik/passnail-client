@@ -1,5 +1,6 @@
 package com.passnail.gui.control;
 
+import com.passnail.connect.service.SynchronizationServiceIf;
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
 import com.passnail.generator.service.prop.PropertyHandlerIf;
@@ -8,9 +9,11 @@ import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
+import com.passnail.security.session.SavedCredentialsSessionDataService;
 import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -22,11 +25,13 @@ import org.springframework.stereotype.Component;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import static com.passnail.gui.GuiConstants.*;
 import static com.passnail.gui.config.FxmlView.*;
-import static com.passnail.gui.control.tools.PlatformUtils.*;
+import static com.passnail.gui.control.tools.PlatformUtils.run;
 
 /**
  * Created by: Pszemko at niedziela, 07.03.2021 01:23
@@ -41,6 +46,12 @@ public class GeneratorSettingsController implements Initializable {
 
     @Autowired
     private GeneratorManagerServiceIf generatorManagerService;
+
+    @Autowired
+    private SynchronizationServiceIf synchronizationService;
+
+    @Autowired
+    private SavedCredentialsSessionDataService sessionDataService;
 
     @Autowired
     @Lazy(value = true)
@@ -78,6 +89,15 @@ public class GeneratorSettingsController implements Initializable {
 
     @FXML
     private Label errorLabel;
+
+    @FXML
+    private Label lastSynchDateLabel;
+
+    @FXML
+    private Label lastSynchDate;
+
+    @FXML
+    private Button synchronizeOnDemandButton;
 
 
     @FXML
@@ -135,7 +155,7 @@ public class GeneratorSettingsController implements Initializable {
 
     @FXML
     void settingsButtonOnMouseClicked(MouseEvent event) {
-
+        switchToSettingsScene();
     }
 
     @FXML
@@ -197,12 +217,22 @@ public class GeneratorSettingsController implements Initializable {
     private void prepareUserInfo() {
         SessionData sessionData = SessionData.INSTANCE;
 
-        run(() -> {
+        PlatformUtils.run(() -> {
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
             userBarLogin.setText(sessionData.getAuthorizedUsername());
             userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
             userBarPasswordsLabel.setText(sessionData.getAuthorizedPassNumber());
-        });
+            lastSynchDate.setText(
+                    sessionData.getAuthorizedUserLastSynchDate() == null ?
+                            null :
+                            df.format(sessionData.getAuthorizedUserLastSynchDate()));
 
+            if (sessionData.getAuthorizedOnlineId() != null) {
+                synchronizeOnDemandButton.setVisible(true);
+                lastSynchDateLabel.setVisible(true);
+            }
+        });
 
     }
 
@@ -365,5 +395,28 @@ public class GeneratorSettingsController implements Initializable {
         handler.loadProperties();
 
         prepareProperties();
+    }
+
+    private void switchToSettingsScene() {
+        stageManager.switchScene(FxmlView.SETTINGS);
+    }
+
+    public void synchronizeOnDemandButtonOnMouseClicked(MouseEvent event) {
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        PlatformUtils.run(() -> {
+            SessionData sessionData = SessionData.INSTANCE;
+            synchronizationService.synchronize(sessionData.getAuthorizedUsername());
+
+            sessionDataService.refreshAuthorizedUserSavedCredentialsData();
+            lastSynchDate.setText(df.format(sessionData.getAuthorizedUserLastSynchDate()));
+        });
+    }
+
+    public void synchronizeOnDemandButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(SYNCHRONIZE_ON_DEMAND_BUTTON_HELP_MESSAGE);
+    }
+
+    public void synchronizeOnDemandButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 }

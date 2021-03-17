@@ -5,6 +5,7 @@ import com.passnail.security.SecurityConstants;
 import lombok.Getter;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static com.passnail.security.SecurityConstants.*;
@@ -52,6 +53,8 @@ public enum SessionData {
 
     private String authorizedPassNumber;
 
+    private Date authorizedUserLastSynchDate;
+
     private List<CredentialsDto> authorizedUserSavedCredentials;
 
 
@@ -83,4 +86,7 @@ public enum SessionData {
         this.authorizedUserSavedCredentials = authorizedUserSavedCredentials;
     }
 
+    public void setAuthorizedUserLastSynchDate(Date authorizedUserLastSynchDate) {
+        this.authorizedUserLastSynchDate = authorizedUserLastSynchDate;
+    }
 }

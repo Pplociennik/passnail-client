@@ -54,6 +54,9 @@ public class AuthController implements Initializable {
     private TextField loginPasswordField;
 
     @FXML
+    private TextField loginOnlineIdField;
+
+    @FXML
     private Label loginErrorLabel;
 
 
@@ -87,6 +90,7 @@ public class AuthController implements Initializable {
             });
         }
         if (authorized) {
+            loginOnlineIdField.setText(null);
             switchScene();
         }
     }
@@ -142,7 +146,7 @@ public class AuthController implements Initializable {
         return LoginDto.builder()
                 .loginOrEmail(loginLoginField.getText())
                 .password(loginPasswordField.getText())
-                /*.onlineID(loginOnlineIdField.getText())*/
+                .onlineID(loginOnlineIdField.getText())
                 .build();
     }
 

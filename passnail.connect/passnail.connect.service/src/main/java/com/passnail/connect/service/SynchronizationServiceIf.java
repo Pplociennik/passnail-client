@@ -7,4 +7,6 @@ package com.passnail.connect.service;
  * Project: passnail-client
  */
 public interface SynchronizationServiceIf {
+
+    void synchronize(String aUserName);
 }

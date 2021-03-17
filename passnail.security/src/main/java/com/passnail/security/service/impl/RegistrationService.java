@@ -69,6 +69,12 @@ public class RegistrationService implements RegistrationServiceIf {
                 .password(encoder.encode(aDto.getPassword()))
                 .build();
 
+        localEntity.setOnlineID(
+                aDto.getOnlineId() == null ?
+                        null :
+                        aDto.getOnlineId()
+        );
+
         userService.registerNewLocalUser(localEntity);
         authorizeNewlyRegisteredUser(aDto);
     }

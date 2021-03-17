@@ -32,4 +32,6 @@ public interface UserServiceIf {
      * @param aEntity A user being sent to the database.
      */
     void registerNewLocalUser(UserEntity aEntity);
+
+    void saveUserInDatabase(UserEntity aEntity);
 }

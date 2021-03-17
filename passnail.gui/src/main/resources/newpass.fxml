@@ -42,7 +42,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Quick_Pass.png" />
+                                    <Image url="@quick_pass.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -51,7 +51,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Show_Lib.png" />
+                                    <Image url="@library.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -60,7 +60,7 @@
                            <graphic>
                               <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@test_Gen_Setts.png" />
+                                    <Image url="@gen_settings.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -87,20 +87,20 @@
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Save_Creds.png" />
+                              <Image url="@saveCredsInDb.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
                   <Line endX="7.0" endY="307.0" layoutX="365.0" layoutY="67.0" startX="7.0" startY="-68.0" />
-                  <ImageView fitHeight="59.0" fitWidth="104.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="67.0" fitWidth="78.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@test_New_Pass.png" />
+                        <Image url="@adding_new_creds.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="140.0">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="140.0">
                <children>
                   <Label fx:id="userBarLogin" alignment="CENTER" layoutX="11.0" layoutY="35.0" prefHeight="19.0" prefWidth="125.0" text="&lt;username&gt;" textAlignment="CENTER">
                      <font>
@@ -111,24 +111,36 @@
                   <Label fx:id="userBarOnlineIdLabel" alignment="CENTER" layoutX="58.0" layoutY="70.0" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="12.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Line endX="100.0" layoutX="42.0" layoutY="147.0" startX="-48.0" />
                   <Label layoutX="7.0" layoutY="106.0" text="Passwords:" />
                   <Label fx:id="userBarPasswordsLabel" alignment="CENTER" layoutX="65.0" layoutY="106.0" prefHeight="17.0" prefWidth="78.0" textAlignment="CENTER" />
-                  <Button fx:id="userBarLogoutButton" layoutX="39.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#logoutButtonClicked" onMouseEntered="#logoutButtonOnMouseEntered" onMouseExited="#logoutButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                  <Button fx:id="userBarLogoutButton1" layoutX="39.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#logoutButtonClicked" onMouseEntered="#logoutButtonOnMouseEntered" onMouseExited="#logoutButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Logout.png" />
+                              <Image url="@logout.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="userBarSettingsButton" disable="true" layoutX="39.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#settingsButtonOnMouseClicked" onMouseEntered="#settingsButtonOnMouseEntered" onMouseExited="#settingsButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
+                  <Button fx:id="settingsButton" layoutX="39.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#settingsButtonOnMouseClicked" onMouseEntered="#settingsButtonOnMouseEntered" onMouseExited="#settingsButtonOnMouseExited" prefHeight="52.0" prefWidth="52.0">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@test_Settings.png" />
+                              <Image url="@settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label fx:id="lastSynchDateLabel" alignment="CENTER" layoutX="2.0" layoutY="337.0" prefHeight="17.0" prefWidth="140.0" text="Last Synchronization:" visible="false" />
+                  <Label fx:id="lastSynchDate" alignment="CENTER" layoutX="1.0" layoutY="353.0" prefHeight="17.0" prefWidth="140.0" />
+                  <Button fx:id="synchronizeOnDemandButton" layoutX="14.0" layoutY="311.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#synchronizeOnDemandButtonOnMouseClicked" onMouseEntered="#synchronizeOnDemandButtonOnMouseEntered" onMouseExited="#synchronizeOnDemandButtonOnMouseExited" prefHeight="25.0" prefWidth="25.0" visible="false">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@genPasswd.png" />
                            </image>
                         </ImageView>
                      </graphic>

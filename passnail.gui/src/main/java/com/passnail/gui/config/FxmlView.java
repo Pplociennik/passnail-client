@@ -74,6 +74,16 @@ public enum FxmlView {
         public String getFxmlFile() {
             return "/editablePass.fxml";
         }
+    }, SETTINGS {
+        @Override
+        public String getTitle() {
+            return getStringFromResourceBundle("app.settings.title");
+        }
+
+        @Override
+        public String getFxmlFile() {
+            return "/settings.fxml";
+        }
     };
 
     public abstract String getTitle();

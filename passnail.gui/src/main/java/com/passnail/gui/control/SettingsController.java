@@ -3,16 +3,17 @@ package com.passnail.gui.control;
 import com.passnail.connect.service.SynchronizationServiceIf;
 import com.passnail.generator.GeneratorManagerServiceIf;
 import com.passnail.generator.service.gen.PasswordGeneratorManagerIf;
-import com.passnail.gui.config.FxmlView;
 import com.passnail.gui.control.tools.PlatformUtils;
 import com.passnail.gui.control.tools.StageManager;
 import com.passnail.gui.control.tools.SystemClipboardManager;
 import com.passnail.security.service.AuthenticationServiceIf;
+import com.passnail.security.service.UserSynchServiceIf;
 import com.passnail.security.session.SavedCredentialsSessionDataService;
 import com.passnail.security.session.SessionData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,12 +32,11 @@ import static com.passnail.gui.GuiConstants.*;
 import static com.passnail.gui.config.FxmlView.*;
 
 /**
- * Created by: Pszemko at środa, 03.03.2021 20:14
+ * Created by: Pszemko at piątek, 12.03.2021 15:30
  * Project: passnail-client
  */
 @Component
-@Lazy(value = true)
-public class MainController implements Initializable {
+public class SettingsController implements Initializable {
 
 
     @Autowired
@@ -51,11 +52,20 @@ public class MainController implements Initializable {
     private SavedCredentialsSessionDataService sessionDataService;
 
     @Autowired
+    private UserSynchServiceIf userSynchService;
+
+    @Autowired
     @Lazy(value = true)
     private StageManager stageManager;
 
+
     String password;
 
+    @FXML
+    public javafx.scene.control.Button backButton;
+
+    @FXML
+    public javafx.scene.control.Button synchronizeOnDemandButton;
 
     @FXML
     private Label mainPaneHelpLabel;
@@ -70,13 +80,20 @@ public class MainController implements Initializable {
     private Label userBarPasswordsLabel;
 
     @FXML
+    private Button generateOnlineIdButton;
+
+    @FXML
     private Label lastSynchDateLabel;
 
     @FXML
     private Label lastSynchDate;
 
     @FXML
-    private Button synchronizeOnDemandButton;
+    private Hyperlink clientGithubHyperLink;
+
+    @FXML
+    private Hyperlink serverGithubHyperLink;
+
 
     @FXML
     void generatorSettingsButtonOnMouseClicked(MouseEvent event) {
@@ -148,21 +165,6 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void settingsButtonOnMouseClicked(MouseEvent event) {
-        switchToSettingsScene();
-    }
-
-    @FXML
-    void settingsButtonOnMouseEntered(MouseEvent event) {
-        showHelpMessage(SETTINGS_BUTTON_HELP_MESSAGE);
-    }
-
-    @FXML
-    void settingsButtonOnMouseExited(MouseEvent event) {
-        showHelpMessage(EMPTY_HELP_MESSAGE);
-    }
-
-    @FXML
     void showLibraryButtonOnMouseClicked(MouseEvent event) {
         switchToLibraryScene();
     }
@@ -175,11 +177,6 @@ public class MainController implements Initializable {
     @FXML
     void showLibraryButtonOnMouseExited(MouseEvent event) {
         showHelpMessage(EMPTY_HELP_MESSAGE);
-    }
-
-    @FXML
-    void onMouseMoved(MouseEvent event) {
-
     }
 
     @Override
@@ -204,6 +201,7 @@ public class MainController implements Initializable {
             if (sessionData.getAuthorizedOnlineId() != null) {
                 synchronizeOnDemandButton.setVisible(true);
                 lastSynchDateLabel.setVisible(true);
+                generateOnlineIdButton.setDisable(true);
             }
         });
 
@@ -227,8 +225,51 @@ public class MainController implements Initializable {
         stageManager.switchScene(GENERATORSETTINGS);
     }
 
-    private void switchToSettingsScene() {
-        stageManager.switchScene(FxmlView.SETTINGS);
+    public void generateOnlineIdButtonOnMouseClicked(MouseEvent event) {
+        SessionData sessionData = SessionData.INSTANCE;
+        userSynchService.enableOnlineSynchronizationForUserLoggedIn();
+
+        PlatformUtils.run(() -> {
+            userBarOnlineIdLabel.setText(sessionData.getAuthorizedOnlineId());
+            synchronizeOnDemandButton.setVisible(true);
+            lastSynchDateLabel.setVisible(true);
+            generateOnlineIdButton.setDisable(true);
+        });
+    }
+
+    public void generateOnlineIdButtonOnMouseEntered(MouseEvent event) {
+        if (!generateOnlineIdButton.isDisabled()) {
+            showHelpMessage(GENERATE_ONLINE_ID_BUTTON_ENABLED_HELP_MESSAGE);
+        } else {
+            showHelpMessage(GENERATE_NEW_PASSWORD_BUTTON_DISABLED_HELP_MESSAGE);
+        }
+    }
+
+    public void generateOnlineIdButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+    public void backButtonOnMouseClicked(MouseEvent event) {
+        swithToMainScene();
+    }
+
+    public void backButtonOnMouseEntered(MouseEvent event) {
+    }
+
+    public void backButtonOnMouseExited(MouseEvent event) {
+    }
+
+    public void synchEnabledCheckBoxOnMouseClicked(MouseEvent event) {
+    }
+
+    public void synchEnabledCheckBoxOnMouseEntered(MouseEvent event) {
+    }
+
+    public void synchEnabledCheckBoxOnMouseExited(MouseEvent event) {
+    }
+
+    private void swithToMainScene() {
+        stageManager.switchScene(MAIN);
     }
 
     public void synchronizeOnDemandButtonOnMouseClicked(MouseEvent event) {
@@ -248,5 +289,13 @@ public class MainController implements Initializable {
 
     public void synchronizeOnDemandButtonOnMouseExited(MouseEvent event) {
         showHelpMessage(EMPTY_HELP_MESSAGE);
+    }
+
+    public void handleClientGithubHyperLink(MouseEvent event) throws IOException, URISyntaxException {
+        Desktop.getDesktop().browse(new URL(clientGithubHyperLink.getText()).toURI());
+    }
+
+    public void handleServerGithubHyperLink(MouseEvent event) throws IOException, URISyntaxException {
+        Desktop.getDesktop().browse(new URL(serverGithubHyperLink.getText()).toURI());
     }
 }

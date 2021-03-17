@@ -39,9 +39,6 @@ public class JWTService implements JWTServiceIf {
     private UserServiceIf userService;
 
     @Autowired
-    private JWTService jwtService;
-
-    @Autowired
     private AuthenticationServiceIf authenticationService;
 
 
@@ -82,7 +79,7 @@ public class JWTService implements JWTServiceIf {
                 .withExpiresAt(new Date(System.currentTimeMillis() + SESSION_EXPIRATION_TIME_MILIS))
                 .sign(HMAC512(aDto.getPassword().getBytes()));
 
-        jwtService.validateToken(token, aDto.getPassword());
+        validateToken(token, aDto.getPassword());
 
         return token;
     }
@@ -103,7 +100,7 @@ public class JWTService implements JWTServiceIf {
                 .withExpiresAt(new Date(System.currentTimeMillis() + SESSION_EXPIRATION_TIME_MILIS))
                 .sign(HMAC512(aDto.getPassword().getBytes()));
 
-        jwtService.validateToken(token, aDto.getPassword());
+        validateToken(token, aDto.getPassword());
 
         return token;
     }

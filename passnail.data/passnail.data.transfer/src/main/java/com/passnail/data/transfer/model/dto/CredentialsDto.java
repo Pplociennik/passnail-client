@@ -1,12 +1,13 @@
 package com.passnail.data.transfer.model.dto;
 
 
+import com.passnail.data.model.entity.UserEntity;
+import com.passnail.data.status.CredentialsStatus;
 import lombok.*;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * A Data Transfer Object for transferring the {@link com.passnail.data.model.entity.CredentialsEntity} database objects.
@@ -31,6 +32,10 @@ public class CredentialsDto implements Serializable {
     private Date creationDate;
 
     private Date lastModificationDate;
+
+    private UUID uniqueIdentifier;
+
+    private CredentialsStatus status;
 
     public String toString() {
         return credentialsShortName + "   <->   " + url;
