@@ -65,9 +65,9 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <ImageView fitHeight="241.0" fitWidth="262.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="215.0" fitWidth="229.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@test_Logo.png" />
+                        <Image url="@passnail_logo_only_snail_reverted_horizontally.png" />
                      </image>
                   </ImageView>
                </children>
