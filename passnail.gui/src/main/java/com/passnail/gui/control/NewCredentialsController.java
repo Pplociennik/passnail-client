@@ -349,8 +349,10 @@ public class NewCredentialsController implements Initializable {
     }
 
     public void synchronizeOnDemandButtonOnMouseEntered(MouseEvent event) {
+        showHelpMessage(SYNCHRONIZE_ON_DEMAND_BUTTON_HELP_MESSAGE);
     }
 
     public void synchronizeOnDemandButtonOnMouseExited(MouseEvent event) {
+        showHelpMessage(EMPTY_HELP_MESSAGE);
     }
 }
