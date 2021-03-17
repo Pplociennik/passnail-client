@@ -35,6 +35,11 @@
                               <Label id="errorLabel" fx:id="loginErrorLabel" alignment="TOP_CENTER" layoutX="16.0" layoutY="250.0" prefHeight="43.0" prefWidth="360.0" textAlignment="CENTER" textFill="RED" wrapText="true" />
                               <Button id="loginButton" fx:id="loginButton" layoutX="115.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#loginUser" prefHeight="49.0" prefWidth="162.0" text="Login" />
                               <PasswordField fx:id="loginPasswordField" layoutX="200.0" layoutY="161.0" />
+                              <ImageView fitHeight="67.0" fitWidth="98.0" layoutX="14.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@passnail_logo_up.png" />
+                                 </image>
+                              </ImageView>
                            </children></AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
@@ -82,6 +87,11 @@
                               <Label layoutX="53.0" layoutY="225.0" text="Repeat password*" />
                               <PasswordField fx:id="registrationPasswordField" layoutX="191.0" layoutY="173.0" />
                               <PasswordField fx:id="registrationRptPasswordField" layoutX="191.0" layoutY="221.0" />
+                              <ImageView fitHeight="67.0" fitWidth="98.0" layoutX="14.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@passnail_logo_up.png" />
+                                 </image>
+                              </ImageView>
                            </children></AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
