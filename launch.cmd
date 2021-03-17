@@ -10,4 +10,4 @@ set AUTH_DB_LOGIN=%USERNAME%
 set AUTH_DB_PASSWORD=%COMPUTERNAME%
 
 cd passnail.core/target
-java -jar -Djava.awt.headless=false passnail.core-0.7.0_TEST_OMM_PRE_ALPHA-SNAPSHOT.jar %PROJECT_ENV_PATH%\passnail.generator %PROJECT_DB_PATH% %AUTH_DB_LOGIN% %AUTH_DB_PASSWORD%
+java -jar -Djava.awt.headless=false passnail.core-1.0.0-ALPHA.jar %PROJECT_ENV_PATH%\passnail.generator %PROJECT_DB_PATH% %AUTH_DB_LOGIN% %AUTH_DB_PASSWORD%
