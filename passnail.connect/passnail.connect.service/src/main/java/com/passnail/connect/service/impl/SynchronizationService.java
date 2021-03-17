@@ -17,6 +17,7 @@ import java.util.List;
 
 import static com.passnail.connect.util.ConnectionConstants.SERVER_RPI_HOST;
 import static com.passnail.connect.util.ConnectionConstants.SYNCHRONIZE_DATA_URI;
+import static com.passnail.data.status.CredentialsStatus.REMOVED;
 import static com.passnail.data.transfer.model.map.DtoToEntityMapper.mapManyCredentialsDtoToEntities;
 import static com.passnail.data.transfer.model.map.EntityToDtoDataMapper.mapSingleUser;
 
@@ -78,10 +79,10 @@ public class SynchronizationService implements SynchronizationServiceIf {
     }
 
     private void manageResponseData(SynchronizationResultDto aResponseDto, UserEntity aUserBeingSynchronizing) {
+        deleteOnThisClient(aResponseDto.getToDeleteOnClient(), aUserBeingSynchronizing);
         setUniqueIdentifiersForExistingCredentials(aResponseDto.getCreatedOnServer(), aUserBeingSynchronizing);
         createNewInThisClient(aResponseDto.getToCreateOnClient(), aUserBeingSynchronizing);
         updateExistingOnClient(aResponseDto.getToUpdateOnClient(), aUserBeingSynchronizing);
-        deleteOnThisClient(aResponseDto.getToDeleteOnClient(), aUserBeingSynchronizing);
     }
 
     private void setUniqueIdentifiersForExistingCredentials(List<CredentialsDto> createdOnServer, UserEntity aUserBeingSynchronizing) {
@@ -131,11 +132,14 @@ public class SynchronizationService implements SynchronizationServiceIf {
             return;
         }
 
-        var usersCredentials = aUserBeingSynchronizing.getSavedCredentials();
-        usersCredentials.removeAll(mapManyCredentialsDtoToEntities(toDeleteOnClient, aUserBeingSynchronizing));
+        for (CredentialsEntity toRemove : mapManyCredentialsDtoToEntities(toDeleteOnClient, aUserBeingSynchronizing)) {
+            for (CredentialsEntity fromClient : aUserBeingSynchronizing.getSavedCredentials()) {
+                if (toRemove.getUniqueIdentifier().equals(fromClient.getUniqueIdentifier())) {
+                    fromClient.setStatus(REMOVED);
+                }
+            }
+        }
 
-        aUserBeingSynchronizing.getSavedCredentials().clear();
-        aUserBeingSynchronizing.setSavedCredentials(usersCredentials);
     }
 
 

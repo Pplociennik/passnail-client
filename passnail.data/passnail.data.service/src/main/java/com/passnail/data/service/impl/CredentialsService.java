@@ -160,6 +160,7 @@ public class CredentialsService implements CredentialsServiceIf {
                 .credentialsShortName(decrypt(entity.getCredentialsShortName(), key, salt))
                 .url(decrypt(entity.getUrl(), key, salt))
                 .creationDate(entity.getCreationDate())
+                .status(entity.getStatus())
                 .build();
     }
 }
