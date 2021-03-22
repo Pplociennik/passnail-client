@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.util.regex.Matcher;
 
 import static com.passnail.security.SecurityConstants.VALID_EMAIL_ADDRESS_REGEX;
-import static com.passnail.security.SecurityConstants.VALID_LOGIN_PATTERN;
 
 /**
  * {@inheritDoc}
@@ -67,6 +66,10 @@ public class LoginValidationService implements LoginValidationServiceIf {
     public void validatePasswordInUserDb(LoginDto aDto) {
         String login = getUserLogin(aDto);
         switchDatabase(aDto);
+
+        if (aDto.getPassword() == null || aDto.getPassword().isEmpty()) {
+            throw new AuthenticationException("Password not specified!");
+        }
 
         UserEntity user = userService.findByLogin(login);
         if (!encoder.matches(aDto.getPassword(), user.getPassword())) {

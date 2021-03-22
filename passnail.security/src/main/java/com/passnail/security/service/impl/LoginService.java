@@ -59,6 +59,10 @@ public class LoginService implements LoginServiceIf {
     }
 
     private void validateLoginData(LoginDto aDto) {
+        if (aDto.getLoginOrEmail() == null || aDto.getLoginOrEmail().isEmpty()) {
+            throw new AuthenticationException("Login or email not specified!");
+        }
+
         if (validateOnlineId(aDto.getOnlineID())) {
             authorizeOnlineWithSynchronization(aDto);
         } else {
